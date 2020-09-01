@@ -8,11 +8,15 @@ const app = express();
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(routes);
 
-app.use(express.static("dist"));
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("frontend/build"));
+} else {
+  app.use(express.static("frontend/public"));
+}
+app.use(routes);
 app.get("*", (req, res) => {
-  res.sendFile(path.resolve(__dirname, "../src/index.html"));
+  res.sendFile(path.resolve(__dirname, "../frontend/build/index.html"));
 });
 
 const port = process.env.PORT || 8080;
