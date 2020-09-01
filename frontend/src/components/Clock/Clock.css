@@ -1,0 +1,19 @@
+#clock {
+  margin: 2rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#clock__Time {
+  width: 10rem;
+  height: 3rem;
+  background-color: #1c2331;
+  border-radius: 5px;
+  font-size: large;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+}
