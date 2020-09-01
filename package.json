@@ -6,7 +6,7 @@
   "scripts": {
     "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
     "start:prod": "node server.js",
-    "start:dev": "concurrently \"nodemon --ignore 'client/*'\" \"npm run client\"",
+    "start:dev": "concurrently \"nodemon --ignore 'frontend/*'\" \"npm run client\"",
     "client": "cd frontend && npm run start",
     "install": "cd frontend && npm install",
     "build": "cd frontend && npm run build",
