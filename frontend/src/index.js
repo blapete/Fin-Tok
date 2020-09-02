@@ -8,7 +8,6 @@ import { Provider } from "react-redux";
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import { setAuthenticatedAction } from "./actions/accountAction";
 import "bootstrap-css-only/css/bootstrap.min.css";
-import "@fortawesome/fontawesome-free/css/all.min.css";
 import "mdbreact/dist/css/mdb.css";
 import "./index.css";
 import Root from "./components/Root/Root";
