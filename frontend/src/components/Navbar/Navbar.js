@@ -1,69 +1,55 @@
-import React, { useState } from "react";
-import {
-  MDBNavbar,
-  MDBNavbarBrand,
-  MDBNavbarNav,
-  MDBNavItem,
-  MDBNavLink,
-  MDBNavbarToggler,
-  MDBCollapse,
-  MDBBtn,
-} from "mdbreact";
+import React from "react";
 import { Link } from "react-router-dom";
 
 const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const toggleCollapse = () => {
-    setIsOpen(!isOpen);
-  };
-
   return (
-    <div>
-      <MDBNavbar color="unique-color-dark" dark expand="md">
-        <MDBNavbarBrand>
-          <strong className="white-text">
-            <Link to="/" style={{ textDecoration: "none", color: "white" }}>
-              StockHub
-            </Link>
-          </strong>
-        </MDBNavbarBrand>
-        <MDBNavbarToggler onClick={toggleCollapse} />
-        <MDBCollapse id="navbarCollapse3" isOpen={isOpen} navbar>
-          <MDBNavbarNav left>
-            <MDBNavItem>
-              <MDBNavLink to="#!">Docs</MDBNavLink>
-            </MDBNavItem>
-            <MDBNavItem>
-              <MDBNavLink to="#!">Community</MDBNavLink>
-            </MDBNavItem>
-            <MDBNavItem></MDBNavItem>
-          </MDBNavbarNav>
-          <MDBNavbarNav right>
-            <MDBNavItem></MDBNavItem>
-            <MDBNavItem>
-              <Link
-                to="/signup"
-                style={{ textDecoration: "none", color: "white" }}
-              >
-                <MDBBtn color="dark-green">Signup</MDBBtn>
+    <nav className="navbar" role="navigation" aria-label="main navigation">
+      <div className="navbar-brand">
+        <Link className="navbar-item" to="/">
+          <img
+            src="https://bulma.io/images/bulma-logo.png"
+            width="112"
+            height="28"
+          />
+        </Link>
+
+        <Link
+          role="button"
+          className="navbar-burger burger"
+          aria-label="menu"
+          aria-expanded="false"
+          data-target="navbarBasicExample"
+          to="/"
+        >
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </Link>
+      </div>
+
+      <div id="navbarBasicExample" className="navbar-menu">
+        <div className="navbar-start">
+          <Link className="navbar-item">Home</Link>
+
+          <Link className="navbar-item" to="/">
+            Documentation
+          </Link>
+        </div>
+
+        <div className="navbar-end">
+          <div className="navbar-item">
+            <div className="buttons">
+              <Link className="button is-primary" to="/signup">
+                <strong>Sign up</strong>
               </Link>
-            </MDBNavItem>
-            <MDBNavItem>
-              <Link
-                to="/login"
-                style={{ textDecoration: "none", color: "white" }}
-              >
-                <MDBBtn outline color="success">
-                  Login
-                </MDBBtn>
+              <Link className="button is-light" to="/login">
+                Log in
               </Link>
-            </MDBNavItem>
-          </MDBNavbarNav>
-        </MDBCollapse>
-      </MDBNavbar>
-      <br />
-    </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
   );
 };
 

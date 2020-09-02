@@ -1,33 +1,81 @@
 import React from "react";
 import { connect } from "react-redux";
-import { MDBBtn, MDBInput } from "mdbreact";
 import { Link } from "react-router-dom";
 import "./Signup.css";
 
 const Signup = () => {
   return (
     <div id="signup__Box">
-      <form id="signup__Form">
-        <p className="h5 text-center mb-4">Sign up</p>
-        <div className="grey-text">
-          <MDBInput label="name" type="text" />
-          <MDBInput label="email" type="email" />
-          <MDBInput label="password" type="password" />
-          <MDBInput label="confirm password" group type="password" />
-        </div>
-        <div className="text-center">
-          <MDBBtn color="dark-green">Register</MDBBtn>
-        </div>
-      </form>
+      <div id="signup__Form">
+        <label className="label is-medium">Sign up</label>
 
-      <br />
-      <Link to="/login" style={{ textDecoration: "none", color: "black" }}>
-        <span>Already have an account?</span>
-      </Link>
-      <br />
-      <Link to="/" style={{ textDecoration: "none", color: "black" }}>
-        Home
-      </Link>
+        <div className="field">
+          <div className="control has-icons-left has-icons-right">
+            <input className="input is-medium" type="text" placeholder="name" />
+            <span className="icon is-medium is-left">
+              <i className="fas fa-envelope"></i>
+            </span>
+            <span className="icon is-medium is-right">
+              <i className="fas fa-check"></i>
+            </span>
+          </div>
+        </div>
+        <div className="field">
+          <div className="control has-icons-left has-icons-right">
+            <input
+              className="input is-medium"
+              type="email"
+              placeholder="email"
+            />
+            <span className="icon is-medium is-left">
+              <i className="fas fa-envelope"></i>
+            </span>
+            <span className="icon is-medium is-right">
+              <i className="fas fa-check"></i>
+            </span>
+          </div>
+        </div>
+        <div className="field">
+          <div className="control has-icons-left has-icons-right">
+            <input
+              className="input is-medium"
+              type="password"
+              placeholder="password"
+            />
+            <span className="icon is-medium is-left">
+              <i className="fas fa-envelope"></i>
+            </span>
+            <span className="icon is-medium is-right">
+              <i className="fas fa-check"></i>
+            </span>
+          </div>
+        </div>
+        <div className="field">
+          <div className="control has-icons-left has-icons-right">
+            <input
+              className="input is-medium"
+              type="password"
+              placeholder="confirm password"
+            />
+            <span className="icon is-medium is-left">
+              <i className="fas fa-envelope"></i>
+            </span>
+            <span className="icon is-medium is-right">
+              <i className="fas fa-check"></i>
+            </span>
+          </div>
+        </div>
+
+        <br />
+        <Link to="/login" style={{ textDecoration: "none", color: "black" }}>
+          <span>Already have an account?</span>
+        </Link>
+        <br />
+        <br />
+        <Link to="/" style={{ textDecoration: "none", color: "black" }}>
+          Home
+        </Link>
+      </div>
     </div>
   );
 };
