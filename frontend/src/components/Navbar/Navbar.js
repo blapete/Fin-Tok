@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import {
   MDBNavbar,
   MDBNavbarBrand,
@@ -8,69 +8,63 @@ import {
   MDBNavbarToggler,
   MDBCollapse,
   MDBBtn,
-  MDBDropdown,
-  MDBDropdownToggle,
-  MDBDropdownMenu,
-  MDBDropdownItem,
 } from "mdbreact";
-import { BrowserRouter as Router } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-class NavbarPage extends Component {
-  state = {
-    isOpen: false,
+const Navbar = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleCollapse = () => {
+    setIsOpen(!isOpen);
   };
 
-  toggleCollapse = () => {
-    this.setState({ isOpen: !this.state.isOpen });
-  };
-
-  render() {
-    return (
-      <Router>
-        <MDBNavbar color="unique-color-dark" dark expand="md">
-          <MDBNavbarBrand>
-            <strong className="white-text">StockHub</strong>
-          </MDBNavbarBrand>
-          <MDBNavbarToggler onClick={this.toggleCollapse} />
-          <MDBCollapse id="navbarCollapse3" isOpen={this.state.isOpen} navbar>
-            <MDBNavbarNav left>
-              {/* active */}
-              <MDBNavItem>
-                <MDBNavLink to="#!">Home</MDBNavLink>
-              </MDBNavItem>
-              <MDBNavItem>
-                <MDBNavLink to="#!">Docs</MDBNavLink>
-              </MDBNavItem>
-              <MDBNavItem>
-                <MDBNavLink to="#!">Pricing</MDBNavLink>
-              </MDBNavItem>
-              <MDBNavItem>
-                <MDBDropdown>
-                  <MDBDropdownToggle nav caret>
-                    <span className="mr-2">Other</span>
-                  </MDBDropdownToggle>
-                  <MDBDropdownMenu>
-                    <MDBDropdownItem href="#!">Community</MDBDropdownItem>
-                    <MDBDropdownItem href="#!">Blog</MDBDropdownItem>
-                  </MDBDropdownMenu>
-                </MDBDropdown>
-              </MDBNavItem>
-            </MDBNavbarNav>
-            <MDBNavbarNav right>
-              <MDBNavItem>
-                <MDBBtn color="dark-green">Sign up</MDBBtn>
-              </MDBNavItem>
-              <MDBNavItem>
+  return (
+    <div>
+      <MDBNavbar color="unique-color-dark" dark expand="md">
+        <MDBNavbarBrand>
+          <strong className="white-text">
+            <Link to="/" style={{ textDecoration: "none", color: "white" }}>
+              StockHub
+            </Link>
+          </strong>
+        </MDBNavbarBrand>
+        <MDBNavbarToggler onClick={toggleCollapse} />
+        <MDBCollapse id="navbarCollapse3" isOpen={isOpen} navbar>
+          <MDBNavbarNav left>
+            <MDBNavItem>
+              <MDBNavLink to="#!">Docs</MDBNavLink>
+            </MDBNavItem>
+            <MDBNavItem>
+              <MDBNavLink to="#!">Community</MDBNavLink>
+            </MDBNavItem>
+            <MDBNavItem></MDBNavItem>
+          </MDBNavbarNav>
+          <MDBNavbarNav right>
+            <MDBNavItem></MDBNavItem>
+            <MDBNavItem>
+              <Link
+                to="/signup"
+                style={{ textDecoration: "none", color: "white" }}
+              >
+                <MDBBtn color="dark-green">Signup</MDBBtn>
+              </Link>
+            </MDBNavItem>
+            <MDBNavItem>
+              <Link
+                to="/login"
+                style={{ textDecoration: "none", color: "white" }}
+              >
                 <MDBBtn outline color="success">
-                  Log in
+                  Login
                 </MDBBtn>
-              </MDBNavItem>
-            </MDBNavbarNav>
-          </MDBCollapse>
-        </MDBNavbar>
-      </Router>
-    );
-  }
-}
+              </Link>
+            </MDBNavItem>
+          </MDBNavbarNav>
+        </MDBCollapse>
+      </MDBNavbar>
+      <br />
+    </div>
+  );
+};
 
-export default NavbarPage;
+export default Navbar;

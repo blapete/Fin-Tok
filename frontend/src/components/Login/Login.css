@@ -1,0 +1,11 @@
+#login__Box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 100vh;
+}
+
+#login__Form {
+  width: 50%;
+}

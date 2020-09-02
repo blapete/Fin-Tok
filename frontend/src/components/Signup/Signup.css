@@ -1,0 +1,11 @@
+#signup__Box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 100vh;
+}
+
+#signup__Form {
+  width: 50%;
+}

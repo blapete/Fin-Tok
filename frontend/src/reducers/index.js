@@ -32,8 +32,8 @@ const account = (state = DEFAULT_ACCOUNT, action) => {
       return {
         ...state,
         loggedIn: action.loggedIn,
-        id: action.userId,
-        user: action.userName,
+        // id: action.userId,
+        // user: action.userName,
       };
     case "SET_USER":
       return {
