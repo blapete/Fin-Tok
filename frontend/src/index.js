@@ -1,13 +1,11 @@
+import "react-app-polyfill/ie9";
+import "react-app-polyfill/ie11";
+import "react-app-polyfill/stable";
 import React from "react";
 import { render } from "react-dom";
 import store from "./store";
 import { Provider } from "react-redux";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Redirect,
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import { setAuthenticatedAction } from "./actions/accountAction";
 import "bootstrap-css-only/css/bootstrap.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";

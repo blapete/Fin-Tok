@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn } from "mdbreact";
+import { MDBInput, MDBBtn } from "mdbreact";
 import "./Login.css";
 const Login = () => {
   return (

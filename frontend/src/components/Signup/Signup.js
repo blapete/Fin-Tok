@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBInput } from "mdbreact";
+import { MDBBtn, MDBInput } from "mdbreact";
 import { Link } from "react-router-dom";
 import "./Signup.css";
 
