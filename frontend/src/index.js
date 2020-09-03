@@ -7,6 +7,7 @@ import store from "./store";
 import { Provider } from "react-redux";
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import { setAuthenticatedAction } from "./actions/accountAction";
+// import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
 import Root from "./components/Root/Root";
 import Home from "./components/UserHome/homepage";

@@ -1,56 +1,44 @@
 import React from "react";
+import { Button, Navbar, Nav } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-const Navbar = () => {
+const NavBar = () => {
   return (
-    <nav className="navbar" role="navigation" aria-label="main navigation">
-      <div className="navbar-brand">
-        <Link className="navbar-item" to="/">
-          <img
-            src="https://bulma.io/images/bulma-logo.png"
-            width="112"
-            height="28"
-          />
+    <Navbar bg="dark" variant="dark" expand="lg" style={{ color: "white" }}>
+      <Link to="/">
+        <Navbar.Brand>StockHub</Navbar.Brand>
+      </Link>
+      <Navbar.Toggle aria-controls="basic-navbar-nav" />
+      <Navbar.Collapse id="basic-navbar-nav">
+        <Nav className="mr-auto">
+          <Nav.Link href="#home">Docs</Nav.Link>
+          <Nav.Link href="#link">Community</Nav.Link>
+        </Nav>
+        <Link to="/login">
+          <Button
+            style={{
+              marginRight: "0.5rem",
+              backgroundColor: "rgba(52, 1, 86, 0.5)",
+              border: "1px solid white",
+            }}
+          >
+            Log in
+          </Button>
         </Link>
-
-        <Link
-          role="button"
-          className="navbar-burger burger"
-          aria-label="menu"
-          aria-expanded="false"
-          data-target="navbarBasicExample"
-          to="/"
-        >
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
+        <Link to="/signup">
+          <Button
+            variant="light"
+            style={{
+              border: "1px solid rgba(52, 1, 86, 0.5)",
+              color: "rgba(52, 1, 86, 0.5)",
+            }}
+          >
+            Sign up
+          </Button>
         </Link>
-      </div>
-
-      <div id="navbarBasicExample" className="navbar-menu">
-        <div className="navbar-start">
-          <Link className="navbar-item">Home</Link>
-
-          <Link className="navbar-item" to="/">
-            Documentation
-          </Link>
-        </div>
-
-        <div className="navbar-end">
-          <div className="navbar-item">
-            <div className="buttons">
-              <Link className="button is-primary" to="/signup">
-                <strong>Sign up</strong>
-              </Link>
-              <Link className="button is-light" to="/login">
-                Log in
-              </Link>
-            </div>
-          </div>
-        </div>
-      </div>
-    </nav>
+      </Navbar.Collapse>
+    </Navbar>
   );
 };
 
-export default Navbar;
+export default NavBar;

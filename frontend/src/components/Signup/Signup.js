@@ -1,69 +1,80 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import { connect } from "react-redux";
+import { Button, FormGroup, FormControl } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import "./Signup.css";
 
 const Signup = () => {
+  //data for sign up
+  const nameRef = useRef();
+  const passwordRef = useRef();
+  const confirmPasswordRef = useRef();
+  const emailRef = useRef();
+
+  const signUp = (e) => {
+    e.preventDefault();
+  };
   return (
     <div id="signup__Box">
       <div id="signup__Form">
-        <label className="label is-medium">Sign up</label>
+        <div className="authform">
+          <h6>sign up</h6>
 
-        <div className="field">
-          <div className="control has-icons-left has-icons-right">
-            <input className="input is-medium" type="text" placeholder="name" />
-            <span className="icon is-medium is-left">
-              <i className="fas fa-envelope"></i>
-            </span>
-            <span className="icon is-medium is-right">
-              <i className="fas fa-check"></i>
-            </span>
-          </div>
-        </div>
-        <div className="field">
-          <div className="control has-icons-left has-icons-right">
-            <input
-              className="input is-medium"
-              type="email"
-              placeholder="email"
-            />
-            <span className="icon is-medium is-left">
-              <i className="fas fa-envelope"></i>
-            </span>
-            <span className="icon is-medium is-right">
-              <i className="fas fa-check"></i>
-            </span>
-          </div>
-        </div>
-        <div className="field">
-          <div className="control has-icons-left has-icons-right">
-            <input
-              className="input is-medium"
-              type="password"
-              placeholder="password"
-            />
-            <span className="icon is-medium is-left">
-              <i className="fas fa-envelope"></i>
-            </span>
-            <span className="icon is-medium is-right">
-              <i className="fas fa-check"></i>
-            </span>
-          </div>
-        </div>
-        <div className="field">
-          <div className="control has-icons-left has-icons-right">
-            <input
-              className="input is-medium"
-              type="password"
-              placeholder="confirm password"
-            />
-            <span className="icon is-medium is-left">
-              <i className="fas fa-envelope"></i>
-            </span>
-            <span className="icon is-medium is-right">
-              <i className="fas fa-check"></i>
-            </span>
-          </div>
+          <br />
+          <form autoComplete="off">
+            <FormGroup>
+              <FormControl
+                autoComplete="off"
+                type="text"
+                ref={nameRef}
+                placeholder="name"
+                name="name"
+              />
+            </FormGroup>
+            <br />
+            <FormGroup>
+              <FormControl
+                type="email"
+                autoComplete="off"
+                name="email"
+                ref={emailRef}
+                placeholder="email"
+              />
+            </FormGroup>
+            <br />
+            <FormGroup>
+              <FormControl
+                type="password"
+                autoComplete="off"
+                name="password"
+                ref={passwordRef}
+                placeholder="password (6+ characters)"
+              />
+            </FormGroup>
+            <br />
+            <FormGroup>
+              <FormControl
+                type="password"
+                autoComplete="off"
+                name="confirmPassword"
+                ref={confirmPasswordRef}
+                placeholder="re-type password"
+              />
+            </FormGroup>
+            <br />
+            <div>
+              <Button
+                className="btn btn-secondary"
+                style={{ backgroundColor: "rgba(52, 1, 86, 0.5)" }}
+                onClick={signUp}
+              >
+                Sign Up
+              </Button>
+            </div>
+          </form>
+          <br />
+
+          <div id="notification" />
         </div>
 
         <br />

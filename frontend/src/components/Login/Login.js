@@ -1,35 +1,61 @@
-import React from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
+import { Button, FormGroup, FormControl } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import "./Login.css";
 const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const updateEmail = (event) => {
+    setEmail(event.target.value);
+  };
+
+  const updatePassword = (event) => {
+    setPassword(event.target.value);
+  };
+
+  const login = (e) => {
+    e.preventDefault();
+  };
   return (
     <div id="login__Box">
       <div id="login__Form">
-        <div className="field">
-          <label className="label is-medium">Log in</label>
-          <p className="control has-icons-left has-icons-right">
-            <input className="input" type="email" placeholder="Email" />
-            <span className="icon is-small is-left">
-              <i className="fas fa-envelope"></i>
-            </span>
-            <span className="icon is-small is-right">
-              <i className="fas fa-check"></i>
-            </span>
-          </p>
-        </div>
-        <div className="field">
-          <p className="control has-icons-left">
-            <input className="input" type="password" placeholder="Password" />
-            <span className="icon is-small is-left">
-              <i className="fas fa-lock"></i>
-            </span>
-          </p>
-        </div>
-        <div className="field">
-          <p className="control">
-            <button className="button is-success">Login</button>
-          </p>
+        <div className="authform">
+          <h6>login</h6>
+
+          <br />
+          <form autoComplete="off">
+            <FormGroup>
+              <FormControl
+                autoComplete="off"
+                type="text"
+                placeholder="email"
+                value={email}
+                onChange={updateEmail}
+              />
+            </FormGroup>
+            <br />
+            <FormGroup>
+              <FormControl
+                autoComplete="off"
+                type="password"
+                value={password}
+                placeholder="password"
+                onChange={updatePassword}
+              />
+            </FormGroup>
+            <br />
+            <div>
+              <Button
+                className="btn btn-secondary"
+                style={{ backgroundColor: "rgba(52, 1, 86, 0.5)" }}
+                onClick={login}
+              >
+                Log In
+              </Button>
+            </div>
+          </form>
+          <br />
         </div>
         <br />
         <Link to="/" style={{ textDecoration: "none", color: "black" }}>
