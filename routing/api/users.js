@@ -1,6 +1,10 @@
 const router = require("express").Router();
 const { hash } = require("../../account/helper");
 
+router.get("/auth", (req, res) => {
+  res.send("gotcha1");
+});
+
 router.post("/signup", (req, res, next) => {
   const { username, email, password, confirmpassword } = req.body;
   console.log("body", req.body);
@@ -8,7 +12,7 @@ router.post("/signup", (req, res, next) => {
   const emailHash = hash(email);
   const passwordHash = hash(password);
   console.log("info:", usernameHash, emailHash, passwordHash);
-  res.send("gotcha");
+  res.send("gotcha2");
 
   //ensure that an account doesn't already exist before storing
   //store a created account

@@ -1,19 +1,27 @@
 import React, { useRef, useState } from "react";
 import { connect } from "react-redux";
 import { Button, FormGroup, FormControl } from "react-bootstrap";
+import { signUpAction } from "../../actions/account";
 import { Link } from "react-router-dom";
 import "./Signup.css";
 
-const Signup = () => {
-  //data for sign up
+const Signup = ({ signup }) => {
+  //form info reference values
   const nameRef = useRef();
   const passwordRef = useRef();
   const confirmPasswordRef = useRef();
   const emailRef = useRef();
 
-  const signUp = (e) => {
+  //send signup info to backend
+  const sendForm = (e) => {
     e.preventDefault();
+    const username = nameRef.current.value;
+    const email = emailRef.current.value;
+    const password = passwordRef.current.value;
+    const confirmPassword = confirmPasswordRef.current.value;
+    signup({ username, email, password, confirmPassword });
   };
+
   return (
     <div id="signup__Box">
       <div id="signup__Form">
@@ -66,7 +74,7 @@ const Signup = () => {
               <Button
                 className="btn btn-secondary"
                 style={{ backgroundColor: "rgba(52, 1, 86, 0.5)" }}
-                onClick={signUp}
+                onClick={sendForm}
               >
                 Sign Up
               </Button>
@@ -91,4 +99,12 @@ const Signup = () => {
   );
 };
 
-export default connect(null, null)(Signup);
+const mapStateToProps = (state) => ({
+  message: state.message,
+});
+
+const mapDispatchToProps = {
+  signup: signUpAction,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Signup);
