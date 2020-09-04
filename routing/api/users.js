@@ -1,13 +1,10 @@
 const router = require("express").Router();
 const { hash } = require("../../account/helper");
 const { setSessionCookie } = require("../../util/cookie");
+const { authenticatedAccount } = require("../../util/session");
 const { v4: uuidv4 } = require("uuid");
 const db = require("../../models");
 const { Op } = require("sequelize");
-
-router.get("/auth", (req, res) => {
-  res.send("gotcha1");
-});
 
 router.post("/signup", (req, res, next) => {
   const { username, email, password, confirmPassword } = req.body;
@@ -60,20 +57,37 @@ router.post("/signup", (req, res, next) => {
               .then((user) => {
                 let userFound = JSON.parse(JSON.stringify(user, null, 4));
                 let userId = userFound[0].id;
-                db.sessions.create({
-                  session_id: sessionId,
-                  user_id: userId,
-                });
+                user_Id = userId;
+                db.sessions
+                  .create({
+                    session_id: sessionId,
+                    user_Id: userId,
+                  })
+                  .then((data) => {
+                    let userFound = JSON.parse(JSON.stringify(user, null, 4));
+                    let userId = userFound[0].id;
+                    setSessionCookie({ userId, sessionId, res });
+                    res.json({ message: "session created" });
+                  });
               });
-
-            setSessionCookie({ sessionId, res });
-            res.json({ message: "session created" });
           });
       }
     })
     .catch((e) => {
       next(e);
     });
+});
+
+router.get("/auth", (req, res, next) => {
+  console.log("cookie", req.cookies);
+  let sessionString = req.cookies.sessionString;
+  const sessionData = sessionString.split("|");
+  res.send("done");
+  // authenticatedAccount({ id: sessionData[0], sessionString: sessionData[1] })
+  //   .then((response) => {
+  //     console.log("response hereeee", response);
+  //   })
+  //   .catch((error) => next(error));
 });
 
 module.exports = router;
