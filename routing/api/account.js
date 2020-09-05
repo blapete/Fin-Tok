@@ -80,4 +80,17 @@ router.post("/login", (req, response, next) => {
     .catch((error) => next(error));
 });
 
+router.get("/logout", (req, res, next) => {
+  const { username } = Session.parse(req.cookies.sessionString);
+  AccountTable.updateSessionId({
+    sessionId: null,
+    usernameHash: hash(username),
+  })
+    .then(() => {
+      res.clearCookie("sessionString");
+      res.json({ message: "Successful logout" });
+    })
+    .catch((error) => next(error));
+});
+
 module.exports = router;

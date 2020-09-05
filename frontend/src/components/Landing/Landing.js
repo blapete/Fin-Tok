@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import Navbar from "../Navbar/Navbar";
 import Moment from "moment";
 import "./Landing.css";
+import Logout from "../Logout/Logout";
 
 const Landing = () => {
   let date = Moment().format("MMMM Do YYYY");
@@ -28,6 +29,7 @@ const Landing = () => {
         <span id="clock__Time">{initialTime}</span>
       </div>
       <h1>Hello world</h1>
+      <Logout />
     </div>
   );
 };

@@ -42,3 +42,12 @@ export const loginAction = ({ username, password }) => async (
     console.log(Object.keys(error), error.response);
   }
 };
+
+export const logoutAction = () => async (dispatch, getState) => {
+  try {
+    const res = await axios.get("/api/user/logout");
+    console.log("logout response", res);
+  } catch (error) {
+    console.error(Object.keys(error), error.response);
+  }
+};
