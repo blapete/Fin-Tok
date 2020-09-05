@@ -61,4 +61,23 @@ router.get("/auth", (req, res, next) => {
     });
 });
 
+router.post("/login", (req, response, next) => {
+  const { username, password } = req.body;
+  AccountTable.getAccount({ usernameHash: hash(username) })
+    .then((account) => {
+      if (account && account.passwordHash === hash(password)) {
+        const { session_id } = account;
+        return setSession({ username, response, session_id });
+      } else {
+        const error = new Error("Incorrect username/password");
+        error.statusCode = 409;
+        throw error;
+      }
+    })
+    .then(({ message }) => {
+      response.json({ message });
+    })
+    .catch((error) => next(error));
+});
+
 module.exports = router;

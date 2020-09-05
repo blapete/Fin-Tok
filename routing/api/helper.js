@@ -2,13 +2,12 @@ const Session = require("../../account/session");
 const { hash } = require("../../account/helper");
 const AccountTable = require("../../account/table");
 
-const setSession = ({ username, response, sessionId }) => {
+const setSession = ({ username, response, session_id }) => {
   return new Promise((resolve, reject) => {
     let session, sessionString;
-    if (sessionId) {
-      console.log("tadada");
-      sessionString = Session.sessionString({ username, id: sessionId });
-      setSessionCookie({ sessionString, res });
+    if (session_id) {
+      sessionString = Session.sessionString({ username, id: session_id });
+      setSessionCookie({ sessionString, response });
       resolve({ message: "session restored" });
     } else {
       session = new Session({ username });

@@ -27,3 +27,18 @@ export const signUpAction = ({
     console.log(Object.keys(error), error.response);
   }
 };
+
+export const loginAction = ({ username, password }) => async (
+  dispatch,
+  getState
+) => {
+  try {
+    const res = await axios.post("/api/user/login", {
+      username,
+      password,
+    });
+    console.log("login res", res);
+  } catch (error) {
+    console.log(Object.keys(error), error.response);
+  }
+};

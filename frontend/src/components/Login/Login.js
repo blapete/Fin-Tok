@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Button, FormGroup, FormControl } from "react-bootstrap";
+import { loginAction } from "../../actions/account";
 import { Link } from "react-router-dom";
 import "./Login.css";
-const Login = () => {
-  const [email, setEmail] = useState("");
+const Login = ({ loginPost }) => {
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const updateEmail = (event) => {
-    setEmail(event.target.value);
+
+  const updateUsername = (event) => {
+    setUsername(event.target.value);
   };
 
   const updatePassword = (event) => {
@@ -16,6 +18,7 @@ const Login = () => {
 
   const login = (e) => {
     e.preventDefault();
+    loginPost({ username, password });
   };
   return (
     <div id="login__Box">
@@ -29,9 +32,9 @@ const Login = () => {
               <FormControl
                 autoComplete="off"
                 type="text"
-                placeholder="email"
-                value={email}
-                onChange={updateEmail}
+                placeholder="username"
+                value={username}
+                onChange={updateUsername}
               />
             </FormGroup>
             <br />
@@ -66,4 +69,12 @@ const Login = () => {
   );
 };
 
-export default connect(null, null)(Login);
+const mapStateToProps = (state) => ({
+  message: state.message,
+});
+
+const mapDispatchToProps = {
+  loginPost: loginAction,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

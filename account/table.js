@@ -33,6 +33,7 @@ class AccountTable {
           throw e;
         });
     } else {
+      console.log("here here here");
       return db.users
         .findAll({
           where: {
@@ -40,6 +41,7 @@ class AccountTable {
           },
         })
         .then((res) => {
+          console.log("got someone", res);
           let userFound = JSON.stringify(res[0]);
           let account = JSON.parse(userFound);
           return account;
