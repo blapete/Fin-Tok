@@ -1,0 +1,64 @@
+const router = require("express").Router();
+const AccountTable = require("../../account/table");
+const Session = require("../../account/session");
+const { hash } = require("../../account/helper");
+const { setSession, authenticatedAccount } = require("./helper");
+
+router.post("/signup", (req, response, next) => {
+  const { username, email, password, confirmPassword } = req.body;
+  if (password.length < 6) {
+    const error = new Error("Password must be greater than 6 characters");
+    error.statusCode = 401;
+    throw error;
+  }
+  if (password !== confirmPassword) {
+    const error = new Error("Passwords do not match");
+    error.statusCode = 401;
+    throw error;
+  }
+
+  const usernameHash = hash(username);
+  const emailHash = hash(email);
+  const passwordHash = hash(password);
+
+  AccountTable.getAccount({ usernameHash, emailHash })
+    .then((data) => {
+      if (data.length) {
+        let userFound = JSON.parse(JSON.stringify(data, null, 4));
+        if (userFound[0].usernameHash === usernameHash) {
+          const error = new Error("This username is in use");
+          error.statusCode = 409;
+          throw error;
+        } else if (userFound[0].emailHash === emailHash) {
+          const error = new Error("This email is in use");
+          error.statusCode = 409;
+          throw error;
+        }
+      } else {
+        return AccountTable.storeAccount({
+          usernameHash,
+          emailHash,
+          passwordHash,
+        });
+      }
+    })
+    .then(() => {
+      return setSession({ username, response });
+    })
+    .then(({ message }) => {
+      response.json({ message });
+    })
+    .catch((error) => next(error));
+});
+
+router.get("/auth", (req, res, next) => {
+  authenticatedAccount({ sessionString: req.cookies.sessionString })
+    .then(({ authenticated }) => {
+      res.json({ authenticated });
+    })
+    .catch((error) => {
+      next(error);
+    });
+});
+
+module.exports = router;

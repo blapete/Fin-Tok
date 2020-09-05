@@ -5,8 +5,7 @@ export const getAuthAction = () => async (dispatch, getState) => {
     const res = await axios.get("/api/user/auth");
     console.log("auth res", res);
   } catch (error) {
-    console.log("error:", error);
-    console.log(Object.keys(error), error.response);
+    console.error(Object.keys(error), error.response);
   }
 };
 
@@ -25,7 +24,6 @@ export const signUpAction = ({
     });
     console.log("signup res", res);
   } catch (error) {
-    console.log("error:", error);
     console.log(Object.keys(error), error.response);
   }
 };

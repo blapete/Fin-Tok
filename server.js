@@ -32,6 +32,10 @@ app.get("*", (req, res) => {
     res.sendFile(path.resolve(__dirname, "./frontend/public/index.html"));
   }
 });
-db.sequelize.sync({ force: true }).then(function () {
+db.sequelize.sync().then(function () {
   app.listen(port, () => console.log(`listening on port ${port}`));
 });
+
+// {
+//   force: true;
+// }
