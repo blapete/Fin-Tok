@@ -6,6 +6,13 @@ const { setSession, authenticatedAccount } = require("./helper");
 
 router.post("/signup", (req, response, next) => {
   const { username, email, password, confirmPassword } = req.body;
+
+  if (!username || !email || !password || !confirmPassword) {
+    const error = new Error("Please fill out all fields");
+    error.statusCode = 401;
+    throw error;
+  }
+
   if (password.length < 6) {
     const error = new Error("Password must be greater than 6 characters");
     error.statusCode = 401;
