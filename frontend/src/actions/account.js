@@ -24,16 +24,16 @@ export const accountRequest = ({
         url: endpoint,
       });
     }
-    dispatch({
+    return dispatch({
       type: SUCCESS_TYPE,
       message: res.data.message,
     });
   } catch (error) {
-    dispatch({
+    return dispatch({
       type: ERROR_TYPE,
       message: error.response.data.message,
     });
-    console.log(Object.keys(error), error.response);
+    // console.log(Object.keys(error), error.response);
   }
 };
 

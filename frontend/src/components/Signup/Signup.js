@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState } from "react";
 import { connect } from "react-redux";
 import { Button, FormGroup, FormControl } from "react-bootstrap";
 import { signUp } from "../../actions/account";
@@ -6,7 +6,7 @@ import requestStates from "../../reducers/request";
 import { Link } from "react-router-dom";
 import "./Signup.css";
 
-const Signup = ({ signup, status, message }) => {
+const Signup = ({ signup, status, message, history }) => {
   //form info reference values
   const nameRef = useRef();
   const passwordRef = useRef();
@@ -16,14 +16,22 @@ const Signup = ({ signup, status, message }) => {
   const [buttonClicked, setButtonClicked] = useState(false);
 
   //send signup info to backend
-  const sendForm = (e) => {
+  const sendForm = async (e) => {
     e.preventDefault();
     setButtonClicked(true);
     const username = nameRef.current.value;
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
     const confirmPassword = confirmPasswordRef.current.value;
-    signup({ username, email, password, confirmPassword }).then(() => {});
+    const actionResponse = await signup({
+      username,
+      email,
+      password,
+      confirmPassword,
+    });
+    if (actionResponse.message === "session created") {
+      history.push("/login");
+    }
   };
 
   const Error = () => {
