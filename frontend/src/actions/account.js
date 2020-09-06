@@ -11,12 +11,19 @@ export const accountRequest = ({
 }) => async (dispatch) => {
   dispatch({ type: REQUEST_TYPE });
   try {
-    const res = await axios({
-      method: method,
-      url: endpoint,
-      data: data,
-    });
-    console.log("the reponse: ", res);
+    let res;
+    if (data) {
+      res = await axios({
+        method: method,
+        url: endpoint,
+        data: data,
+      });
+    } else {
+      res = await axios({
+        method: method,
+        url: endpoint,
+      });
+    }
     dispatch({
       type: SUCCESS_TYPE,
       message: res.data.message,
@@ -26,12 +33,11 @@ export const accountRequest = ({
       type: ERROR_TYPE,
       message: error.response.data.message,
     });
-
     console.log(Object.keys(error), error.response);
   }
 };
 
-export const signUpAction = ({ username, email, password, confirmPassword }) =>
+export const signUp = ({ username, email, password, confirmPassword }) =>
   accountRequest({
     method: "post",
     endpoint: "/account/signup",
@@ -46,65 +52,35 @@ export const signUpAction = ({ username, email, password, confirmPassword }) =>
     SUCCESS_TYPE: ACCOUNT.REQUEST_SIGNUP_SUCCESS,
   });
 
-export const getAuthAction = () => async (dispatch, getState) => {
-  try {
-    const res = await axios.get("/account/auth");
-    console.log("auth res", res);
-  } catch (error) {
-    dispatch({
-      type: ACCOUNT.REQUEST_ERROR,
-      message: error.response.data.message,
-    });
-    console.error(Object.keys(error), error.response);
-  }
-};
+export const getAuthenticated = () =>
+  accountRequest({
+    method: "get",
+    endpoint: "/account/auth",
+    data: undefined,
+    REQUEST_TYPE: ACCOUNT.REQUEST,
+    ERROR_TYPE: ACCOUNT.REQUEST_ERROR,
+    SUCCESS_TYPE: ACCOUNT.REQUEST_AUTHENTICATED_SUCCESS,
+  });
 
-// export const signUpAction = ({
-//   username,
-//   email,
-//   password,
-//   confirmPassword,
-// }) => async (dispatch) => {
-//   dispatch({ type: ACCOUNT.REQUEST });
-//   try {
-//     const res = await axios.post("/account/signup", {
-//       username,
-//       email,
-//       password,
-//       confirmPassword,
-//     });
-//     dispatch({
-//       type: ACCOUNT.REQUEST_SIGNUP_SUCCESS,
-//       message: res.data.message,
-//     });
-//   } catch (error) {
-//     dispatch({
-//       type: ACCOUNT.REQUEST_ERROR,
-//       message: error.response.data.message,
-//     });
-//   }
-// };
-
-export const loginAction = ({ username, password }) => async (
-  dispatch,
-  getState
-) => {
-  try {
-    const res = await axios.post("/account/login", {
+export const login = ({ username, password }) =>
+  accountRequest({
+    method: "post",
+    endpoint: "/account/login",
+    data: {
       username,
       password,
-    });
-    console.log("login res", res);
-  } catch (error) {
-    console.log(Object.keys(error), error.response);
-  }
-};
+    },
+    REQUEST_TYPE: ACCOUNT.REQUEST,
+    ERROR_TYPE: ACCOUNT.REQUEST_ERROR,
+    SUCCESS_TYPE: ACCOUNT.REQUEST_SUCCESS,
+  });
 
-export const logoutAction = () => async (dispatch, getState) => {
-  try {
-    const res = await axios.get("/account/logout");
-    console.log("logout response", res);
-  } catch (error) {
-    console.error(Object.keys(error), error.response);
-  }
-};
+export const logoutAction = () =>
+  accountRequest({
+    method: "get",
+    endpoint: "/account/logout",
+    data: undefined,
+    REQUEST_TYPE: ACCOUNT.REQUEST,
+    ERROR_TYPE: ACCOUNT.REQUEST_ERROR,
+    SUCCESS_TYPE: ACCOUNT.REQUEST_LOGOUT_SUCCESS,
+  });

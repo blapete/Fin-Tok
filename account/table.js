@@ -41,7 +41,6 @@ class AccountTable {
           },
         })
         .then((res) => {
-          console.log("got someone", res);
           let userFound = JSON.stringify(res[0]);
           let account = JSON.parse(userFound);
           return account;

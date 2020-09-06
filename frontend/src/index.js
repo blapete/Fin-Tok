@@ -6,7 +6,7 @@ import { render } from "react-dom";
 import store from "./store";
 import { Provider } from "react-redux";
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
-import { getAuthAction } from "./actions/account";
+import { getAuthenticated } from "./actions/account";
 // import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
 import Root from "./components/Root/Root";
@@ -24,7 +24,7 @@ const AuthRoute = (props) => {
   return <Route path={path} component={component} />;
 };
 
-store.dispatch(getAuthAction()).then(() => {
+store.dispatch(getAuthenticated()).then(() => {
   render(
     <Provider store={store}>
       <Router>

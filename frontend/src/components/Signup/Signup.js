@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import { connect } from "react-redux";
 import { Button, FormGroup, FormControl } from "react-bootstrap";
-import { signUpAction } from "../../actions/account";
+import { signUp } from "../../actions/account";
 import { Link } from "react-router-dom";
 import "./Signup.css";
 
@@ -104,7 +104,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = {
-  signup: signUpAction,
+  signup: signUp,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Signup);

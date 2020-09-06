@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Button, FormGroup, FormControl } from "react-bootstrap";
-import { loginAction } from "../../actions/account";
+import { login } from "../../actions/account";
 import { Link } from "react-router-dom";
 import "./Login.css";
 const Login = ({ loginPost }) => {
@@ -16,7 +16,7 @@ const Login = ({ loginPost }) => {
     setPassword(event.target.value);
   };
 
-  const login = (e) => {
+  const loginFunc = (e) => {
     e.preventDefault();
     loginPost({ username, password });
   };
@@ -52,7 +52,7 @@ const Login = ({ loginPost }) => {
               <Button
                 className="btn btn-secondary"
                 style={{ backgroundColor: "rgba(52, 1, 86, 0.5)" }}
-                onClick={login}
+                onClick={loginFunc}
               >
                 Log In
               </Button>
@@ -74,7 +74,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = {
-  loginPost: loginAction,
+  loginPost: login,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
