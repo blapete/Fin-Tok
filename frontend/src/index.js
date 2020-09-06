@@ -15,7 +15,7 @@ import Signup from "./components/Signup/Signup";
 import Login from "./components/Login/Login";
 
 const AuthRoute = (props) => {
-  if (!store.getState().loggedIn) {
+  if (!store.getState().account.loggedIn) {
     return <Redirect to={{ pathname: "/" }} />;
   }
 

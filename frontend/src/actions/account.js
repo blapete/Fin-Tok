@@ -26,14 +26,14 @@ export const accountRequest = ({
     }
     return dispatch({
       type: SUCCESS_TYPE,
-      message: res.data.message,
+      ...res.data,
     });
   } catch (error) {
+    console.log(Object.keys(error), error.response);
     return dispatch({
       type: ERROR_TYPE,
       message: error.response.data.message,
     });
-    // console.log(Object.keys(error), error.response);
   }
 };
 

@@ -47,7 +47,6 @@ const Signup = ({ signup, status, message, history }) => {
       <div id="signup__Form">
         <div className="authform">
           <h6>sign up</h6>
-
           <br />
           <form autoComplete="off">
             <FormGroup>

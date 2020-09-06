@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Button, FormGroup, FormControl } from "react-bootstrap";
+import requestStates from "../../reducers/request";
 import { login } from "../../actions/account";
 import { Link } from "react-router-dom";
 import "./Login.css";
-const Login = ({ loginPost }) => {
+const Login = ({ loginPost, message, status }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [buttonClicked, setButtonClicked] = useState(false);
 
   const updateUsername = (event) => {
     setUsername(event.target.value);
@@ -18,10 +20,19 @@ const Login = ({ loginPost }) => {
 
   const loginFunc = (e) => {
     e.preventDefault();
+    setButtonClicked(true);
     loginPost({ username, password });
   };
+
+  const Error = () => {
+    if (buttonClicked && status === requestStates.error) {
+      return <div>{message}</div>;
+    }
+  };
+
   return (
     <div id="login__Box">
+      {Error()}
       <div id="login__Form">
         <div className="authform">
           <h6>login</h6>
@@ -70,7 +81,8 @@ const Login = ({ loginPost }) => {
 };
 
 const mapStateToProps = (state) => ({
-  message: state.message,
+  message: state.account.message,
+  status: state.account.status,
 });
 
 const mapDispatchToProps = {

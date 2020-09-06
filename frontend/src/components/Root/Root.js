@@ -4,11 +4,12 @@ import Landing from "../Landing/Landing";
 import Home from "../UserHome/homepage";
 
 const Root = ({ loggedIn }) => {
+  console.log("llogeedin?", loggedIn);
   return loggedIn ? <Home /> : <Landing />;
 };
 
 const mapStateToProps = (state) => ({
-  loggedIn: state.loggedIn,
+  loggedIn: state.account.loggedIn,
 });
 
 export default connect(mapStateToProps, null)(Root);

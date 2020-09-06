@@ -41,8 +41,11 @@ class AccountTable {
           },
         })
         .then((res) => {
-          let userFound = JSON.stringify(res[0]);
-          let account = JSON.parse(userFound);
+          let account;
+          if (res.length > 0) {
+            let userFound = JSON.stringify(res[0]);
+            account = JSON.parse(userFound);
+          }
           return account;
         })
         .catch((e) => {

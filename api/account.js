@@ -70,6 +70,11 @@ router.get("/auth", (req, res, next) => {
 
 router.post("/login", (req, response, next) => {
   const { username, password } = req.body;
+  if (!username || !password) {
+    const error = new Error("Please fill both fields");
+    error.statusCode = 401;
+    throw error;
+  }
   AccountTable.getAccount({ usernameHash: hash(username) })
     .then((account) => {
       if (account && account.passwordHash === hash(password)) {
