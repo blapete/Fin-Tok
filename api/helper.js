@@ -1,6 +1,6 @@
-const Session = require("../../account/session");
-const { hash } = require("../../account/helper");
-const AccountTable = require("../../account/table");
+const Session = require("../account/session");
+const { hash } = require("../account/helper");
+const AccountTable = require("../account/table");
 
 const setSession = ({ username, response, session_id }) => {
   return new Promise((resolve, reject) => {

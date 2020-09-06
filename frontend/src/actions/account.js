@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const getAuthAction = () => async (dispatch, getState) => {
   try {
-    const res = await axios.get("/api/user/auth");
+    const res = await axios.get("/account/auth");
     console.log("auth res", res);
   } catch (error) {
     console.error(Object.keys(error), error.response);
@@ -16,7 +16,7 @@ export const signUpAction = ({
   confirmPassword,
 }) => async (dispatch, getState) => {
   try {
-    const res = await axios.post("/api/user/signup", {
+    const res = await axios.post("/account/signup", {
       username,
       email,
       password,
@@ -33,7 +33,7 @@ export const loginAction = ({ username, password }) => async (
   getState
 ) => {
   try {
-    const res = await axios.post("/api/user/login", {
+    const res = await axios.post("/account/login", {
       username,
       password,
     });
@@ -45,7 +45,7 @@ export const loginAction = ({ username, password }) => async (
 
 export const logoutAction = () => async (dispatch, getState) => {
   try {
-    const res = await axios.get("/api/user/logout");
+    const res = await axios.get("/account/logout");
     console.log("logout response", res);
   } catch (error) {
     console.error(Object.keys(error), error.response);

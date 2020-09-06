@@ -1,7 +1,7 @@
 const router = require("express").Router();
-const AccountTable = require("../../account/table");
-const Session = require("../../account/session");
-const { hash } = require("../../account/helper");
+const AccountTable = require("../account/table");
+const Session = require("../account/session");
+const { hash } = require("../account/helper");
 const { setSession, authenticatedAccount } = require("./helper");
 
 router.post("/signup", (req, response, next) => {
