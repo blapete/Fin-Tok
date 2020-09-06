@@ -1,5 +1,5 @@
 export default {
-  fetching: "fetching",
+  requesting: "requesting",
   error: "error",
   success: "success",
 };
