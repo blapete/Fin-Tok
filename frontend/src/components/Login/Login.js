@@ -5,7 +5,7 @@ import requestStates from "../../reducers/request";
 import { login } from "../../actions/account";
 import { Link } from "react-router-dom";
 import "./Login.css";
-const Login = ({ loginPost, message, status }) => {
+const Login = ({ loginPost, message, status, history }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [buttonClicked, setButtonClicked] = useState(false);
@@ -18,13 +18,15 @@ const Login = ({ loginPost, message, status }) => {
     setPassword(event.target.value);
   };
 
-  const loginFunc = (e) => {
+  const loginFunc = async (e) => {
     e.preventDefault();
+    const actionResponse = await loginPost({ username, password });
     setButtonClicked(true);
-    loginPost({ username, password });
+    console.log("action response:", actionResponse);
   };
 
   const Error = () => {
+    console.log(buttonClicked, "eerrbc");
     if (buttonClicked && status === requestStates.error) {
       return <div>{message}</div>;
     }

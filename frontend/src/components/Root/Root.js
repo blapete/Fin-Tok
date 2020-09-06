@@ -4,7 +4,7 @@ import Landing from "../Landing/Landing";
 import Home from "../UserHome/homepage";
 
 const Root = ({ loggedIn }) => {
-  console.log("llogeedin?", loggedIn);
+  console.log("loggedIn?", loggedIn);
   return loggedIn ? <Home /> : <Landing />;
 };
 
