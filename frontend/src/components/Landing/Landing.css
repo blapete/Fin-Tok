@@ -17,3 +17,22 @@
   align-items: center;
   padding: 5px;
 }
+
+#stock__Box {
+  margin: 2rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#stock__Button {
+  width: 10rem;
+  height: 3rem;
+  border-radius: 5px;
+  font-size: large;
+  color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+}

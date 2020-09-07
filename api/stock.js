@@ -31,9 +31,11 @@ router.get("/topstocks", (req, res, next) => {
     .get(TOP_STOCKS, YAHOO_CREDENTIALS)
     .then(function (response) {
       let filteredArr = [];
+      let count = 0;
       for (let i of response.data.quotes) {
         let name = "data" + i;
         name = new Object();
+        name.id = count++;
         name.longName = i.longName;
         name.symbol = i.symbol;
         name.marketCap = i.marketCap;
@@ -43,7 +45,7 @@ router.get("/topstocks", (req, res, next) => {
         filteredArr.push(name);
       }
 
-      res.json({ data: filteredArr });
+      res.json({ message: "success", data: filteredArr });
     })
     .catch((error) => {
       console.log(error);

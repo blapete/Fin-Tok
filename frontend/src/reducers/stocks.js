@@ -1,15 +1,35 @@
-import { ACCOUNT } from "../actions/types";
+import { STOCK_INFO } from "../actions/types";
 import requestStates from "./request";
 
-const DEFAULT_ACCOUNT = { placeholder: false };
+const DEFAULT_STOCKS = {
+  top_stocks: [],
+  favorite_stocks: [],
+  stock_quote: [],
+};
 
-const account = (state = DEFAULT_ACCOUNT, action) => {
+const stocks = (state = DEFAULT_STOCKS, action) => {
   switch (action.type) {
-    case ACCOUNT.FETCH:
+    case STOCK_INFO.REQUEST:
       return { ...state, status: requestStates.requesting };
+    case STOCK_INFO.REQUEST_ERROR:
+      return { ...state, status: requestStates.error, message: action.message };
+    case STOCK_INFO.REQUEST_TOPSTOCKS_SUCCESS:
+      return {
+        ...state,
+        status: requestStates.success,
+        message: action.message,
+        top_stocks: action.data,
+      };
+    case STOCK_INFO.REQUEST_QUOTE_SUCCESS:
+      return {
+        ...state,
+        status: requestStates.success,
+        message: action.message,
+        stock_quote: action.data,
+      };
     default:
       return state;
   }
 };
 
-export default account;
+export default stocks;
