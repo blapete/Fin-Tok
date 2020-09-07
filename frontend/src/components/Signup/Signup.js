@@ -1,28 +1,39 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Button, FormGroup, FormControl } from "react-bootstrap";
 import { signUp } from "../../actions/account";
+import { Link, Redirect } from "react-router-dom";
 import requestStates from "../../reducers/request";
-import { Link } from "react-router-dom";
 import "./Signup.css";
 
 const Signup = ({ signup, status, message, history }) => {
-  //form info reference values
-  const nameRef = useRef();
-  const passwordRef = useRef();
-  const confirmPasswordRef = useRef();
-  const emailRef = useRef();
-
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [email, setEmail] = useState("");
   const [buttonClicked, setButtonClicked] = useState(false);
+  const [toLogin, setToLogin] = useState(false);
+
+  const updateUsername = (event) => {
+    setUsername(event.target.value);
+  };
+
+  const updateEmail = (event) => {
+    setEmail(event.target.value);
+  };
+
+  const updatePassword = (event) => {
+    setPassword(event.target.value);
+  };
+  const updateConfirmPassword = (event) => {
+    setConfirmPassword(event.target.value);
+  };
 
   //send signup info to backend
   const sendForm = async (e) => {
     e.preventDefault();
     setButtonClicked(true);
-    const username = nameRef.current.value;
-    const email = emailRef.current.value;
-    const password = passwordRef.current.value;
-    const confirmPassword = confirmPasswordRef.current.value;
+
     const actionResponse = await signup({
       username,
       email,
@@ -30,7 +41,7 @@ const Signup = ({ signup, status, message, history }) => {
       confirmPassword,
     });
     if (actionResponse.message === "session created") {
-      history.push("/login");
+      setToLogin(true);
     }
   };
 
@@ -40,7 +51,9 @@ const Signup = ({ signup, status, message, history }) => {
     }
   };
 
-  return (
+  return toLogin ? (
+    <Redirect to="login" />
+  ) : (
     <div id="signup__Box">
       {Error()}
       <br />
@@ -53,38 +66,38 @@ const Signup = ({ signup, status, message, history }) => {
               <FormControl
                 autoComplete="off"
                 type="text"
-                ref={nameRef}
-                placeholder="name"
-                name="name"
+                placeholder="username"
+                value={username}
+                onChange={updateUsername}
               />
             </FormGroup>
             <br />
             <FormGroup>
               <FormControl
+                autoComplete="off"
                 type="email"
-                autoComplete="off"
-                name="email"
-                ref={emailRef}
                 placeholder="email"
+                value={email}
+                onChange={updateEmail}
               />
             </FormGroup>
             <br />
             <FormGroup>
               <FormControl
-                type="password"
                 autoComplete="off"
-                name="password"
-                ref={passwordRef}
+                type="password"
+                value={password}
+                onChange={updatePassword}
                 placeholder="password (6+ characters)"
               />
             </FormGroup>
             <br />
             <FormGroup>
               <FormControl
-                type="password"
                 autoComplete="off"
-                name="confirmPassword"
-                ref={confirmPasswordRef}
+                type="password"
+                value={confirmPassword}
+                onChange={updateConfirmPassword}
                 placeholder="re-type password"
               />
             </FormGroup>

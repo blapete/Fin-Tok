@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Button, FormGroup, FormControl } from "react-bootstrap";
-import requestStates from "../../reducers/request";
 import { login } from "../../actions/account";
 import { Link } from "react-router-dom";
+import requestStates from "../../reducers/request";
 import "./Login.css";
+
 const Login = ({ loginPost, message, status, history }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -20,13 +21,18 @@ const Login = ({ loginPost, message, status, history }) => {
 
   const loginFunc = async (e) => {
     e.preventDefault();
-    const actionResponse = await loginPost({ username, password });
     setButtonClicked(true);
-    console.log("action response:", actionResponse);
+
+    const actionResponse = await loginPost({ username, password });
+    if (
+      actionResponse.message === "session created" ||
+      actionResponse.message === "session restored"
+    ) {
+      window.location.href = "/home";
+    }
   };
 
   const Error = () => {
-    console.log(buttonClicked, "eerrbc");
     if (buttonClicked && status === requestStates.error) {
       return <div>{message}</div>;
     }
@@ -38,7 +44,6 @@ const Login = ({ loginPost, message, status, history }) => {
       <div id="login__Form">
         <div className="authform">
           <h6>login</h6>
-
           <br />
           <form autoComplete="off">
             <FormGroup>

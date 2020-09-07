@@ -1,9 +1,10 @@
 import React, { useEffect } from "react";
+import { connect } from "react-redux";
 import Navbar from "../Navbar/Navbar";
 import Moment from "moment";
 import "./Landing.css";
 
-const Landing = () => {
+const Landing = ({ loggedIn }) => {
   let date = Moment().format("MMMM Do YYYY");
   let initialTime = Moment().format("h:mm:ss a");
   const updateTime = () => {
@@ -22,7 +23,7 @@ const Landing = () => {
   }, []);
   return (
     <div>
-      <Navbar />
+      <Navbar status={loggedIn} />
       <div id="clock">
         <span id="clock__Date">{date}</span>
         <span id="clock__Time">{initialTime}</span>
@@ -32,4 +33,8 @@ const Landing = () => {
   );
 };
 
-export default Landing;
+const mapStateToProps = (state) => ({
+  loggedIn: state.account.loggedIn,
+});
+
+export default connect(mapStateToProps, null)(Landing);

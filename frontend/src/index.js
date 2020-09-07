@@ -9,18 +9,17 @@ import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import { getAuthenticated } from "./actions/account";
 // import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
-import Root from "./components/Root/Root";
+import About from "./components/About/About";
 import Home from "./components/UserHome/homepage";
 import Signup from "./components/Signup/Signup";
 import Login from "./components/Login/Login";
+import Landing from "./components/Landing/Landing";
 
 const AuthRoute = (props) => {
   if (!store.getState().account.loggedIn) {
     return <Redirect to={{ pathname: "/" }} />;
   }
-
   const { component, path } = props;
-
   return <Route path={path} component={component} />;
 };
 
@@ -28,7 +27,8 @@ store.dispatch(getAuthenticated()).then(() => {
   render(
     <Provider store={store}>
       <Router>
-        <Route exact path="/" component={Root} />
+        <Route exact path="/" component={Landing} />
+        <Route exact path="/about" component={About} />
         <Route exact path="/signup" component={Signup} />
         <Route exact path="/login" component={Login} />
         <AuthRoute path="/home" component={Home} />

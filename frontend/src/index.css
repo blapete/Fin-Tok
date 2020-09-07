@@ -18,3 +18,17 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+@media (max-width: 992px) {
+  hr {
+    border: 0;
+    clear: both;
+    display: block;
+    width: 96%;
+    background-color: #ffff00;
+    height: 1px;
+  }
+  #home__Link {
+    margin-bottom: 1rem;
+  }
+}

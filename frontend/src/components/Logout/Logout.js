@@ -4,23 +4,27 @@ import { logoutAction } from "../../actions/account";
 import { connect } from "react-redux";
 
 const Logout = ({ logoutGet }) => {
-  const logout = (e) => {
-    e.preventDefault();
-    logoutGet();
+  const logout = async () => {
+    await logoutGet();
   };
+
   return (
     <div>
-      <Button onClick={logout}>Log out</Button>
+      <Button
+        onClick={logout}
+        style={{
+          backgroundColor: "rgba(52, 1, 86, 0.5)",
+          border: "1px solid white",
+        }}
+      >
+        Log out
+      </Button>
     </div>
   );
 };
-
-const mapStateToProps = (state) => ({
-  message: state.message,
-});
 
 const mapDispatchToProps = {
   logoutGet: logoutAction,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Logout);
+export default connect(null, mapDispatchToProps)(Logout);
