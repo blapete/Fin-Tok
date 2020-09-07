@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const morgan = require("morgan");
 const accountRouter = require("./api/account");
+const stockRouter = require("./api/stock");
 const db = require("./models");
 const app = express();
 
@@ -25,6 +26,7 @@ if (process.env.NODE_ENV === "production") {
 
 //api routes
 app.use("/account", accountRouter);
+app.use("/stock", stockRouter);
 
 //error handler
 app.use((err, req, res, next) => {

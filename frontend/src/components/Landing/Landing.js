@@ -1,10 +1,11 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
+import { stockQuoteAction, topStockAction } from "../../actions/stock";
 import Navbar from "../Navbar/Navbar";
 import Moment from "moment";
 import "./Landing.css";
 
-const Landing = ({ loggedIn }) => {
+const Landing = ({ loggedIn, stockQuote, topStocks }) => {
   let date = Moment().format("MMMM Do YYYY");
   let initialTime = Moment().format("h:mm:ss a");
   const updateTime = () => {
@@ -21,6 +22,20 @@ const Landing = ({ loggedIn }) => {
     const interval = setInterval(updateTime, 1000);
     return () => clearInterval(interval);
   }, []);
+
+  // useEffect(() => {
+  //   async function getStocks() {
+  //     const resp = await topStocks;
+  //     console.log('resp', resp)
+  //   }
+  //   getStocks();
+  // }, []);
+
+  const sendRequest = async (e) => {
+    e.preventDefault();
+    const thing = await stockQuote();
+    console.log("thing", thing);
+  };
   return (
     <div>
       <Navbar status={loggedIn} />
@@ -29,6 +44,7 @@ const Landing = ({ loggedIn }) => {
         <span id="clock__Time">{initialTime}</span>
       </div>
       <h1>Hello world</h1>
+      <button onClick={sendRequest}>click me</button>
     </div>
   );
 };
@@ -37,4 +53,9 @@ const mapStateToProps = (state) => ({
   loggedIn: state.account.loggedIn,
 });
 
-export default connect(mapStateToProps, null)(Landing);
+const mapDispatchToProps = {
+  stockQuote: stockQuoteAction,
+  topStocks: topStockAction,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Landing);
