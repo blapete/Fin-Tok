@@ -27,7 +27,7 @@ const StockCard = (props) => {
           </Card.Text>
           <hr />
 
-          <div style={{ position: "relative", bottom: "1px" }}>
+          <div>
             <Card.Text>Exchange: {props.exchange}</Card.Text>
             <Card.Text>Currency: {props.currency}</Card.Text>
             <Card.Text>Market Cap: {props.marketCap}</Card.Text>

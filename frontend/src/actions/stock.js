@@ -36,3 +36,9 @@ export const topStockAction = () => async (dispatch) => {
     });
   }
 };
+
+export const resetAction = () => async (dispatch) => {
+  dispatch({
+    type: STOCK_INFO.RESET,
+  });
+};

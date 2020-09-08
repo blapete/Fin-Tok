@@ -26,6 +26,11 @@ const stocks = (state = DEFAULT_STOCKS, action) => {
         status: requestStates.success,
         stock_quote: action.data,
       };
+    case STOCK_INFO.RESET:
+      return {
+        ...state,
+        stock_quote: {},
+      };
     default:
       return state;
   }

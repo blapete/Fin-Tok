@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { Container, Row, Jumbotron, Col } from "react-bootstrap";
-import { stockQuoteAction } from "../../actions/stock";
+import { stockQuoteAction, resetAction } from "../../actions/stock";
 import Card from "./StockCard";
 import { connect } from "react-redux";
 import { Button, FormGroup, FormControl } from "react-bootstrap";
 import "./Jumbotron.css";
 
-const Jumbo = ({ quote, date, stockResponse }) => {
+const Jumbo = ({ quote, date, stockResponse, reset }) => {
   const [stockQuote, setStockQuote] = useState("");
   const [showCard, setShowCard] = useState(false);
+  const [alert, setAlert] = useState(false);
 
   const updateStockQuote = (event) => {
     setStockQuote(event.target.value);
@@ -16,7 +17,16 @@ const Jumbo = ({ quote, date, stockResponse }) => {
 
   const getQuote = (e) => {
     e.preventDefault();
+    if (!stockQuote) {
+      return setAlert(!alert);
+    }
     quote({ data: stockQuote });
+  };
+
+  const reSet = (e) => {
+    e.preventDefault();
+    reset();
+    setStockQuote("");
   };
 
   // useEffect(() => {
@@ -69,10 +79,20 @@ const Jumbo = ({ quote, date, stockResponse }) => {
                 </Button>
               </span>
             </div>
+            {alert ? <p>* field required</p> : null}
+            <br />
+            <br />
+            {stockResponse.ask ? <p onClick={reSet}>clear search</p> : null}
           </Col>
           {stockResponse.ask ? (
             <Col>
-              <Card name={stockResponse.longName} />
+              <Card
+                name={stockResponse.longName}
+                ask={stockResponse.ask}
+                currency={stockResponse.currency}
+                symbol={stockResponse.symbol}
+                cap={stockResponse.marketCap}
+              />
             </Col>
           ) : (
             <div></div>
@@ -91,6 +111,7 @@ const mapStateToProps = (state, ownProps) => ({
 
 const mapDispatchToProps = {
   quote: stockQuoteAction,
+  reset: resetAction,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Jumbo);
