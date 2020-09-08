@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import { Button, FormGroup, FormControl } from "react-bootstrap";
 import "./Jumbotron.css";
 
-const Jumbo = ({ quote, date, stockResponse, reset }) => {
+const Jumbo = ({ quote, date, stockResponse, reset, auth }) => {
   const [stockQuote, setStockQuote] = useState("");
   const [showCard, setShowCard] = useState(false);
   const [alert, setAlert] = useState(false);
@@ -82,11 +82,19 @@ const Jumbo = ({ quote, date, stockResponse, reset }) => {
             {alert ? <p>* field required</p> : null}
             <br />
             <br />
-            {stockResponse.ask ? <p onClick={reSet}>clear search</p> : null}
+            {stockResponse.ask && stockQuote ? (
+              <p
+                style={{ cursor: "pointer", textDecoration: "underline" }}
+                onClick={reSet}
+              >
+                clear search
+              </p>
+            ) : null}
           </Col>
           {stockResponse.ask ? (
             <Col>
               <Card
+                auth={auth}
                 name={stockResponse.longName}
                 ask={stockResponse.ask}
                 currency={stockResponse.currency}
@@ -104,6 +112,7 @@ const Jumbo = ({ quote, date, stockResponse, reset }) => {
 };
 
 const mapStateToProps = (state, ownProps) => ({
+  auth: state.account.loggedIn,
   message: state.account.message,
   date: ownProps.date,
   stockResponse: state.stocks.stock_quote,

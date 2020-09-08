@@ -29,13 +29,13 @@ const Landing = ({ loggedIn, stockQuote, topStocks, stocks }) => {
     return () => clearInterval(interval);
   }, []);
 
-  useEffect(() => {
-    async function getStocks() {
-      const resp = await topStocks();
-      console.log("resp", resp);
-    }
-    getStocks();
-  }, []);
+  // useEffect(() => {
+  //   async function getStocks() {
+  //     const resp = await topStocks();
+  //     console.log("resp", resp);
+  //   }
+  //   getStocks();
+  // }, []);
 
   const sendRequest = async (e) => {
     e.preventDefault();

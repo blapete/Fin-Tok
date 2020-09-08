@@ -1,7 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
+import { Redirect } from "react-router-dom";
 import { Card, Button } from "react-bootstrap";
 
 const StockCard = (props) => {
+  const [toSignup, setToSignup] = useState(false);
+  if (toSignup) {
+    return <Redirect to="/signup" />;
+  }
+  console.log("auth debug1", props);
+  const addFav = (e) => {
+    e.preventDefault();
+    console.log("auth debug2", props);
+    if (props.auth) {
+      console.log("logged in");
+    } else {
+      console.log("notttt");
+    }
+  };
+  const nonya = () => {
+    console.log("nonya");
+  };
   return (
     <Card>
       <Card.Header>{props.symbol}</Card.Header>
@@ -19,6 +37,9 @@ const StockCard = (props) => {
       </Card.Body>
       <Card.Footer className="text-muted">
         <Button
+          onClick={() => {
+            return props.auth ? addFav() : setToSignup(true);
+          }}
           variant="light"
           style={{
             border: "1px solid rgba(52, 1, 86, 0.5)",
