@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Row, Jumbotron, Col } from "react-bootstrap";
 import { stockQuoteAction } from "../../actions/stock";
+import Card from "./StockCard";
 import { connect } from "react-redux";
 import { Button, FormGroup, FormControl } from "react-bootstrap";
 import "./Jumbotron.css";
 
-const Jumbo = ({ quote, date }) => {
+const Jumbo = ({ quote, date, stockResponse }) => {
   const [stockQuote, setStockQuote] = useState("");
+  const [showCard, setShowCard] = useState(false);
 
   const updateStockQuote = (event) => {
     setStockQuote(event.target.value);
@@ -16,6 +18,17 @@ const Jumbo = ({ quote, date }) => {
     e.preventDefault();
     quote({ data: stockQuote });
   };
+
+  // useEffect(() => {
+  //   console.log("DEBUGGER", stockResponse);
+  //   console.log("DEBUGGER2", stockResponse);
+  //   if (stockResponse.ask) {
+  //     console.log("yes");
+  //   } else {
+  //     console.log("no");
+  //   }
+  //   setShowCard(true);
+  // }, [stockResponse]);
 
   return (
     <Jumbotron>
@@ -57,9 +70,13 @@ const Jumbo = ({ quote, date }) => {
               </span>
             </div>
           </Col>
-          <Col>
-            <h1>hi</h1>
-          </Col>
+          {stockResponse.ask ? (
+            <Col>
+              <Card name={stockResponse.longName} />
+            </Col>
+          ) : (
+            <div></div>
+          )}
         </Row>
       </Container>
     </Jumbotron>
@@ -69,6 +86,7 @@ const Jumbo = ({ quote, date }) => {
 const mapStateToProps = (state, ownProps) => ({
   message: state.account.message,
   date: ownProps.date,
+  stockResponse: state.stocks.stock_quote,
 });
 
 const mapDispatchToProps = {

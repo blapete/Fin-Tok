@@ -5,8 +5,16 @@ export const stockQuoteAction = ({ data }) => async (dispatch) => {
   try {
     const res = await axios.post("/stock/quote", { data });
     console.log("stock trending res", res);
+    return dispatch({
+      type: STOCK_INFO.REQUEST_QUOTE_SUCCESS,
+      data: res.data,
+    });
   } catch (error) {
     console.error(error);
+    return dispatch({
+      type: STOCK_INFO.REQUEST_ERROR,
+      message: "there is an err",
+    });
   }
 };
 

@@ -4,7 +4,7 @@ import requestStates from "./request";
 const DEFAULT_STOCKS = {
   top_stocks: [],
   favorite_stocks: [],
-  stock_quote: [],
+  stock_quote: {},
 };
 
 const stocks = (state = DEFAULT_STOCKS, action) => {
@@ -24,7 +24,6 @@ const stocks = (state = DEFAULT_STOCKS, action) => {
       return {
         ...state,
         status: requestStates.success,
-        message: action.message,
         stock_quote: action.data,
       };
     default:
