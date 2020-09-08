@@ -4,9 +4,10 @@ const { YAHOO_CREDENTIALS } = require("../secrets/yahooCredentials");
 const { TOP_STOCKS } = require("../secrets/topStocks");
 const { STOCK_QUOTE } = require("../secrets/quotes");
 
-router.get("/quote", (req, res, next) => {
+router.post("/quote", (req, res, next) => {
+  let symbol = req.body.data;
   axios
-    .get(STOCK_QUOTE + "AAPL", YAHOO_CREDENTIALS)
+    .get(STOCK_QUOTE + symbol, YAHOO_CREDENTIALS)
     .then(function (response) {
       console.log(response.data[0]);
       let data = new Object();

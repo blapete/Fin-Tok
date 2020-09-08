@@ -1,0 +1,11 @@
+#modal__Button {
+  width: 10rem;
+  height: 3rem;
+  border-radius: 5px;
+  font-size: large;
+  color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+}

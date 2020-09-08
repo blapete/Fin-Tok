@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { stockQuoteAction, topStockAction } from "../../actions/stock";
 import { Button } from "react-bootstrap";
 import Jumbotron from "../Jumbotron/Jumbotron";
+import Modal from "../Modal/Modal";
 
 import Carousel from "../Carousel/Carousel";
 import Navbar from "../Navbar/Navbar";
@@ -63,6 +64,7 @@ const Landing = ({ loggedIn, stockQuote, topStocks, stocks }) => {
         >
           Top watched
         </Button>
+        <Modal />
       </div>
 
       {show25 ? <Carousel stocks={stocks} /> : null}

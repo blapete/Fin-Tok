@@ -1,9 +1,9 @@
 import axios from "axios";
 import { STOCK_INFO } from "./types";
 
-export const stockQuoteAction = () => async (dispatch) => {
+export const stockQuoteAction = ({ data }) => async (dispatch) => {
   try {
-    const res = await axios.get("/stock/quote");
+    const res = await axios.post("/stock/quote", { data });
     console.log("stock trending res", res);
   } catch (error) {
     console.error(error);
