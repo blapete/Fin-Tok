@@ -42,7 +42,7 @@ const Landing = ({ loggedIn, stockQuote, topStocks, stocks }) => {
     console.log("thing", thing);
   };
   return (
-    <div>
+    <div style={{ height: "100%" }}>
       <Navbar status={loggedIn} />
       <div id="clock">
         {/* <h4 id="clock__Date">{date}</h4> */}
@@ -61,7 +61,7 @@ const Landing = ({ loggedIn, stockQuote, topStocks, stocks }) => {
             setShow25(!show25);
           }}
         >
-          Top gainers
+          Top watched
         </Button>
       </div>
 

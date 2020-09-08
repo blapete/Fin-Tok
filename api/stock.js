@@ -30,6 +30,7 @@ router.get("/topstocks", (req, res, next) => {
   axios
     .get(TOP_STOCKS, YAHOO_CREDENTIALS)
     .then(function (response) {
+      // console.log("topstockresponse:", response.data.quotes);
       let filteredArr = [];
       let count = 0;
       for (let i of response.data.quotes) {
@@ -38,6 +39,7 @@ router.get("/topstocks", (req, res, next) => {
         name.id = count++;
         name.longName = i.longName;
         name.symbol = i.symbol;
+        name.exchange = i.exchange;
         name.marketCap = i.marketCap;
         name.ask = i.ask;
         name.fiftyTwoWeekLowChangePercent = i.fiftyTwoWeekLowChangePercent;

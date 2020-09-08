@@ -6,7 +6,7 @@ import Card from "./Card";
 const responsive = {
   superLargeDesktop: {
     breakpoint: { max: 4000, min: 3000 },
-    items: 5,
+    items: 4,
   },
   desktop: {
     breakpoint: { max: 3000, min: 1024 },
@@ -14,11 +14,11 @@ const responsive = {
   },
   tablet: {
     breakpoint: { max: 1024, min: 464 },
-    items: 3,
+    items: 2,
   },
   mobile: {
     breakpoint: { max: 464, min: 0 },
-    items: 2,
+    items: 1,
   },
 };
 
@@ -26,9 +26,19 @@ const DataCarousel = (props) => {
   const [company, setCompany] = useState([]);
 
   return (
-    <Carousel responsive={responsive}>
+    <Carousel id="stock__Carousel" responsive={responsive}>
       {props.stocks.map((data) => {
-        return <Card key={data.id} name={data.longName} />;
+        return (
+          <Card
+            key={data.id}
+            name={data.longName}
+            exchange={data.exchange}
+            changePercentage={data.fiftyTwoWeekLowChangePercent}
+            currency={data.financialCurrency}
+            marketCap={data.marketCap}
+            symbol={data.symbol}
+          />
+        );
       })}
     </Carousel>
   );
