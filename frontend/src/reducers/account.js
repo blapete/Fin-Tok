@@ -14,6 +14,7 @@ const account = (state = DEFAULT_ACCOUNT, action) => {
         ...state,
         status: requestStates.success,
         message: action.message,
+        username: action.username,
         loggedIn: true,
       };
     case ACCOUNT.REQUEST_SIGNUP_SUCCESS:
@@ -33,7 +34,7 @@ const account = (state = DEFAULT_ACCOUNT, action) => {
       return {
         ...state,
         status: requestStates.success,
-        message: action.message,
+        username: action.username,
         loggedIn: action.authenticated,
       };
     default:

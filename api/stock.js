@@ -9,7 +9,7 @@ router.post("/quote", (req, res, next) => {
   axios
     .get(STOCK_QUOTE + symbol, YAHOO_CREDENTIALS)
     .then(function (response) {
-      console.log(response.data[0]);
+      // console.log(response.data[0]);
       let data = new Object();
       data.ask = response.data[0].ask;
       data.fiftyTwoWeekLow = response.data[0].fiftyTwoWeekLow;
@@ -35,7 +35,7 @@ router.get("/topstocks", (req, res, next) => {
       let filteredArr = [];
       let count = 0;
       for (let i of response.data.quotes) {
-        let name = "data" + i;
+        // let name = "data" + i;
         name = new Object();
         name.id = count++;
         name.longName = i.longName;

@@ -65,8 +65,8 @@ router.post("/signup", (req, response, next) => {
 
 router.get("/auth", (req, res, next) => {
   authenticatedAccount({ sessionString: req.cookies.sessionString })
-    .then(({ authenticated }) => {
-      res.json({ authenticated });
+    .then(({ authenticated, username }) => {
+      res.json({ authenticated, username });
     })
     .catch((error) => {
       next(error);
@@ -75,6 +75,7 @@ router.get("/auth", (req, res, next) => {
 
 router.post("/login", (req, response, next) => {
   const { username, password } = req.body;
+  console.log(username, password, "iiii");
   if (!username || !password) {
     const error = new Error("Please fill both fields");
     error.statusCode = 401;
@@ -91,8 +92,8 @@ router.post("/login", (req, response, next) => {
         throw error;
       }
     })
-    .then(({ message }) => {
-      response.json({ message });
+    .then((re) => {
+      response.json(re);
     })
     .catch((error) => next(error));
 });

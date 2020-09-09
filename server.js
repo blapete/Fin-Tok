@@ -5,6 +5,7 @@ const cookieParser = require("cookie-parser");
 const morgan = require("morgan");
 const accountRouter = require("./api/account");
 const stockRouter = require("./api/stock");
+const favoritesRouter = require("./api/favorites");
 const db = require("./models");
 const app = express();
 
@@ -27,6 +28,7 @@ if (process.env.NODE_ENV === "production") {
 //api routes
 app.use("/account", accountRouter);
 app.use("/stock", stockRouter);
+app.use("/fav", favoritesRouter);
 
 //error handler
 app.use((err, req, res, next) => {

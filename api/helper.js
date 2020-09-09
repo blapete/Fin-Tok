@@ -8,7 +8,7 @@ const setSession = ({ username, response, session_id }) => {
     if (session_id) {
       sessionString = Session.sessionString({ username, id: session_id });
       setSessionCookie({ sessionString, response });
-      resolve({ message: "session restored" });
+      resolve({ message: "session restored", username: username });
     } else {
       session = new Session({ username });
       sessionString = session.toString();
@@ -18,7 +18,7 @@ const setSession = ({ username, response, session_id }) => {
       })
         .then(() => {
           setSessionCookie({ sessionString, response });
-          resolve({ message: "session created" });
+          resolve({ message: "session created", username });
         })
         .catch((error) => reject(error));
     }

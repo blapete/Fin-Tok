@@ -46,7 +46,6 @@ const Landing = ({ loggedIn, stockQuote, topStocks, stocks }) => {
     <div style={{ height: "100%" }}>
       <Navbar status={loggedIn} />
       <div id="clock">
-        {/* <h4 id="clock__Date">{date}</h4> */}
         <span id="clock__Time">{initialTime}</span>
       </div>
       <Jumbotron date={date} />
