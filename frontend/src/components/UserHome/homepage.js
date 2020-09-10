@@ -18,6 +18,7 @@ const Homepage = ({ loggedIn, name, favGet, username, favoritesList }) => {
   let count = 0;
   const [loading, setLoading] = useState(false);
   const [cards, setCards] = useState(false);
+  const [dataReturned, setDataReturned] = useState(false);
   useEffect(() => {
     if (!loggedIn) {
       window.location.href = "/";
@@ -44,6 +45,7 @@ const Homepage = ({ loggedIn, name, favGet, username, favoritesList }) => {
           if (message === "success - favorites found") {
             setLoading(false);
             setCards(true);
+            setDataReturned(true);
           }
         }, [1500]);
       });
@@ -101,19 +103,27 @@ const Homepage = ({ loggedIn, name, favGet, username, favoritesList }) => {
       ) : null}
 
       <br />
-      {cards ? (
-        <div style={{ margin: "4rem" }}>
-          {favoritesList.map((e, index) => {
-            return (
-              <div key={index}>
-                <Card name={e} />
-
-                <br />
+      <div>
+        <Row>
+          {cards ? (
+            <Col>
+              <div style={{ margin: "4rem" }}>
+                {favoritesList.map((e, index) => {
+                  return <Card key={index} name={e} />;
+                })}
               </div>
-            );
-          })}
-        </div>
-      ) : null}
+            </Col>
+          ) : null}
+
+          {dataReturned && cards ? (
+            <Col>
+              <div style={{ margin: "4rem" }}>
+                <p>got some data</p>
+              </div>
+            </Col>
+          ) : null}
+        </Row>
+      </div>
     </div>
   );
 };
