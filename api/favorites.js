@@ -5,10 +5,11 @@ const { Op } = require("sequelize");
 
 router.post("/add", (req, res, next) => {
   const { companyName, user } = req.body;
+  if (!companyName || !user) {
+    const error = new Error("There has been an error with your reauest");
+    throw error;
+  }
   let username = hash(user);
-  let arr = [companyName];
-  console.log(username);
-
   db.users
     .findAll({
       where: {
@@ -16,8 +17,9 @@ router.post("/add", (req, res, next) => {
       },
     })
     .then((res) => {
-      console.log("found one", res);
-      db.users.update(
+      let arr = res[0].dataValues.history;
+      arr.push(companyName);
+      return db.users.update(
         { history: arr },
         {
           where: {
@@ -32,7 +34,32 @@ router.post("/add", (req, res, next) => {
     .catch((e) => {
       console.error("e", e);
     });
-  res.send("success");
+  res.send("successfulllllllll");
+});
+
+router.post("/all", (req, response, next) => {
+  const { username } = req.body;
+  if (!username) {
+    const error = new Error("You are not logged in");
+    throw error;
+  }
+  let user = hash(username);
+  db.users
+    .findAll({
+      where: {
+        usernameHash: user,
+      },
+    })
+    .then((res) => {
+      let arr = res[0].dataValues.history;
+      response.json({
+        message: "success - favorites found",
+        favorites: arr,
+      });
+    })
+    .catch((e) => {
+      console.error("e", e);
+    });
 });
 
 module.exports = router;

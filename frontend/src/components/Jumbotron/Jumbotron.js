@@ -61,7 +61,7 @@ const Jumbo = ({ quote, date, stockResponse, reset, auth }) => {
                   <FormControl
                     type="text"
                     value={stockQuote}
-                    placeholder="symbol"
+                    placeholder="symbol ex: AAPL"
                     onChange={updateStockQuote}
                   />
                 </FormGroup>

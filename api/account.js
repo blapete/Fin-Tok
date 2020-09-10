@@ -75,7 +75,6 @@ router.get("/auth", (req, res, next) => {
 
 router.post("/login", (req, response, next) => {
   const { username, password } = req.body;
-  console.log(username, password, "iiii");
   if (!username || !password) {
     const error = new Error("Please fill both fields");
     error.statusCode = 401;

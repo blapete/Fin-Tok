@@ -33,7 +33,6 @@ class AccountTable {
           throw e;
         });
     } else {
-      console.log("here here here");
       return db.users
         .findAll({
           where: {

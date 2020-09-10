@@ -3,7 +3,7 @@ import requestStates from "./request";
 
 const DEFAULT_STOCKS = {
   top_stocks: [],
-  favorite_stocks: [],
+  favorites: [],
   stock_quote: {},
 };
 
@@ -25,6 +25,13 @@ const stocks = (state = DEFAULT_STOCKS, action) => {
         ...state,
         status: requestStates.success,
         stock_quote: action.data,
+      };
+    case STOCK_INFO.REQUEST_FAV_ALL_SUCCESS:
+      return {
+        ...state,
+        status: requestStates.success,
+        message: action.message,
+        favorites: action.favorites,
       };
     case STOCK_INFO.RESET:
       return {

@@ -1,3 +1,10 @@
 #home__Container {
   margin: 2rem 2rem;
 }
+
+.divider {
+  display: inline-block;
+  border-bottom: black 1px solid;
+  width: 100px;
+  margin: 30px;
+}
