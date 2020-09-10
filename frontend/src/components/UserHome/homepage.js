@@ -11,10 +11,13 @@ import {
   ListGroup,
 } from "react-bootstrap";
 import Navbar from "../Navbar/Navbar";
+import Card from "./Cards";
 import "./Home.css";
 
-const Homepage = ({ loggedIn, name, favGet, username }) => {
+const Homepage = ({ loggedIn, name, favGet, username, favoritesList }) => {
+  let count = 0;
   const [loading, setLoading] = useState(false);
+  const [cards, setCards] = useState(false);
   useEffect(() => {
     if (!loggedIn) {
       window.location.href = "/";
@@ -30,16 +33,21 @@ const Homepage = ({ loggedIn, name, favGet, username }) => {
 
   const getFavorites = (e) => {
     e.preventDefault();
-    setLoading(true);
-    favGet({ username }).then((res) => {
-      console.log(res);
-      let message = res.message;
-      setTimeout(() => {
-        if (message === "success - favorites found") {
-          setLoading(false);
-        }
-      }, [1500]);
-    });
+    if (favoritesList.length) {
+      return console.log("one");
+    } else {
+      setLoading(true);
+      favGet({ username }).then((res) => {
+        console.log(res);
+        let message = res.message;
+        setTimeout(() => {
+          if (message === "success - favorites found") {
+            setLoading(false);
+            setCards(true);
+          }
+        }, [1500]);
+      });
+    }
   };
 
   return (
@@ -56,7 +64,7 @@ const Homepage = ({ loggedIn, name, favGet, username }) => {
       <div style={{ margin: "2rem 2rem" }}>
         <Row>
           <Col xs={6} sm={6} md={6} lg={6} xl={6}>
-            <ListGroup defaultActiveKey="#link1">
+            <ListGroup>
               <ListGroup.Item action onClick={getFavorites}>
                 view my favs
               </ListGroup.Item>
@@ -92,10 +100,20 @@ const Homepage = ({ loggedIn, name, favGet, username }) => {
         </Container>
       ) : null}
 
-      <Row>
-        <br />
-        <br />
-      </Row>
+      <br />
+      {cards ? (
+        <div style={{ margin: "4rem" }}>
+          {favoritesList.map((e, index) => {
+            return (
+              <div key={index}>
+                <Card name={e} />
+
+                <br />
+              </div>
+            );
+          })}
+        </div>
+      ) : null}
     </div>
   );
 };
@@ -104,6 +122,7 @@ const mapStateToProps = (state) => ({
   loggedIn: state.account.loggedIn,
   name: state.account.username,
   username: state.account.username,
+  favoritesList: state.stocks.favorites,
 });
 
 const mapDispatchToProps = {
