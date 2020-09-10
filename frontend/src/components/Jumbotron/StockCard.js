@@ -11,6 +11,7 @@ const StockCard = ({ info, addFav, user }) => {
     return <Redirect to="/signup" />;
   }
   console.log("auth debug1", info);
+  let symbol = info.symbol;
 
   // const addFav = (e) => {
   //   e.preventDefault();
@@ -47,7 +48,7 @@ const StockCard = ({ info, addFav, user }) => {
         <Button
           onClick={() => {
             return info.auth
-              ? addFav({ companyName, user })
+              ? addFav({ companyName, user, symbol })
               : setToSignup(true);
           }}
           variant="light"
@@ -66,6 +67,7 @@ const StockCard = ({ info, addFav, user }) => {
 const mapStateToinfo = (state, owninfo) => ({
   auth: state.account.loggedIn,
   user: state.account.username,
+
   info: owninfo,
 });
 

@@ -45,7 +45,6 @@ const Homepage = ({ loggedIn, name, favGet, username, favoritesList }) => {
           if (message === "success - favorites found") {
             setLoading(false);
             setCards(true);
-            setDataReturned(true);
           }
         }, [1500]);
       });
@@ -109,7 +108,7 @@ const Homepage = ({ loggedIn, name, favGet, username, favoritesList }) => {
             <Col>
               <div style={{ margin: "4rem" }}>
                 {favoritesList.map((e, index) => {
-                  return <Card key={index} name={e} />;
+                  return <Card key={index} name={e.name} symbol={e.symbol} />;
                 })}
               </div>
             </Col>

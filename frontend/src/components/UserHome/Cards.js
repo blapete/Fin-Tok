@@ -1,8 +1,14 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Card, Button } from "react-bootstrap";
+import { stockQuoteAction } from "../../actions/stock";
 
-const Cards = ({ props }) => {
+const Cards = ({ props, stockQuote }) => {
+  const getData = (e) => {
+    e.preventDefault();
+    console.log("getdata::");
+    // stockQuote();
+  };
   return (
     <Card
       key={props.key}
@@ -30,6 +36,7 @@ const Cards = ({ props }) => {
           border: "1px solid rgba(52, 1, 86, 0.5)",
           color: "rgba(52, 1, 86, 0.5)",
         }}
+        onClick={getData}
       >
         Remove
       </Button>
@@ -42,5 +49,8 @@ const mapStateToProps = (state, ownProps) => ({
   list: state.stocks.favorites,
   props: ownProps,
 });
+const mapDispatchToProps = {
+  stockQuote: stockQuoteAction,
+};
 
 export default connect(mapStateToProps, null)(Cards);

@@ -4,7 +4,12 @@ const db = require("../models");
 const { Op } = require("sequelize");
 
 router.post("/add", (req, res, next) => {
-  const { companyName, user } = req.body;
+  console.log(req.body);
+  const { companyName, user, symbol } = req.body;
+  let infObject = {
+    name: companyName,
+    symbol: symbol,
+  };
   if (!companyName || !user) {
     const error = new Error("There has been an error with your reauest");
     throw error;
@@ -17,8 +22,16 @@ router.post("/add", (req, res, next) => {
       },
     })
     .then((res) => {
-      let arr = res[0].dataValues.history;
-      arr.push(companyName);
+      let arr;
+      if (res[0].dataValues.history) {
+        arr = res[0].dataValues.history;
+        arr.push(infObject);
+      } else {
+        arr = [infObject];
+      }
+
+      console.log("arrrrrr::::", arr);
+
       return db.users.update(
         { history: arr },
         {
@@ -32,7 +45,7 @@ router.post("/add", (req, res, next) => {
       console.log("tada", res);
     })
     .catch((e) => {
-      console.error("e", e);
+      console.error("error123", e);
     });
   res.send("successfulllllllll");
 });
@@ -51,7 +64,9 @@ router.post("/all", (req, response, next) => {
       },
     })
     .then((res) => {
+      console.log("getting all res:", res);
       let arr = res[0].dataValues.history;
+
       response.json({
         message: "success - favorites found",
         favorites: arr,
