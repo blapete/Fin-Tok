@@ -13,6 +13,12 @@ const stocks = (state = DEFAULT_STOCKS, action) => {
       return { ...state, status: requestStates.requesting };
     case STOCK_INFO.REQUEST_ERROR:
       return { ...state, status: requestStates.error, message: action.message };
+    case STOCK_INFO.REQUEST_SUCCESS:
+      return {
+        ...state,
+        status: requestStates.success,
+        message: action.message,
+      };
     case STOCK_INFO.REQUEST_TOPSTOCKS_SUCCESS:
       return {
         ...state,

@@ -5,6 +5,7 @@ const { Op } = require("sequelize");
 
 router.post("/add", (req, res, next) => {
   const { companyName, user, symbol } = req.body;
+  console.log("stuffffffffffffffffffffffffff", companyName, user, symbol);
   if (!companyName || !user) {
     const error = new Error("There has been an error with your request");
     throw error;
@@ -23,8 +24,17 @@ router.post("/add", (req, res, next) => {
     })
     .then((res) => {
       let arr;
-      console.log("1:", res);
       if (res[0].dataValues.history.length) {
+        let history = res[0].dataValues.history;
+        let parsed = history.map((x) => {
+          return JSON.parse(x);
+        });
+        for (let i = 0; i < parsed.length; i++) {
+          if (parsed[i].symbol == symbol) {
+            const error = new Error("Already in your favorites");
+            throw error;
+          }
+        }
         console.log("2:", res[0].dataValues.history);
         arr = res[0].dataValues.history;
         let lastId = arr.length - 1;
@@ -47,7 +57,7 @@ router.post("/add", (req, res, next) => {
     })
     .then((data) => {
       console.log("5:", data);
-      res.json({ data });
+      res.json({ data, message: "added to favorites" });
     })
     .catch((e) => {
       console.error("4:", e);

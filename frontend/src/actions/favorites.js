@@ -7,11 +7,6 @@ export const addFavoriteAction = ({
   symbol,
   flag,
 }) => async (dispatch) => {
-  if (flag) {
-    dispatch({
-      type: STOCK_INFO.RESET,
-    });
-  }
   console.log(companyName, user);
   try {
     const res = await axios.post("/fav/add", {
@@ -19,10 +14,26 @@ export const addFavoriteAction = ({
       user,
       symbol,
     });
+    if (res.data.data.length && flag) {
+      console.log("herehere", flag, res.data);
+      let obj = new Object();
+      obj.message = res.data.message;
+
+      dispatch({
+        type: STOCK_INFO.REQUEST_SUCCESS,
+        ...obj,
+      });
+    }
 
     console.log("add fav res", res);
   } catch (error) {
-    console.error("errr", error);
+    let obj = new Object();
+    obj.message = error.response.data.message;
+    return dispatch({
+      type: STOCK_INFO.REQUEST_ERROR,
+      ...obj,
+    });
+    console.log(Object.keys(error), error.response);
   }
 };
 

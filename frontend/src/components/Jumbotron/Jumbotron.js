@@ -6,14 +6,14 @@ import { connect } from "react-redux";
 import { Button, FormGroup, FormControl, Spinner } from "react-bootstrap";
 import "./Jumbotron.css";
 
-const Jumbo = ({ quote, date, stockResponse, reset, auth }) => {
+const Jumbo = ({ quote, date, stockResponse, reset, auth, favMessage }) => {
   const [stockQuote, setStockQuote] = useState("");
   const [showCard, setShowCard] = useState(false);
   const [alert, setAlert] = useState(false);
   const [test, setTest] = useState(false);
   const [spinner, setSpinner] = useState(false);
   const [message, setMessage] = useState(false);
-
+  const [error, setError] = useState(false);
   const updateStockQuote = (event) => {
     setStockQuote(event.target.value);
   };
@@ -37,19 +37,23 @@ const Jumbo = ({ quote, date, stockResponse, reset, auth }) => {
 
   const reSet = (e) => {
     e.preventDefault();
+    if (error) {
+      setError(false);
+    }
     reset();
     setTest(false);
     setStockQuote("");
   };
 
   useEffect(() => {
-    console.log("DEBUGGER", stockResponse);
-    if (stockResponse.symbol) {
-      console.log("yes");
-    } else {
+    console.log("---------------------------", favMessage);
+    if (favMessage === "Already in your favorites") {
+      setError(true);
+    } else if (favMessage === "added to favorites") {
       setTest(false);
+      setError(true);
     }
-  }, [stockResponse]);
+  }, [favMessage]);
 
   return (
     <Jumbotron>
@@ -101,6 +105,12 @@ const Jumbo = ({ quote, date, stockResponse, reset, auth }) => {
                 clear search
               </p>
             ) : null}
+            <br />
+            {error ? (
+              <p>
+                {stockResponse.longName} {favMessage}
+              </p>
+            ) : null}
           </Col>
           {test ? (
             <Col>
@@ -123,9 +133,11 @@ const Jumbo = ({ quote, date, stockResponse, reset, auth }) => {
             <div></div>
           )}
         </Row>
-        <Row>
-          <Col>added to favorites</Col>
-        </Row>
+        {message ? (
+          <Row>
+            <Col>added to favorites</Col>
+          </Row>
+        ) : null}
       </Container>
     </Jumbotron>
   );
@@ -134,6 +146,7 @@ const Jumbo = ({ quote, date, stockResponse, reset, auth }) => {
 const mapStateToProps = (state, ownProps) => ({
   auth: state.account.loggedIn,
   message: state.account.message,
+  favMessage: state.stocks.message,
   date: ownProps.date,
   stockResponse: state.stocks.stock_quote,
 });
