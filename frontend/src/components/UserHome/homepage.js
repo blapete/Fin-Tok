@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { getFavoritesAction } from "../../actions/favorites";
+import { Card } from "react-bootstrap";
 
 import {
   Container,
@@ -11,10 +12,17 @@ import {
   ListGroup,
 } from "react-bootstrap";
 import Navbar from "../Navbar/Navbar";
-import Card from "./Cards";
+import StockCard from "./Cards";
 import "./Home.css";
 
-const Homepage = ({ loggedIn, name, favGet, username, favoritesList }) => {
+const Homepage = ({
+  loggedIn,
+  name,
+  favGet,
+  username,
+  favoritesList,
+  current,
+}) => {
   let count = 0;
   const [loading, setLoading] = useState(false);
   const [cards, setCards] = useState(false);
@@ -29,8 +37,10 @@ const Homepage = ({ loggedIn, name, favGet, username, favoritesList }) => {
   //onclick get the data from yahooFinance.
   //delete button to remove from db favorites.
   useEffect(() => {
-    console.log("get the favorites data");
-  }, []);
+    if (current.ask) {
+      setDataReturned(true);
+    }
+  }, [current]);
 
   const getFavorites = (e) => {
     e.preventDefault();
@@ -108,19 +118,48 @@ const Homepage = ({ loggedIn, name, favGet, username, favoritesList }) => {
             <Col>
               <div style={{ margin: "4rem" }}>
                 {favoritesList.map((e, index) => {
-                  return <Card key={index} name={e.name} symbol={e.symbol} />;
+                  return (
+                    <StockCard
+                      key={index}
+                      id={e.id}
+                      name={e.name}
+                      symbol={e.symbol}
+                    />
+                  );
                 })}
               </div>
             </Col>
           ) : null}
 
-          {dataReturned && cards ? (
+          {/* {dataReturned && cards ? (
             <Col>
               <div style={{ margin: "4rem" }}>
-                <p>got some data</p>
+                <Card
+                  style={{
+                    width: "18rem",
+                    position: "relative",
+                  }}
+                  className="mb-2 stock__Cards"
+                >
+                  <Card.Header>{current.symbol}</Card.Header>
+                  <Card.Body>
+                    <Card.Text>
+                      <strong>{current.name}</strong>{" "}
+                    </Card.Text>
+                    <hr />
+
+                    <div>
+                      <Card.Text>Currency: {current.currency}</Card.Text>
+                      <Card.Text>Market Cap: {current.marketCap}</Card.Text>
+                      <Card.Text>
+                        52 week low % change: {current.fiftyTwoWeekLow}
+                      </Card.Text>
+                    </div>
+                  </Card.Body>
+                </Card>
               </div>
             </Col>
-          ) : null}
+          ) : null} */}
         </Row>
       </div>
     </div>
@@ -132,6 +171,7 @@ const mapStateToProps = (state) => ({
   name: state.account.username,
   username: state.account.username,
   favoritesList: state.stocks.favorites,
+  current: state.stocks.stock_quote,
 });
 
 const mapDispatchToProps = {

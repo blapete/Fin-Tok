@@ -37,12 +37,22 @@ export const getFavoritesAction = ({ username }) => async (dispatch) => {
       type: STOCK_INFO.REQUEST_FAV_ALL_SUCCESS,
       ...payload,
     });
-    console.log("all fav res", res);
   } catch (error) {
     console.error("errr fav all", error);
     return dispatch({
       type: STOCK_INFO.REQUEST_ERROR,
       message: error.response.data.message,
     });
+  }
+};
+
+export const RemoveItemAction = ({ id, user }) => async (dispatch) => {
+  let params = `${id}|${user}`;
+  try {
+    const res = await axios.delete("/fav/remove/" + params);
+
+    console.log("remove fav res", res);
+  } catch (error) {
+    console.error("errr", error);
   }
 };

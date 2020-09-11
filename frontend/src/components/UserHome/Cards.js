@@ -2,12 +2,21 @@ import React from "react";
 import { connect } from "react-redux";
 import { Card, Button } from "react-bootstrap";
 import { stockQuoteAction } from "../../actions/stock";
+import { RemoveItemAction } from "../../actions/favorites";
 
-const Cards = ({ props, stockQuote }) => {
+const Cards = ({ props, stockQuote, removeData, user }) => {
+  let symbol = props.symbol;
   const getData = (e) => {
     e.preventDefault();
-    console.log("getdata::");
-    // stockQuote();
+    console.log("id:::", props.id);
+    stockQuote({ data: symbol }).then((res) => {
+      console.log("quote response:", res);
+    });
+  };
+  const removeItem = (e) => {
+    e.preventDefault();
+    console.log("remove item here:::");
+    removeData({ id: props.id, user });
   };
   return (
     <Card
@@ -21,6 +30,7 @@ const Cards = ({ props, stockQuote }) => {
       <Card.Header>{props.name}</Card.Header>
 
       <Button
+        onClick={getData}
         style={{
           marginBottom: "0.5rem",
           backgroundColor: "rgba(52, 1, 86, 0.5)",
@@ -31,12 +41,12 @@ const Cards = ({ props, stockQuote }) => {
       </Button>
       <p>or</p>
       <Button
+        onClick={removeItem}
         variant="light"
         style={{
           border: "1px solid rgba(52, 1, 86, 0.5)",
           color: "rgba(52, 1, 86, 0.5)",
         }}
-        onClick={getData}
       >
         Remove
       </Button>
@@ -48,9 +58,11 @@ const mapStateToProps = (state, ownProps) => ({
   loggedIn: state.account.loggedIn,
   list: state.stocks.favorites,
   props: ownProps,
+  user: state.account.username,
 });
 const mapDispatchToProps = {
   stockQuote: stockQuoteAction,
+  removeData: RemoveItemAction,
 };
 
-export default connect(mapStateToProps, null)(Cards);
+export default connect(mapStateToProps, mapDispatchToProps)(Cards);

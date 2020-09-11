@@ -47,9 +47,9 @@ class AccountTable {
           }
           return account;
         })
-        .catch((e) => {
-          console.log("e is happening", e);
-          throw e;
+        .catch((error) => {
+          console.log("error:", error);
+          throw error;
         });
     }
   }

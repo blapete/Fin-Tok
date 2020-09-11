@@ -4,7 +4,7 @@ import { STOCK_INFO } from "./types";
 export const stockQuoteAction = ({ data }) => async (dispatch) => {
   try {
     const res = await axios.post("/stock/quote", { data });
-    console.log("stock trending res", res);
+    console.log("stock res", res);
     return dispatch({
       type: STOCK_INFO.REQUEST_QUOTE_SUCCESS,
       data: res.data,
