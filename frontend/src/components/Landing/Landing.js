@@ -4,7 +4,6 @@ import { stockQuoteAction, topStockAction } from "../../actions/stock";
 import { Button, Container, Row, Spinner } from "react-bootstrap";
 import Jumbotron from "../Jumbotron/Jumbotron";
 import Modal from "../Modal/Modal";
-
 import Carousel from "../Carousel/Carousel";
 import Navbar from "../Navbar/Navbar";
 import Moment from "moment";

@@ -40,9 +40,7 @@ export const addFavoriteAction = ({
 export const getFavoritesAction = ({ username }) => async (dispatch) => {
   try {
     const res = await axios.post("/fav/all", { username });
-    console.log("get favorites response:", res);
     let resArray = res.data.favorites;
-    console.log("Peter Blank:", resArray);
     if (resArray.length < 1) {
       return { message: "You have not added any to favorites" };
     }
@@ -51,7 +49,6 @@ export const getFavoritesAction = ({ username }) => async (dispatch) => {
       let fixed = JSON.parse(resArray[i]);
       parsedArray.push(fixed);
     }
-    console.log("parsed array:", parsedArray);
     let payload = {
       message: res.data.message,
       favorites: parsedArray,
@@ -61,7 +58,6 @@ export const getFavoritesAction = ({ username }) => async (dispatch) => {
       ...payload,
     });
   } catch (error) {
-    console.error("errr fav all", error);
     return dispatch({
       type: STOCK_INFO.REQUEST_ERROR,
       message: error.response.data.message,

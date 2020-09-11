@@ -52,7 +52,7 @@ const Homepage = ({
   const getFavorites = (e) => {
     e.preventDefault();
     if (favoritesList.length) {
-      return console.log("one");
+      return setCards(true);
     } else {
       setLoading(true);
       favGet({ username }).then((res) => {
@@ -135,6 +135,20 @@ const Homepage = ({
         <Row>
           {cards ? (
             <Col>
+              <p
+                onClick={() => {
+                  setCards(false);
+                }}
+                style={{
+                  textAlign: "left",
+                  textDecoration: "underline",
+                  margin: "4rem",
+                  paddingLeft: "2rem",
+                  cursor: "pointer",
+                }}
+              >
+                Hide List
+              </p>
               <div style={{ margin: "4rem" }}>
                 {favoritesList.map((e, index) => {
                   return (
