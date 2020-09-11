@@ -14,6 +14,7 @@ const Jumbo = ({ quote, date, stockResponse, reset, auth, favMessage }) => {
   const [spinner, setSpinner] = useState(false);
   const [message, setMessage] = useState(false);
   const [error, setError] = useState(false);
+
   const updateStockQuote = (event) => {
     setStockQuote(event.target.value);
   };
@@ -23,6 +24,7 @@ const Jumbo = ({ quote, date, stockResponse, reset, auth, favMessage }) => {
     if (!stockQuote) {
       return setAlert(!alert);
     }
+    setError(false);
     setTest(true);
     setSpinner(true);
     quote({ data: stockQuote }).then((data) => {
@@ -50,8 +52,9 @@ const Jumbo = ({ quote, date, stockResponse, reset, auth, favMessage }) => {
     if (favMessage === "Already in your favorites") {
       setError(true);
     } else if (favMessage === "added to favorites") {
-      setTest(false);
       setError(true);
+      setTest(false);
+      setStockQuote("");
     }
   }, [favMessage]);
 
@@ -97,7 +100,7 @@ const Jumbo = ({ quote, date, stockResponse, reset, auth, favMessage }) => {
             {alert ? <p>* field required</p> : null}
             <br />
             <br />
-            {stockResponse.ask && stockQuote && !spinner ? (
+            {stockResponse.ask && stockQuote && !spinner && test ? (
               <p
                 style={{ cursor: "pointer", textDecoration: "underline" }}
                 onClick={reSet}
@@ -106,11 +109,7 @@ const Jumbo = ({ quote, date, stockResponse, reset, auth, favMessage }) => {
               </p>
             ) : null}
             <br />
-            {error ? (
-              <p>
-                {stockResponse.longName} {favMessage}
-              </p>
-            ) : null}
+            {error ? <p>{favMessage}</p> : null}
           </Col>
           {test ? (
             <Col>
