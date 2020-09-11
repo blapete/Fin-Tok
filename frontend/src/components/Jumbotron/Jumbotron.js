@@ -3,13 +3,16 @@ import { Container, Row, Jumbotron, Col } from "react-bootstrap";
 import { stockQuoteAction, resetAction } from "../../actions/stock";
 import Card from "./StockCard";
 import { connect } from "react-redux";
-import { Button, FormGroup, FormControl } from "react-bootstrap";
+import { Button, FormGroup, FormControl, Spinner } from "react-bootstrap";
 import "./Jumbotron.css";
 
 const Jumbo = ({ quote, date, stockResponse, reset, auth }) => {
   const [stockQuote, setStockQuote] = useState("");
   const [showCard, setShowCard] = useState(false);
   const [alert, setAlert] = useState(false);
+  const [test, setTest] = useState(false);
+  const [spinner, setSpinner] = useState(false);
+  const [message, setMessage] = useState(false);
 
   const updateStockQuote = (event) => {
     setStockQuote(event.target.value);
@@ -20,25 +23,33 @@ const Jumbo = ({ quote, date, stockResponse, reset, auth }) => {
     if (!stockQuote) {
       return setAlert(!alert);
     }
-    quote({ data: stockQuote });
+    setTest(true);
+    setSpinner(true);
+    quote({ data: stockQuote }).then((data) => {
+      console.log("data", data);
+      setTimeout(() => {
+        if (data.type === "STOCK_INFO_REQUEST_QUOTE_SUCCESS") {
+          setSpinner(false);
+        }
+      }, 2000);
+    });
   };
 
   const reSet = (e) => {
     e.preventDefault();
     reset();
+    setTest(false);
     setStockQuote("");
   };
 
-  // useEffect(() => {
-  //   console.log("DEBUGGER", stockResponse);
-  //   console.log("DEBUGGER2", stockResponse);
-  //   if (stockResponse.ask) {
-  //     console.log("yes");
-  //   } else {
-  //     console.log("no");
-  //   }
-  //   setShowCard(true);
-  // }, [stockResponse]);
+  useEffect(() => {
+    console.log("DEBUGGER", stockResponse);
+    if (stockResponse.symbol) {
+      console.log("yes");
+    } else {
+      setTest(false);
+    }
+  }, [stockResponse]);
 
   return (
     <Jumbotron>
@@ -82,7 +93,7 @@ const Jumbo = ({ quote, date, stockResponse, reset, auth }) => {
             {alert ? <p>* field required</p> : null}
             <br />
             <br />
-            {stockResponse.ask && stockQuote ? (
+            {stockResponse.ask && stockQuote && !spinner ? (
               <p
                 style={{ cursor: "pointer", textDecoration: "underline" }}
                 onClick={reSet}
@@ -91,20 +102,29 @@ const Jumbo = ({ quote, date, stockResponse, reset, auth }) => {
               </p>
             ) : null}
           </Col>
-          {stockResponse.ask ? (
+          {test ? (
             <Col>
-              <Card
-                auth={auth}
-                name={stockResponse.longName}
-                ask={stockResponse.ask}
-                currency={stockResponse.currency}
-                symbol={stockResponse.symbol}
-                cap={stockResponse.marketCap}
-              />
+              {spinner ? (
+                <div style={{ margin: "3rem" }}>
+                  <Spinner animation="grow" />
+                </div>
+              ) : (
+                <Card
+                  auth={auth}
+                  name={stockResponse.longName}
+                  ask={stockResponse.ask}
+                  currency={stockResponse.currency}
+                  symbol={stockResponse.symbol}
+                  cap={stockResponse.marketCap}
+                />
+              )}
             </Col>
           ) : (
             <div></div>
           )}
+        </Row>
+        <Row>
+          <Col>added to favorites</Col>
         </Row>
       </Container>
     </Jumbotron>

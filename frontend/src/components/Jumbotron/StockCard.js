@@ -5,6 +5,7 @@ import { Card, Button } from "react-bootstrap";
 import { addFavoriteAction } from "../../actions/favorites";
 
 const StockCard = ({ info, addFav, user }) => {
+  const flag = "flag";
   const [toSignup, setToSignup] = useState(false);
   let companyName = info.name;
   if (toSignup) {
@@ -48,7 +49,7 @@ const StockCard = ({ info, addFav, user }) => {
         <Button
           onClick={() => {
             return info.auth
-              ? addFav({ companyName, user, symbol })
+              ? addFav({ companyName, user, symbol, flag })
               : setToSignup(true);
           }}
           variant="light"

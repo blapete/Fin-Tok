@@ -13,7 +13,6 @@ const StockCard = (props) => {
       }}
     >
       <Card
-        key={props.key}
         style={{
           width: "18rem",
           position: "relative",

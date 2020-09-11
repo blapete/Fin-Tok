@@ -27,6 +27,9 @@ const Homepage = ({
   const [loading, setLoading] = useState(false);
   const [cards, setCards] = useState(false);
   const [dataReturned, setDataReturned] = useState(false);
+  const [error, setError] = useState({
+    message: "",
+  });
   useEffect(() => {
     if (!loggedIn) {
       window.location.href = "/";
@@ -55,6 +58,12 @@ const Homepage = ({
           if (message === "success - favorites found") {
             setLoading(false);
             setCards(true);
+          } else if (message === "You have not added any to favorites") {
+            setLoading(false);
+            setError({
+              ...error,
+              message,
+            });
           }
         }, [1500]);
       });
@@ -86,6 +95,12 @@ const Homepage = ({
           <Col>
             This is your homepage. You can view your favorites, remove them, and
             add more from the homepage.
+            {error.message ? (
+              <div>
+                <hr />
+                <p>*** {error.message}</p>
+              </div>
+            ) : null}
           </Col>
         </Row>
       </div>

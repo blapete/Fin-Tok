@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { stockQuoteAction, topStockAction } from "../../actions/stock";
-import { Button } from "react-bootstrap";
+import { Button, Container, Row, Spinner } from "react-bootstrap";
 import Jumbotron from "../Jumbotron/Jumbotron";
 import Modal from "../Modal/Modal";
 
@@ -12,6 +12,7 @@ import "./Landing.css";
 
 const Landing = ({ loggedIn, stockQuote, topStocks, stocks }) => {
   const [show25, setShow25] = useState(false);
+  const [waiting, setWaiting] = useState(false);
   let date = Moment().format("MMMM Do YYYY");
   let initialTime = Moment().format("h:mm:ss a");
   const updateTime = () => {
@@ -24,18 +25,31 @@ const Landing = ({ loggedIn, stockQuote, topStocks, stocks }) => {
     // date.innerHTML = currentDate;
   };
 
+  const getAll = () => {
+    if (waiting === true) {
+      return setWaiting(false);
+    }
+    if (stocks.length) {
+      console.log("-------------------------------------------------");
+      setWaiting(true);
+      setShow25(true);
+      return;
+    }
+    setWaiting(true);
+    topStocks().then((res) => {
+      console.log("all res", res);
+      if (res.type === "STOCK_INFO_REQUEST_TOPSTOCKS_SUCCESS") {
+        setShow25(!show25);
+      } else {
+        setWaiting(false);
+      }
+    });
+  };
+
   useEffect(() => {
     const interval = setInterval(updateTime, 1000);
     return () => clearInterval(interval);
   }, []);
-
-  // useEffect(() => {
-  //   async function getStocks() {
-  //     const resp = await topStocks();
-  //     console.log("resp", resp);
-  //   }
-  //   getStocks();
-  // }, []);
 
   const sendRequest = async (e) => {
     e.preventDefault();
@@ -56,17 +70,37 @@ const Landing = ({ loggedIn, stockQuote, topStocks, stocks }) => {
             border: "1px solid white",
           }}
           id="stock__Button"
-          onClick={() => {
-            console.log("touched");
-            setShow25(!show25);
-          }}
+          onClick={getAll}
         >
           Top watched
         </Button>
         <Modal />
       </div>
+      {waiting ? (
+        <div>
+          {show25 ? (
+            <Carousel stocks={stocks} />
+          ) : (
+            <Container style={{ marginTop: "5rem" }}>
+              <Row>
+                <div style={{ margin: "0 auto" }}>
+                  <div className="divider"></div>
 
-      {show25 ? <Carousel stocks={stocks} /> : null}
+                  <Spinner
+                    animation="border"
+                    role="status"
+                    style={{ margin: "1rem" }}
+                  >
+                    <span className="sr-only">Loading...</span>
+                  </Spinner>
+
+                  <div className="divider"></div>
+                </div>
+              </Row>
+            </Container>
+          )}
+        </div>
+      ) : null}
     </div>
   );
 };

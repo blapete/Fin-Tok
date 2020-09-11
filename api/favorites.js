@@ -23,7 +23,9 @@ router.post("/add", (req, res, next) => {
     })
     .then((res) => {
       let arr;
-      if (res[0].dataValues.history) {
+      console.log("1:", res);
+      if (res[0].dataValues.history.length) {
+        console.log("2:", res[0].dataValues.history);
         arr = res[0].dataValues.history;
         let lastId = arr.length - 1;
         let tempValue = JSON.parse(arr[lastId]);
@@ -32,6 +34,7 @@ router.post("/add", (req, res, next) => {
       } else {
         infObject.id = 1;
         arr = [infObject];
+        console.log("3:", arr);
       }
       return db.users.update(
         { history: arr },
@@ -43,9 +46,11 @@ router.post("/add", (req, res, next) => {
       );
     })
     .then((data) => {
+      console.log("5:", data);
       res.json({ data });
     })
     .catch((e) => {
+      console.error("4:", e);
       next(e);
     });
 });

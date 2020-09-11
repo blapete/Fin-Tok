@@ -8,7 +8,7 @@ const NavBar = (props) => {
     return (
       <Navbar bg="dark" variant="dark" expand="lg" style={{ color: "white" }}>
         <Link to="/">
-          <Navbar.Brand>StockHub</Navbar.Brand>
+          <Navbar.Brand>Finance</Navbar.Brand>
         </Link>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
@@ -40,7 +40,7 @@ const NavBar = (props) => {
     return (
       <Navbar bg="dark" variant="dark" expand="lg" style={{ color: "white" }}>
         <Link to="/">
-          <Navbar.Brand>StockHub</Navbar.Brand>
+          <Navbar.Brand>Finance</Navbar.Brand>
         </Link>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">

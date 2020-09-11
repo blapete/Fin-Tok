@@ -1,9 +1,17 @@
 import axios from "axios";
 import { STOCK_INFO } from "./types";
 
-export const addFavoriteAction = ({ companyName, user, symbol }) => async (
-  dispatch
-) => {
+export const addFavoriteAction = ({
+  companyName,
+  user,
+  symbol,
+  flag,
+}) => async (dispatch) => {
+  if (flag) {
+    dispatch({
+      type: STOCK_INFO.RESET,
+    });
+  }
   console.log(companyName, user);
   try {
     const res = await axios.post("/fav/add", {
@@ -23,6 +31,10 @@ export const getFavoritesAction = ({ username }) => async (dispatch) => {
     const res = await axios.post("/fav/all", { username });
     console.log("get favorites response:", res);
     let resArray = res.data.favorites;
+    console.log("Peter Blank:", resArray);
+    if (resArray.length < 1) {
+      return { message: "You have not added any to favorites" };
+    }
     let parsedArray = [];
     for (let i = 0; i < resArray.length; i++) {
       let fixed = JSON.parse(resArray[i]);

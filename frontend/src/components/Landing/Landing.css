@@ -36,3 +36,10 @@
   align-items: center;
   padding: 5px;
 }
+
+.divider {
+  display: inline-block;
+  border-bottom: black 1px solid;
+  width: 100px;
+  margin: 30px;
+}
