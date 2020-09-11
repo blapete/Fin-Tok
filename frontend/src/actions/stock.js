@@ -10,10 +10,10 @@ export const stockQuoteAction = ({ data }) => async (dispatch) => {
       data: res.data,
     });
   } catch (error) {
-    console.error(error);
+    console.log(Object.keys(error), error.response);
     return dispatch({
       type: STOCK_INFO.REQUEST_ERROR,
-      message: "there is an err",
+      message: error.response.data.message,
     });
   }
 };

@@ -9,6 +9,10 @@ router.post("/quote", (req, res, next) => {
   axios
     .get(STOCK_QUOTE + symbol, YAHOO_CREDENTIALS)
     .then(function (response) {
+      if (!response.data.length) {
+        const error = new Error("Invalid symbol");
+        throw error;
+      }
       let data = new Object();
       data.ask = response.data[0].ask;
       data.fiftyTwoWeekLow = response.data[0].fiftyTwoWeekLow;
@@ -21,7 +25,7 @@ router.post("/quote", (req, res, next) => {
       res.json(data);
     })
     .catch((error) => {
-      console.log(error);
+      console.log("error here", error);
       next(error);
     });
 });
