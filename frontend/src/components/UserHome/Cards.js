@@ -18,6 +18,7 @@ const Cards = ({ props, stockQuote, removeData, user }) => {
     console.log("remove item here:::");
     removeData({ id: props.id, user });
   };
+
   return (
     <Card
       key={props.key}

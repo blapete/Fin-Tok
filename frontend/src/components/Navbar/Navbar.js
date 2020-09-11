@@ -1,13 +1,15 @@
 import React from "react";
 import { Button, Navbar, Nav } from "react-bootstrap";
+import { resetAction } from "../../actions/stock";
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import Logout from "../Logout/Logout";
 
-const NavBar = (props) => {
+const NavBar = ({ props, reset }) => {
   if (props.status === true) {
     return (
       <Navbar bg="dark" variant="dark" expand="lg" style={{ color: "white" }}>
-        <Link to="/">
+        <Link to="/" onClick={reset}>
           <Navbar.Brand>Finance</Navbar.Brand>
         </Link>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -91,4 +93,12 @@ const NavBar = (props) => {
   }
 };
 
-export default NavBar;
+const mapStateToProps = (state, ownProps) => ({
+  props: ownProps,
+});
+
+const mapDispatchToProps = {
+  reset: resetAction,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(NavBar);

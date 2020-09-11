@@ -5,6 +5,7 @@ const DEFAULT_STOCKS = {
   top_stocks: [],
   favorites: [],
   stock_quote: {},
+  message: "",
 };
 
 const stocks = (state = DEFAULT_STOCKS, action) => {
@@ -43,6 +44,7 @@ const stocks = (state = DEFAULT_STOCKS, action) => {
       return {
         ...state,
         stock_quote: {},
+        message: "",
       };
     default:
       return state;

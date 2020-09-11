@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { getFavoritesAction } from "../../actions/favorites";
+import { resetAction } from "../../actions/stock";
 import { Card } from "react-bootstrap";
 
 import {
@@ -22,8 +23,10 @@ const Homepage = ({
   username,
   favoritesList,
   current,
+  reset,
 }) => {
   let count = 0;
+
   const [loading, setLoading] = useState(false);
   const [cards, setCards] = useState(false);
   const [dataReturned, setDataReturned] = useState(false);
@@ -40,6 +43,7 @@ const Homepage = ({
   //onclick get the data from yahooFinance.
   //delete button to remove from db favorites.
   useEffect(() => {
+    console.log("helllooooo");
     if (current.ask) {
       setDataReturned(true);
     }
@@ -191,6 +195,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
   favGet: getFavoritesAction,
+  reset: resetAction,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Homepage);

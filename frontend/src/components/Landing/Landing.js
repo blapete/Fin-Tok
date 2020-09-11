@@ -17,12 +17,10 @@ const Landing = ({ loggedIn, stockQuote, topStocks, stocks }) => {
   let initialTime = Moment().format("h:mm:ss a");
   const updateTime = () => {
     const time = document.getElementById("clock__Time");
-    // const date = document.getElementById("clock__Date");
     const now = Moment();
     const ticking = now.format("h:mm:ss a");
     const currentDate = now.format("MMMM Do YYYY");
     time.innerHTML = ticking;
-    // date.innerHTML = currentDate;
   };
 
   const getAll = () => {
@@ -30,7 +28,6 @@ const Landing = ({ loggedIn, stockQuote, topStocks, stocks }) => {
       return setWaiting(false);
     }
     if (stocks.length) {
-      console.log("-------------------------------------------------");
       setWaiting(true);
       setShow25(true);
       return;
@@ -54,7 +51,6 @@ const Landing = ({ loggedIn, stockQuote, topStocks, stocks }) => {
   const sendRequest = async (e) => {
     e.preventDefault();
     const thing = await stockQuote();
-    console.log("thing", thing);
   };
   return (
     <div style={{ height: "100%" }}>

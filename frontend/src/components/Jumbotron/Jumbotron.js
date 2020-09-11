@@ -24,11 +24,13 @@ const Jumbo = ({ quote, date, stockResponse, reset, auth, favMessage }) => {
     if (!stockQuote) {
       return setAlert(!alert);
     }
+    if (favMessage !== "") {
+      reset();
+    }
     setError(false);
     setTest(true);
     setSpinner(true);
     quote({ data: stockQuote }).then((data) => {
-      console.log("data", data);
       setTimeout(() => {
         if (data.type === "STOCK_INFO_REQUEST_QUOTE_SUCCESS") {
           setSpinner(false);
@@ -48,7 +50,6 @@ const Jumbo = ({ quote, date, stockResponse, reset, auth, favMessage }) => {
   };
 
   useEffect(() => {
-    console.log("---------------------------", favMessage);
     if (favMessage === "Already in your favorites") {
       setError(true);
     } else if (favMessage === "added to favorites") {
