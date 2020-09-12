@@ -69,8 +69,21 @@ export const RemoveItemAction = ({ id, user }) => async (dispatch) => {
   let params = `${id}|${user}`;
   try {
     const res = await axios.delete("/fav/remove/" + params);
-
-    console.log("remove fav res", res);
+    const favs = res.data.favorites;
+    console.log("remove fav res", res.data);
+    let parsedArray = [];
+    for (let i = 0; i < favs.length; i++) {
+      let fixed = JSON.parse(favs[i]);
+      parsedArray.push(fixed);
+    }
+    console.log("parsed", parsedArray);
+    let obj = new Object();
+    obj.favorites = parsedArray;
+    obj.message = res.data.message;
+    dispatch({
+      type: STOCK_INFO.REQUEST_REMOVED_SUCCESS,
+      ...obj,
+    });
   } catch (error) {
     console.error("errr", error);
   }

@@ -92,8 +92,8 @@ const Homepage = ({
               <ListGroup.Item action onClick={getFavorites}>
                 view my favs
               </ListGroup.Item>
-              <ListGroup.Item action>do something else</ListGroup.Item>
-              <ListGroup.Item action>do somethng else</ListGroup.Item>
+              {/* <ListGroup.Item action>do something else</ListGroup.Item>
+              <ListGroup.Item action>do somethng else</ListGroup.Item> */}
             </ListGroup>
           </Col>
           <Col>
@@ -131,69 +131,74 @@ const Homepage = ({
       ) : null}
 
       <br />
-      <div>
-        <Row>
-          {cards ? (
-            <Col>
-              <p
-                onClick={() => {
-                  setCards(false);
-                }}
+      {dataReturned ? (
+        <Container>
+          <Row>
+            <div style={{ margin: "4rem auto" }}>
+              <Card
                 style={{
-                  textAlign: "left",
-                  textDecoration: "underline",
-                  margin: "4rem",
-                  paddingLeft: "2rem",
-                  cursor: "pointer",
+                  width: "18rem",
+                  position: "relative",
                 }}
+                className="mb-2 stock__Cards"
               >
-                Hide List
-              </p>
-              <div style={{ margin: "4rem" }}>
-                {favoritesList.map((e, index) => {
-                  return (
-                    <StockCard
-                      key={index}
-                      id={e.id}
-                      name={e.name}
-                      symbol={e.symbol}
-                    />
-                  );
-                })}
-              </div>
-            </Col>
-          ) : null}
+                <Card.Header>{current.symbol}</Card.Header>
+                <Card.Body>
+                  <Card.Text>
+                    <strong>{current.name}</strong>{" "}
+                  </Card.Text>
+                  <hr />
 
-          {/* {dataReturned && cards ? (
-            <Col>
-              <div style={{ margin: "4rem" }}>
-                <Card
-                  style={{
-                    width: "18rem",
-                    position: "relative",
-                  }}
-                  className="mb-2 stock__Cards"
-                >
-                  <Card.Header>{current.symbol}</Card.Header>
-                  <Card.Body>
+                  <div>
+                    <Card.Text>Currency: {current.currency}</Card.Text>
+                    <Card.Text>Market Cap: {current.marketCap}</Card.Text>
                     <Card.Text>
-                      <strong>{current.name}</strong>{" "}
+                      52 week low % change: {current.fiftyTwoWeekLow}
                     </Card.Text>
-                    <hr />
+                  </div>
+                </Card.Body>
+              </Card>
+            </div>
+          </Row>
+        </Container>
+      ) : null}
+      <div>
+        {cards ? (
+          <div>
+            <p
+              onClick={() => {
+                setCards(false);
+              }}
+              style={{
+                textDecoration: "underline",
+                margin: "4rem",
 
-                    <div>
-                      <Card.Text>Currency: {current.currency}</Card.Text>
-                      <Card.Text>Market Cap: {current.marketCap}</Card.Text>
-                      <Card.Text>
-                        52 week low % change: {current.fiftyTwoWeekLow}
-                      </Card.Text>
-                    </div>
-                  </Card.Body>
-                </Card>
-              </div>
-            </Col>
-          ) : null} */}
-        </Row>
+                cursor: "pointer",
+              }}
+            >
+              Hide List
+            </p>
+            <div
+              style={{
+                margin: "4rem",
+                display: "flex",
+                flexWrap: "wrap",
+                justifyContent: "space-between",
+              }}
+            >
+              {favoritesList.map((e, index) => {
+                return (
+                  <StockCard
+                    key={index}
+                    id={e.id}
+                    name={e.name}
+                    symbol={e.symbol}
+                  />
+                );
+              })}
+            </div>
+          </div>
+        ) : null}
       </div>
     </div>
   );

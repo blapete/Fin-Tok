@@ -119,9 +119,23 @@ router.delete("/remove/:data", (req, response, next) => {
       );
     })
     .then((data) => {
-      response.json({ data });
+      console.log("data", data);
+      db.users
+        .findAll({
+          where: {
+            usernameHash: username,
+          },
+        })
+        .then((res) => {
+          let arr = res[0].dataValues.history;
+          response.json({
+            message: "removed item",
+            favorites: arr,
+          });
+        });
     })
     .catch((error) => {
+      console.erre(error);
       next(error);
     });
 });

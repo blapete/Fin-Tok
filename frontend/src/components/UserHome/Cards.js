@@ -8,23 +8,28 @@ const Cards = ({ props, stockQuote, removeData, user }) => {
   let symbol = props.symbol;
   const getData = (e) => {
     e.preventDefault();
+
     console.log("id:::", props.id);
     stockQuote({ data: symbol }).then((res) => {
       console.log("quote response:", res);
+      window.scrollTo(0, 0);
     });
   };
   const removeItem = (e) => {
     e.preventDefault();
-    console.log("remove item here:::");
-    removeData({ id: props.id, user });
+    removeData({ id: props.id, user }).then((res) => {
+      console.log("removed respose::::::", res);
+    });
   };
 
   return (
     <Card
       key={props.key}
       style={{
-        width: "18rem",
+        width: "33%",
         border: "1px solid gray",
+        flexGrow: "1",
+        margin: "4rem",
       }}
       className="mb-2 stock__Cards"
     >
@@ -40,6 +45,7 @@ const Cards = ({ props, stockQuote, removeData, user }) => {
       >
         View
       </Button>
+
       <p>or</p>
       <Button
         onClick={removeItem}

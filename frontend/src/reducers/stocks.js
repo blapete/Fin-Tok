@@ -33,6 +33,13 @@ const stocks = (state = DEFAULT_STOCKS, action) => {
         stock_quote: action.data.data,
         message: action.data.message,
       };
+    case STOCK_INFO.REQUEST_REMOVED_SUCCESS:
+      return {
+        ...state,
+        status: requestStates.success,
+        message: action.message,
+        favorites: action.favorites,
+      };
     case STOCK_INFO.REQUEST_FAV_ALL_SUCCESS:
       return {
         ...state,
