@@ -33,6 +33,7 @@ const Homepage = ({
   const [error, setError] = useState({
     message: "",
   });
+  const [buttonClicked, setButtonClicked] = useState(false);
   useEffect(() => {
     if (!loggedIn) {
       window.location.href = "/";
@@ -44,19 +45,21 @@ const Homepage = ({
   //delete button to remove from db favorites.
   useEffect(() => {
     console.log("helllooooo");
-    if (current.ask) {
+    if (current.symbol) {
       setDataReturned(true);
     }
   }, [current]);
 
   const getFavorites = (e) => {
     e.preventDefault();
+    setButtonClicked(true);
     if (favoritesList.length) {
       return setCards(true);
     } else {
       setLoading(true);
       favGet({ username }).then((res) => {
         console.log(res);
+
         let message = res.message;
         setTimeout(() => {
           if (message === "success - favorites found") {
@@ -131,7 +134,7 @@ const Homepage = ({
       ) : null}
 
       <br />
-      {dataReturned ? (
+      {dataReturned && buttonClicked && current.symbol ? (
         <Container>
           <Row>
             <div style={{ margin: "4rem auto" }}>
@@ -165,19 +168,23 @@ const Homepage = ({
       <div>
         {cards ? (
           <div>
-            <p
-              onClick={() => {
-                setCards(false);
-              }}
-              style={{
-                textDecoration: "underline",
-                margin: "4rem",
+            {favoritesList.length ? (
+              <p
+                onClick={() => {
+                  setCards(false);
+                  setButtonClicked(false);
+                }}
+                style={{
+                  textDecoration: "underline",
+                  margin: "4rem",
 
-                cursor: "pointer",
-              }}
-            >
-              Hide List
-            </p>
+                  cursor: "pointer",
+                }}
+              >
+                Hide List
+              </p>
+            ) : null}
+
             <div
               style={{
                 margin: "4rem",

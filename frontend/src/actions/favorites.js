@@ -80,6 +80,7 @@ export const RemoveItemAction = ({ id, user }) => async (dispatch) => {
     let obj = new Object();
     obj.favorites = parsedArray;
     obj.message = res.data.message;
+
     dispatch({
       type: STOCK_INFO.REQUEST_REMOVED_SUCCESS,
       ...obj,

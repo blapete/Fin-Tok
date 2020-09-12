@@ -39,6 +39,7 @@ const stocks = (state = DEFAULT_STOCKS, action) => {
         status: requestStates.success,
         message: action.message,
         favorites: action.favorites,
+        stock_quote: {},
       };
     case STOCK_INFO.REQUEST_FAV_ALL_SUCCESS:
       return {
@@ -52,6 +53,7 @@ const stocks = (state = DEFAULT_STOCKS, action) => {
         ...state,
         stock_quote: {},
         message: "",
+        favorites: [],
       };
     default:
       return state;

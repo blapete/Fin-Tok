@@ -16,6 +16,7 @@ const NavBar = ({ props, reset }) => {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
             <Link
+              onClick={reset}
               id="home__Link"
               to="/home"
               style={{ textDecoration: "none", color: "white" }}
