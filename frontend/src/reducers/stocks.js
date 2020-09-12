@@ -24,14 +24,14 @@ const stocks = (state = DEFAULT_STOCKS, action) => {
       return {
         ...state,
         status: requestStates.success,
-        message: action.message,
         top_stocks: action.data,
       };
     case STOCK_INFO.REQUEST_QUOTE_SUCCESS:
       return {
         ...state,
         status: requestStates.success,
-        stock_quote: action.data,
+        stock_quote: action.data.data,
+        message: action.data.message,
       };
     case STOCK_INFO.REQUEST_FAV_ALL_SUCCESS:
       return {

@@ -13,6 +13,16 @@ router.post("/quote", (req, res, next) => {
         const error = new Error("Invalid symbol");
         throw error;
       }
+      console.log("data here here ", response.data);
+      if (
+        !response.data[0].ask ||
+        !response.data[0].longName ||
+        !response.data[0].marketCap ||
+        !response.data[0].symbol
+      ) {
+        const error = new Error("No data");
+        throw error;
+      }
       let data = new Object();
       data.ask = response.data[0].ask;
       data.fiftyTwoWeekLow = response.data[0].fiftyTwoWeekLow;
@@ -22,7 +32,7 @@ router.post("/quote", (req, res, next) => {
       data.longName = response.data[0].longName;
       data.marketCap = response.data[0].marketCap;
       data.symbol = response.data[0].symbol;
-      res.json(data);
+      res.json({ data, message: "Found stock" });
     })
     .catch((error) => {
       console.log("error here", error);

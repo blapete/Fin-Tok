@@ -56,8 +56,15 @@ const Jumbo = ({ quote, date, stockResponse, reset, auth, favMessage }) => {
       setError(true);
       setTest(false);
       setStockQuote("");
+    } else if (favMessage === "Invalid symbol") {
+      setTest(false);
+      setError(true);
+    } else if (favMessage === "No data") {
+      console.log(favMessage);
+      setTest(false);
+      setError(true);
     }
-  }, [favMessage]);
+  }, [favMessage, stockResponse]);
 
   return (
     <Jumbotron>

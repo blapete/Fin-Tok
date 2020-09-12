@@ -41,7 +41,7 @@ const NavBar = ({ props, reset }) => {
   } else {
     return (
       <Navbar bg="dark" variant="dark" expand="lg" style={{ color: "white" }}>
-        <Link to="/">
+        <Link to="/" onClick={reset}>
           <Navbar.Brand>Finance</Navbar.Brand>
         </Link>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />

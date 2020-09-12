@@ -25,7 +25,6 @@ export const topStockAction = () => async (dispatch) => {
     console.log("top stock res", res);
     return dispatch({
       type: STOCK_INFO.REQUEST_TOPSTOCKS_SUCCESS,
-      message: res.data.message,
       data: res.data.data,
     });
   } catch (error) {
