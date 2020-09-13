@@ -24,7 +24,6 @@ export const accountRequest = ({
         url: endpoint,
       });
     }
-    console.log("action res:", res);
     return dispatch({
       type: SUCCESS_TYPE,
       ...res.data,

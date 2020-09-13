@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { stockQuoteAction, topStockAction } from "../../actions/stock";
+import { quote, topWatched } from "../../actions/yahoo";
 import { Button, Container, Row, Spinner } from "react-bootstrap";
 import Jumbotron from "../Jumbotron/Jumbotron";
 import Modal from "../Modal/Modal";
@@ -107,8 +107,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = {
-  stockQuote: stockQuoteAction,
-  topStocks: topStockAction,
+  stockQuote: quote,
+  topStocks: topWatched,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Landing);

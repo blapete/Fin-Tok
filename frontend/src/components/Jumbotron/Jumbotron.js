@@ -1,12 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { Container, Row, Jumbotron, Col } from "react-bootstrap";
-import { stockQuoteAction, resetAction } from "../../actions/stock";
+import { quote, reset } from "../../actions/yahoo";
 import Card from "./StockCard";
 import { connect } from "react-redux";
 import { Button, FormGroup, FormControl, Spinner } from "react-bootstrap";
 import "./Jumbotron.css";
 
-const Jumbo = ({ quote, date, stockResponse, reset, auth, favMessage }) => {
+const Jumbo = ({
+  getQuote,
+  date,
+  stockResponse,
+  resetStockData,
+  auth,
+  favMessage,
+}) => {
   const [stockQuote, setStockQuote] = useState("");
   const [showCard, setShowCard] = useState(false);
   const [alert, setAlert] = useState(false);
@@ -19,18 +26,18 @@ const Jumbo = ({ quote, date, stockResponse, reset, auth, favMessage }) => {
     setStockQuote(event.target.value);
   };
 
-  const getQuote = (e) => {
+  const getQuoteData = (e) => {
     e.preventDefault();
     if (!stockQuote) {
       return setAlert(!alert);
     }
     if (favMessage !== "") {
-      reset();
+      resetStockData();
     }
     setError(false);
     setTest(true);
     setSpinner(true);
-    quote({ data: stockQuote }).then((data) => {
+    getQuote({ data: stockQuote }).then((data) => {
       setTimeout(() => {
         if (data.type === "STOCK_INFO_REQUEST_QUOTE_SUCCESS") {
           setSpinner(false);
@@ -44,7 +51,7 @@ const Jumbo = ({ quote, date, stockResponse, reset, auth, favMessage }) => {
     if (error) {
       setError(false);
     }
-    reset();
+    resetStockData();
     setTest(false);
     setStockQuote("");
   };
@@ -99,7 +106,7 @@ const Jumbo = ({ quote, date, stockResponse, reset, auth, favMessage }) => {
                     border: "1px solid rgba(52, 1, 86, 0.5)",
                     color: "rgba(52, 1, 86, 0.9)",
                   }}
-                  onClick={getQuote}
+                  onClick={getQuoteData}
                 >
                   Search
                 </Button>
@@ -159,8 +166,8 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = {
-  quote: stockQuoteAction,
-  reset: resetAction,
+  getQuote: quote,
+  resetStockData: reset,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Jumbo);

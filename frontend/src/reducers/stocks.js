@@ -30,8 +30,8 @@ const stocks = (state = DEFAULT_STOCKS, action) => {
       return {
         ...state,
         status: requestStates.success,
-        stock_quote: action.data.data,
-        message: action.data.message,
+        stock_quote: action.data,
+        message: action.message,
       };
     case STOCK_INFO.REQUEST_REMOVED_SUCCESS:
       return {

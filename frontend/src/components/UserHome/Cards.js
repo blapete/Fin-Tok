@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Card, Button } from "react-bootstrap";
-import { stockQuoteAction } from "../../actions/stock";
+import { quote } from "../../actions/yahoo";
 import { RemoveItemAction } from "../../actions/favorites";
 
 const Cards = ({ props, stockQuote, removeData, user }) => {
@@ -68,7 +68,7 @@ const mapStateToProps = (state, ownProps) => ({
   user: state.account.username,
 });
 const mapDispatchToProps = {
-  stockQuote: stockQuoteAction,
+  stockQuote: quote,
   removeData: RemoveItemAction,
 };
 

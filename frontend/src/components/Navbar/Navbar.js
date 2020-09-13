@@ -1,22 +1,22 @@
 import React from "react";
 import { Button, Navbar, Nav } from "react-bootstrap";
-import { resetAction } from "../../actions/stock";
+import { reset } from "../../actions/yahoo";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import Logout from "../Logout/Logout";
 
-const NavBar = ({ props, reset }) => {
+const NavBar = ({ props, resetStockData }) => {
   if (props.status === true) {
     return (
       <Navbar bg="dark" variant="dark" expand="lg" style={{ color: "white" }}>
-        <Link to="/" onClick={reset}>
+        <Link to="/" onClick={resetStockData}>
           <Navbar.Brand>Finance</Navbar.Brand>
         </Link>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
             <Link
-              onClick={reset}
+              onClick={resetStockData}
               id="home__Link"
               to="/home"
               style={{ textDecoration: "none", color: "white" }}
@@ -42,7 +42,7 @@ const NavBar = ({ props, reset }) => {
   } else {
     return (
       <Navbar bg="dark" variant="dark" expand="lg" style={{ color: "white" }}>
-        <Link to="/" onClick={reset}>
+        <Link to="/" onClick={resetStockData}>
           <Navbar.Brand>Finance</Navbar.Brand>
         </Link>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -99,7 +99,7 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = {
-  reset: resetAction,
+  resetStockData: reset,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(NavBar);
