@@ -1,5 +1,5 @@
-import { ACCOUNT } from "../actions/types";
 import requestStates from "./request";
+import { ACCOUNT } from "../actions/types";
 
 const DEFAULT_ACCOUNT = { loggedIn: false };
 

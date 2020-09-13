@@ -103,8 +103,8 @@ const Landing = ({ loggedIn, stockQuote, topStocks, stocks }) => {
 
 const mapStateToProps = (state) => ({
   loggedIn: state.account.loggedIn,
-  stocks: state.stocks.top_stocks,
-  searchMessage: state.stocks.message,
+  stocks: state.yahoo.top_stocks,
+  searchMessage: state.yahoo.message,
 });
 
 const mapDispatchToProps = {

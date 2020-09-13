@@ -14,6 +14,7 @@ const Jumbo = ({
   resetStockData,
   auth,
   favMessage,
+  yahooMessage,
 }) => {
   const [stockQuote, setStockQuote] = useState("");
   const [showCard, setShowCard] = useState(false);
@@ -40,7 +41,7 @@ const Jumbo = ({
     setSpinner(true);
     getQuote({ data: stockQuote }).then((data) => {
       setTimeout(() => {
-        if (data.type === "STOCK_INFO_REQUEST_QUOTE_SUCCESS") {
+        if (data.type === "YAHOO_REQUEST_QUOTE_SUCCESS") {
           setSpinner(false);
         }
       }, 2000);
@@ -64,10 +65,10 @@ const Jumbo = ({
       setError(true);
       setTest(false);
       setStockQuote("");
-    } else if (favMessage === "Invalid symbol") {
+    } else if (yahooMessage === "Invalid symbol") {
       setTest(false);
       setError(true);
-    } else if (favMessage === "No data") {
+    } else if (yahooMessage === "No data") {
       console.log(favMessage);
       setTest(false);
       setError(true);
@@ -125,7 +126,7 @@ const Jumbo = ({
               </p>
             ) : null}
             <br />
-            {error ? <p>{favMessage}</p> : null}
+            {error ? <p>{yahooMessage}</p> : null}
           </Col>
           {test ? (
             <Col>
@@ -162,8 +163,9 @@ const mapStateToProps = (state, ownProps) => ({
   auth: state.account.loggedIn,
   message: state.account.message,
   favMessage: state.stocks.message,
+  yahooMessage: state.yahoo.message,
   date: ownProps.date,
-  stockResponse: state.stocks.stock_quote,
+  stockResponse: state.yahoo.stock_quote,
 });
 
 const mapDispatchToProps = {

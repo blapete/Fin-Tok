@@ -1,5 +1,5 @@
 import axios from "axios";
-import { STOCK_INFO } from "./types";
+import { STOCK_INFO, YAHOO } from "./types";
 
 export const accountStocksRequest = ({
   method,
@@ -16,6 +16,7 @@ export const accountStocksRequest = ({
       url: endpoint,
       data: data,
     });
+    console.log("stocksdataresponseeeeeeeee:", stocksData);
     let favoritesArray;
     if (stocksData.data.favorites) {
       if (
@@ -24,6 +25,11 @@ export const accountStocksRequest = ({
       ) {
         console.log(stocksData);
         return { message: "You have not added any to favorites" };
+      }
+      if (!stocksData.data.favorites.length) {
+        return dispatch({
+          type: YAHOO.RESET,
+        });
       }
       favoritesArray = stocksData.data.favorites;
       let parsedArray = [];
@@ -96,5 +102,9 @@ export const removeFavorite = ({ id, user }) => {
 export const reset = () => async (dispatch) => {
   dispatch({
     type: STOCK_INFO.RESET,
+  });
+
+  dispatch({
+    type: YAHOO.RESET,
   });
 };

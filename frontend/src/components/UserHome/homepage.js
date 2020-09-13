@@ -216,7 +216,7 @@ const mapStateToProps = (state) => ({
   name: state.account.username,
   username: state.account.username,
   favoritesList: state.stocks.favorites,
-  current: state.stocks.stock_quote,
+  current: state.yahoo.stock_quote,
 });
 
 const mapDispatchToProps = {
