@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Container, Row, Jumbotron, Col } from "react-bootstrap";
-import { quote, reset } from "../../actions/yahoo";
+import { quote } from "../../actions/yahoo";
+import { reset } from "../../actions/accountStocks";
 import Card from "./StockCard";
 import { connect } from "react-redux";
 import { Button, FormGroup, FormControl, Spinner } from "react-bootstrap";

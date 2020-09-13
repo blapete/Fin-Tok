@@ -20,8 +20,9 @@ export const accountStocksRequest = ({
     if (stocksData.data.favorites) {
       if (
         !stocksData.data.favorites.length &&
-        stocksData.data.message !== "removed item"
+        stocksData.data.message === "success - favorites found"
       ) {
+        console.log(stocksData);
         return { message: "You have not added any to favorites" };
       }
       favoritesArray = stocksData.data.favorites;
@@ -89,5 +90,11 @@ export const removeFavorite = ({ id, user }) => {
     REQUEST_TYPE: STOCK_INFO.REQUEST,
     ERROR_TYPE: STOCK_INFO.REQUEST_ERROR,
     SUCCESS_TYPE: STOCK_INFO.REQUEST_REMOVED_SUCCESS,
+  });
+};
+
+export const reset = () => async (dispatch) => {
+  dispatch({
+    type: STOCK_INFO.RESET,
   });
 };

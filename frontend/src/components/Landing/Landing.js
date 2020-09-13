@@ -34,7 +34,7 @@ const Landing = ({ loggedIn, stockQuote, topStocks, stocks }) => {
     setWaiting(true);
     topStocks().then((res) => {
       console.log("all res", res);
-      if (res.type === "STOCK_INFO_REQUEST_TOPSTOCKS_SUCCESS") {
+      if (res.type === "YAHOO_REQUEST_TOPSTOCKS_SUCCESS") {
         setShow25(!show25);
       } else {
         setWaiting(false);
@@ -43,6 +43,7 @@ const Landing = ({ loggedIn, stockQuote, topStocks, stocks }) => {
   };
 
   useEffect(() => {
+    console.log("time");
     const interval = setInterval(updateTime, 1000);
     return () => clearInterval(interval);
   }, []);

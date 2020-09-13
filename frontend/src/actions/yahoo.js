@@ -1,5 +1,5 @@
 import axios from "axios";
-import { STOCK_INFO } from "./types";
+import { YAHOO } from "./types";
 
 export const yahooRequest = ({
   method,
@@ -38,9 +38,9 @@ export const quote = ({ data }) =>
     data: {
       data,
     },
-    REQUEST_TYPE: STOCK_INFO.REQUEST,
-    ERROR_TYPE: STOCK_INFO.REQUEST_ERROR,
-    SUCCESS_TYPE: STOCK_INFO.REQUEST_QUOTE_SUCCESS,
+    REQUEST_TYPE: YAHOO.REQUEST,
+    ERROR_TYPE: YAHOO.REQUEST_ERROR,
+    SUCCESS_TYPE: YAHOO.REQUEST_QUOTE_SUCCESS,
   });
 
 export const topWatched = () =>
@@ -48,13 +48,7 @@ export const topWatched = () =>
     method: "get",
     endpoint: "/stock/topstocks",
     data: undefined,
-    REQUEST_TYPE: STOCK_INFO.REQUEST,
-    ERROR_TYPE: STOCK_INFO.REQUEST_ERROR,
-    SUCCESS_TYPE: STOCK_INFO.REQUEST_TOPSTOCKS_SUCCESS,
+    REQUEST_TYPE: YAHOO.REQUEST,
+    ERROR_TYPE: YAHOO.REQUEST_ERROR,
+    SUCCESS_TYPE: YAHOO.REQUEST_TOPSTOCKS_SUCCESS,
   });
-
-export const reset = () => async (dispatch) => {
-  dispatch({
-    type: STOCK_INFO.RESET,
-  });
-};

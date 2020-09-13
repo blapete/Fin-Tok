@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { allFavorites } from "../../actions/accountStocks";
-import { reset } from "../../actions/yahoo";
+import { reset } from "../../actions/accountStocks";
 import { Card } from "react-bootstrap";
 
 import {
