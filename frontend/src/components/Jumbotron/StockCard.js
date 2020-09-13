@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { Card, Button } from "react-bootstrap";
-import { addFavoriteAction } from "../../actions/favorites";
+import { addFavorite } from "../../actions/accountStocks";
 
 const StockCard = ({ info, addFav, user }) => {
   const flag = true;
@@ -73,7 +73,7 @@ const mapStateToinfo = (state, owninfo) => ({
 });
 
 const mapDispatchToinfo = {
-  addFav: addFavoriteAction,
+  addFav: addFavorite,
 };
 
 export default connect(mapStateToinfo, mapDispatchToinfo)(StockCard);

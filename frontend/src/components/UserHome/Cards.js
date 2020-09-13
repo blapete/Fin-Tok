@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { Card, Button } from "react-bootstrap";
 import { quote } from "../../actions/yahoo";
-import { RemoveItemAction } from "../../actions/favorites";
+import { removeFavorite } from "../../actions/accountStocks";
 
 const Cards = ({ props, stockQuote, removeData, user }) => {
   let symbol = props.symbol;
@@ -69,7 +69,7 @@ const mapStateToProps = (state, ownProps) => ({
 });
 const mapDispatchToProps = {
   stockQuote: quote,
-  removeData: RemoveItemAction,
+  removeData: removeFavorite,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cards);

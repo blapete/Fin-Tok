@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { getFavoritesAction } from "../../actions/favorites";
+import { allFavorites } from "../../actions/accountStocks";
 import { reset } from "../../actions/yahoo";
 import { Card } from "react-bootstrap";
 
@@ -220,7 +220,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = {
-  favGet: getFavoritesAction,
+  favGet: allFavorites,
   resetStockData: reset,
 };
 

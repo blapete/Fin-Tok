@@ -11,22 +11,22 @@ export const accountRequest = ({
 }) => async (dispatch) => {
   dispatch({ type: REQUEST_TYPE });
   try {
-    let res;
+    let response;
     if (data) {
-      res = await axios({
+      response = await axios({
         method: method,
         url: endpoint,
         data: data,
       });
     } else {
-      res = await axios({
+      response = await axios({
         method: method,
         url: endpoint,
       });
     }
     return dispatch({
       type: SUCCESS_TYPE,
-      ...res.data,
+      ...response.data,
     });
   } catch (error) {
     return dispatch({
