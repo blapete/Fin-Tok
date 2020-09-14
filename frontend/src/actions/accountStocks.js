@@ -11,49 +11,53 @@ export const accountStocksRequest = ({
 }) => async (dispatch) => {
   dispatch({ type: REQUEST_TYPE });
   try {
-    const stocksData = await axios({
+    const accountStocksResponse = await axios({
       method: method,
       url: endpoint,
       data: data,
     });
-    let favoritesArray;
-    if (stocksData.data.favorites) {
+    let accountStocksArray;
+    // this if block is for removeFavorite & allFavorites action
+    if (accountStocksResponse.data.favorites) {
+      // if the request is sent for account stocks & the user has none
       if (
-        !stocksData.data.favorites.length &&
-        stocksData.data.message === "success - favorites found"
+        !accountStocksResponse.data.favorites.length &&
+        accountStocksResponse.data.message === "success - favorites found"
       ) {
-        console.log(stocksData);
         return { message: "You have not added any to favorites" };
       }
+      // if the user removed the last account stock they have, clear yahoo store
       if (
-        !stocksData.data.favorites.length ||
-        stocksData.data.message === "removed item"
+        !accountStocksResponse.data.favorites.length ||
+        accountStocksResponse.data.message === "removed item"
       ) {
         dispatch({
           type: YAHOO.RESET,
         });
       }
-
-      favoritesArray = stocksData.data.favorites;
-      let parsedArray = [];
-      for (let i = 0; i < favoritesArray.length; i++) {
-        let fixed = JSON.parse(favoritesArray[i]);
-        parsedArray.push(fixed);
+      // response account stocks is in json => parse
+      accountStocksArray = accountStocksResponse.data.favorites;
+      let parsedStocks = [];
+      for (let i = 0; i < accountStocksArray.length; i++) {
+        let fixed = JSON.parse(accountStocksArray[i]);
+        parsedStocks.push(fixed);
       }
-      let object = {
-        message: stocksData.data.message,
-        favorites: parsedArray,
+      let accountStocksData = {
+        message: accountStocksResponse.data.message,
+        favorites: parsedStocks,
       };
       return dispatch({
         type: SUCCESS_TYPE,
-        ...object,
+        ...accountStocksData,
       });
     }
-    let object = new Object();
-    object.message = stocksData.data.message;
+    // this logic is for addFavorite action
+    let accountStocksData = {
+      message: accountStocksResponse.data.message,
+    };
     return dispatch({
       type: SUCCESS_TYPE,
-      ...object,
+      ...accountStocksData,
     });
   } catch (error) {
     return dispatch({
@@ -106,7 +110,6 @@ export const reset = () => async (dispatch) => {
   dispatch({
     type: ACCOUNT_STOCKS.RESET,
   });
-
   dispatch({
     type: YAHOO.RESET,
   });

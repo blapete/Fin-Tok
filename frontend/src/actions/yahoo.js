@@ -11,17 +11,18 @@ export const yahooRequest = ({
 }) => async (dispatch) => {
   dispatch({ type: REQUEST_TYPE });
   try {
-    const yahooData = await axios({
+    const yahooResponse = await axios({
       method: method,
       url: endpoint,
       data: data,
     });
-    let response = new Object();
-    response.data = yahooData.data.data;
-    response.message = yahooData.data.message;
+    let yahooData = {
+      data: yahooResponse.data.data,
+      message: yahooResponse.data.message,
+    };
     return dispatch({
       type: SUCCESS_TYPE,
-      ...response,
+      ...yahooData,
     });
   } catch (error) {
     return dispatch({
