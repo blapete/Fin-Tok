@@ -12,7 +12,7 @@ const NavBar = ({ props, resetStockData }) => {
     return (
       <Navbar bg="dark" variant="dark" expand="lg" style={{ color: "white" }}>
         <Link to="/" onClick={resetStockData}>
-          <Navbar.Brand>Finance</Navbar.Brand>
+          <Navbar.Brand>FinTok</Navbar.Brand>
         </Link>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
@@ -45,7 +45,7 @@ const NavBar = ({ props, resetStockData }) => {
     return (
       <Navbar bg="dark" variant="dark" expand="lg" style={{ color: "white" }}>
         <Link to="/" onClick={resetStockData}>
-          <Navbar.Brand>Finance</Navbar.Brand>
+          <Navbar.Brand>FinTok</Navbar.Brand>
         </Link>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
