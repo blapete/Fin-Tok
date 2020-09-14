@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
 import account from "./account";
-import stocks from "./stocks";
+import stocks from "./accountStocks";
 import yahoo from "./yahoo";
 
 export default combineReducers({
