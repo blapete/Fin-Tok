@@ -1,9 +1,9 @@
 import React from "react";
 import { Button, Navbar, Nav } from "react-bootstrap";
-import { reset } from "../../actions/accountStocks";
+import { reset } from "../actions/accountStocks";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import Logout from "../Logout/Logout";
+import Logout from "./Logout";
 
 const NavBar = ({ props, resetStockData }) => {
   if (props.status === true) {

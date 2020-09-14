@@ -9,11 +9,11 @@ import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import { getAuthenticated } from "./actions/account";
 // import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
-import About from "./components/About/About";
-import Home from "./components/UserHome/homepage";
-import Signup from "./components/Signup/Signup";
-import Login from "./components/Login/Login";
-import Landing from "./components/Landing/Landing";
+import About from "./components/About";
+import Home from "./components/homepage";
+import Signup from "./components/Signup";
+import Login from "./components/Login";
+import Landing from "./components/Landing";
 
 const AuthRoute = (props) => {
   if (!store.getState().account.loggedIn) {

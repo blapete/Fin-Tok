@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { allFavorites } from "../../actions/accountStocks";
-import { reset } from "../../actions/accountStocks";
+import { allFavorites } from "../actions/accountStocks";
+import { reset } from "../actions/accountStocks";
 import { Card } from "react-bootstrap";
 
 import {
@@ -12,9 +12,8 @@ import {
   Button,
   ListGroup,
 } from "react-bootstrap";
-import Navbar from "../Navbar/Navbar";
+import Navbar from "./Navbar";
 import StockCard from "./Cards";
-import "./Home.css";
 
 const Homepage = ({
   loggedIn,

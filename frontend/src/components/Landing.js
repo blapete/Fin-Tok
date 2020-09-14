@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { quote, topWatched } from "../../actions/yahoo";
+import { quote, topWatched } from "../actions/yahoo";
 import { Button, Container, Row, Spinner } from "react-bootstrap";
-import Jumbotron from "../Jumbotron/Jumbotron";
-import Modal from "../Modal/Modal";
-import Carousel from "../Carousel/Carousel";
-import Navbar from "../Navbar/Navbar";
+import Jumbotron from "./Jumbotron";
+import Modal from "./Modal";
+import Carousel from "./Carousel";
+import Navbar from "./Navbar";
 import Moment from "moment";
-import "./Landing.css";
 
 const Landing = ({ loggedIn, stockQuote, topStocks, stocks }) => {
   const [show25, setShow25] = useState(false);

@@ -1,23 +1,107 @@
-html,
-body {
-  margin: 0;
-  padding: 0;
+#about__Box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 90vh;
 }
 
-body {
-  text-align: center;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+#about__Text {
+  width: 80%;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+#clock {
+  margin: 2rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
+
+#clock__Time {
+  width: 10rem;
+  height: 3rem;
+  background-color: #1c2331;
+  border-radius: 5px;
+  font-size: large;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+}
+
+.divider {
+  display: inline-block;
+  border-bottom: black 1px solid;
+  width: 100px;
+  margin: 30px;
+}
+
+#home__Container {
+  margin: 2rem 2rem;
+}
+
+#login__Box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 100vh;
+}
+
+#login__Form {
+  width: 50%;
+}
+
+#modal__Button {
+  width: 10rem;
+  height: 3rem;
+  border-radius: 5px;
+  font-size: large;
+  color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+}
+
+#search__Box {
+  display: flex;
+  justify-content: center;
+}
+
+#signup__Box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 100vh;
+}
+
+#signup__Form {
+  width: 50%;
+}
+
+#stock__Box {
+  margin: 2rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#stock__Button {
+  width: 10rem;
+  height: 3rem;
+  border-radius: 5px;
+  font-size: large;
+  color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+}
+
+/* box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.21); */
 
 @media (max-width: 992px) {
   hr {

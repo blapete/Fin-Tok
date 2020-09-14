@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { Card, Button } from "react-bootstrap";
-import { addFavorite } from "../../actions/accountStocks";
+import { addFavorite } from "../actions/accountStocks";
 
 const StockCard = ({ info, addFav, user }) => {
   const flag = true;

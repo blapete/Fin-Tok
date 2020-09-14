@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Button, FormGroup, FormControl } from "react-bootstrap";
-import { signUp } from "../../actions/account";
+import { signUp } from "../actions/account";
 import { Link, Redirect } from "react-router-dom";
-import requestStates from "../../reducers/request";
-import "./Signup.css";
+import requestStates from "../reducers/request";
 
 const Signup = ({ signup, status, message, history }) => {
   const [username, setUsername] = useState("");

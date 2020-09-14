@@ -1,6 +1,6 @@
 import React from "react";
 import { Button } from "react-bootstrap";
-import { logoutAction } from "../../actions/account";
+import { logoutAction } from "../actions/account";
 import { connect } from "react-redux";
 
 const Logout = ({ logoutGet }) => {
