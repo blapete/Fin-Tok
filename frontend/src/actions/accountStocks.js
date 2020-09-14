@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ACCOUNT_STOCKS, YAHOO } from "./types";
+import { ACCOUNT_STOCKS, CLEAR } from "./types";
 
 export const accountStocksRequest = ({
   method,
@@ -32,7 +32,7 @@ export const accountStocksRequest = ({
         accountStocksResponse.data.message === "removed item"
       ) {
         dispatch({
-          type: YAHOO.RESET,
+          type: CLEAR.YAHOO,
         });
       }
       // response account stocks is in json => parse
@@ -108,9 +108,9 @@ export const allFavorites = ({ username }) =>
 
 export const reset = () => async (dispatch) => {
   dispatch({
-    type: ACCOUNT_STOCKS.RESET,
+    type: CLEAR.ACCOUNT_STOCKS,
   });
   dispatch({
-    type: YAHOO.RESET,
+    type: CLEAR.YAHOO,
   });
 };

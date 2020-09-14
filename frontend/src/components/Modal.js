@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Modal, Button } from "react-bootstrap";
+//---------------------------------------------------------------------------------
+//Component
 
 const StockModal = () => {
   const [show, setShow] = useState(false);

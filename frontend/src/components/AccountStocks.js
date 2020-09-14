@@ -3,8 +3,10 @@ import { connect } from "react-redux";
 import { Card, Button } from "react-bootstrap";
 import { quote } from "../actions/yahoo";
 import { removeFavorite } from "../actions/accountStocks";
+//---------------------------------------------------------------------------------
+//Component
 
-const Cards = ({ props, stockQuote, removeData, user }) => {
+const AccountStocks = ({ props, stockQuote, removeData, user }) => {
   let symbol = props.symbol;
   const getData = (e) => {
     e.preventDefault();
@@ -64,12 +66,12 @@ const Cards = ({ props, stockQuote, removeData, user }) => {
 const mapStateToProps = (state, ownProps) => ({
   loggedIn: state.account.loggedIn,
   list: state.stocks.favorites,
-  props: ownProps,
   user: state.account.username,
+  props: ownProps,
 });
 const mapDispatchToProps = {
   stockQuote: quote,
   removeData: removeFavorite,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Cards);
+export default connect(mapStateToProps, mapDispatchToProps)(AccountStocks);

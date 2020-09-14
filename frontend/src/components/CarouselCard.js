@@ -1,7 +1,9 @@
 import React from "react";
 import Card from "react-bootstrap/Card";
+//---------------------------------------------------------------------------------
+//Component
 
-const StockCard = (props) => {
+const TopGainers = (props) => {
   return (
     <div
       style={{
@@ -39,4 +41,4 @@ const StockCard = (props) => {
   );
 };
 
-export default StockCard;
+export default TopGainers;

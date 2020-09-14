@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import Card from "./Card";
+import TopGainers from "./CarouselCard";
+//---------------------------------------------------------------------------------
+//Component
 
 const responsive = {
   superLargeDesktop: {
@@ -30,7 +32,7 @@ const DataCarousel = (props) => {
     <Carousel id="stock__Carousel" responsive={responsive}>
       {props.stocks.map((data) => {
         return (
-          <Card
+          <TopGainers
             key={data.id}
             name={data.longName}
             exchange={data.exchange}

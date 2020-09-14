@@ -4,6 +4,8 @@ import { Button, FormGroup, FormControl } from "react-bootstrap";
 import { login } from "../actions/account";
 import { Link } from "react-router-dom";
 import requestStates from "../reducers/request";
+//---------------------------------------------------------------------------------
+//Component
 
 const Login = ({ loginPost, message, status, history }) => {
   const [username, setUsername] = useState("");

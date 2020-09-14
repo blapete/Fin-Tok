@@ -7,6 +7,8 @@ import Modal from "./Modal";
 import Carousel from "./Carousel";
 import Navbar from "./Navbar";
 import Moment from "moment";
+//---------------------------------------------------------------------------------
+//Component
 
 const Landing = ({ loggedIn, stockQuote, topStocks, stocks }) => {
   const [show25, setShow25] = useState(false);
@@ -17,7 +19,6 @@ const Landing = ({ loggedIn, stockQuote, topStocks, stocks }) => {
     const time = document.getElementById("clock__Time");
     const now = Moment();
     const ticking = now.format("h:mm:ss a");
-    const currentDate = now.format("MMMM Do YYYY");
     time.innerHTML = ticking;
   };
 
@@ -32,7 +33,6 @@ const Landing = ({ loggedIn, stockQuote, topStocks, stocks }) => {
     }
     setWaiting(true);
     topStocks().then((res) => {
-      console.log("all res", res);
       if (res.type === "YAHOO_REQUEST_TOPSTOCKS_SUCCESS") {
         setShow25(!show25);
       } else {
@@ -42,15 +42,10 @@ const Landing = ({ loggedIn, stockQuote, topStocks, stocks }) => {
   };
 
   useEffect(() => {
-    console.log("time");
     const interval = setInterval(updateTime, 1000);
     return () => clearInterval(interval);
   }, []);
 
-  const sendRequest = async (e) => {
-    e.preventDefault();
-    const thing = await stockQuote();
-  };
   return (
     <div style={{ height: "100%" }}>
       <Navbar status={loggedIn} />
@@ -102,7 +97,7 @@ const Landing = ({ loggedIn, stockQuote, topStocks, stocks }) => {
 
 const mapStateToProps = (state) => ({
   loggedIn: state.account.loggedIn,
-  stocks: state.yahoo.top_stocks,
+  stocks: state.yahoo.top_gainers,
   searchMessage: state.yahoo.message,
 });
 

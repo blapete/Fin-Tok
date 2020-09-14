@@ -9,10 +9,10 @@ import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import { getAuthenticated } from "./actions/account";
 import "./index.css";
 import About from "./components/About";
-import Home from "./components/homepage";
+import Home from "./components/Home";
 import Signup from "./components/Signup";
 import Login from "./components/Login";
-import Landing from "./components/Landing";
+import Main from "./components/Main";
 
 const AuthRoute = (props) => {
   if (!store.getState().account.loggedIn) {
@@ -26,7 +26,7 @@ store.dispatch(getAuthenticated()).then(() => {
   render(
     <Provider store={store}>
       <Router>
-        <Route exact path="/" component={Landing} />
+        <Route exact path="/" component={Main} />
         <Route exact path="/about" component={About} />
         <Route exact path="/signup" component={Signup} />
         <Route exact path="/login" component={Login} />

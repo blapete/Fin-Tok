@@ -1,5 +1,5 @@
 import requestStates from "./request";
-import { ACCOUNT_STOCKS } from "../actions/types";
+import { ACCOUNT_STOCKS, CLEAR } from "../actions/types";
 
 const DEFAULT_STOCKS_DATA = {
   favorites: [],
@@ -22,22 +22,19 @@ const stocks = (state = DEFAULT_STOCKS_DATA, action) => {
       return {
         ...state,
         status: requestStates.success,
-        message: action.message,
         favorites: action.favorites,
+        message: action.message,
       };
     case ACCOUNT_STOCKS.REQUEST_ALLSTOCKS_SUCCESS:
       return {
         ...state,
         status: requestStates.success,
-        message: action.message,
         favorites: action.favorites,
+        message: action.message,
       };
-    case ACCOUNT_STOCKS.RESET:
+    case CLEAR.ACCOUNT_STOCKS:
       return {
-        ...state,
-        stock_quote: {},
-        message: "",
-        favorites: [],
+        state,
       };
     default:
       return state;

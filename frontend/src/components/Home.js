@@ -1,31 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { allFavorites } from "../actions/accountStocks";
-import { reset } from "../actions/accountStocks";
-import { Card } from "react-bootstrap";
-
-import {
-  Container,
-  Row,
-  Col,
-  Spinner,
-  Button,
-  ListGroup,
-} from "react-bootstrap";
+import AccountStocks from "./AccountStocks";
 import Navbar from "./Navbar";
-import StockCard from "./Cards";
-
-const Homepage = ({
-  loggedIn,
-  name,
-  favGet,
-  username,
-  favoritesList,
-  current,
-  resetStockData,
-}) => {
-  let count = 0;
-
+import { Card, Container, Row, Col, Spinner, ListGroup } from "react-bootstrap";
+//---------------------------------------------------------------------------------
+//Component
+const Homepage = ({ loggedIn, favGet, username, favoritesList, current }) => {
   const [loading, setLoading] = useState(false);
   const [cards, setCards] = useState(false);
   const [dataReturned, setDataReturned] = useState(false);
@@ -39,9 +20,6 @@ const Homepage = ({
     }
   }, [loggedIn]);
 
-  //useEffect get favorites names, render as buttons.
-  //onclick get the data from yahooFinance.
-  //delete button to remove from db favorites.
   useEffect(() => {
     console.log(dataReturned, buttonClicked, current);
     console.log("helllooooo");
@@ -83,7 +61,7 @@ const Homepage = ({
       <Container id="home__Container">
         <Row>
           <h5>
-            Hi, <strong>{name}</strong>
+            Hi, <strong>{username}</strong>
           </h5>
         </Row>
         <br />
@@ -95,8 +73,6 @@ const Homepage = ({
               <ListGroup.Item action onClick={getFavorites}>
                 view my favs
               </ListGroup.Item>
-              {/* <ListGroup.Item action>do something else</ListGroup.Item>
-              <ListGroup.Item action>do somethng else</ListGroup.Item> */}
             </ListGroup>
           </Col>
           <Col>
@@ -195,7 +171,7 @@ const Homepage = ({
             >
               {favoritesList.map((e, index) => {
                 return (
-                  <StockCard
+                  <AccountStocks
                     key={index}
                     id={e.id}
                     name={e.name}
@@ -213,15 +189,13 @@ const Homepage = ({
 
 const mapStateToProps = (state) => ({
   loggedIn: state.account.loggedIn,
-  name: state.account.username,
   username: state.account.username,
   favoritesList: state.stocks.favorites,
-  current: state.yahoo.stock_quote,
+  current: state.yahoo.quote,
 });
 
 const mapDispatchToProps = {
   favGet: allFavorites,
-  resetStockData: reset,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Homepage);

@@ -3,32 +3,18 @@ import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { Card, Button } from "react-bootstrap";
 import { addFavorite } from "../actions/accountStocks";
+//---------------------------------------------------------------------------------
+//Component
 
-const StockCard = ({ info, addFav, user }) => {
+const JumbotronInfo = ({ info, addFav, user }) => {
   const flag = true;
   const [toSignup, setToSignup] = useState(false);
   let companyName = info.name;
   if (toSignup) {
     return <Redirect to="/signup" />;
   }
-  console.log("auth debug1", info);
+
   let symbol = info.symbol;
-
-  // const addFav = (e) => {
-  //   e.preventDefault();
-  //   console.log("auth debug2", info);
-  //   if (info.auth) {
-  //     console.log("logged in", info.name);
-  //     addFav({
-  //       name: info.name,
-  //     });
-
-  //     //send create post with favorite (get company name)
-  //   } else {
-  //     console.log("notttt");
-  //     //"you must be signed in"
-  //   }
-  // };
 
   return (
     <Card>
@@ -68,7 +54,6 @@ const StockCard = ({ info, addFav, user }) => {
 const mapStateToinfo = (state, owninfo) => ({
   auth: state.account.loggedIn,
   user: state.account.username,
-
   info: owninfo,
 });
 
@@ -76,4 +61,4 @@ const mapDispatchToinfo = {
   addFav: addFavorite,
 };
 
-export default connect(mapStateToinfo, mapDispatchToinfo)(StockCard);
+export default connect(mapStateToinfo, mapDispatchToinfo)(JumbotronInfo);

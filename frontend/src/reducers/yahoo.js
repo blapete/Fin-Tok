@@ -1,9 +1,9 @@
 import requestStates from "./request";
-import { YAHOO } from "../actions/types";
+import { YAHOO, CLEAR } from "../actions/types";
 
 const DEFAULT_YAHOO_DATA = {
-  top_stocks: [],
-  stock_quote: {},
+  top_gainers: [],
+  quote: {},
   message: "",
 };
 
@@ -17,19 +17,19 @@ const yahoo = (state = DEFAULT_YAHOO_DATA, action) => {
       return {
         ...state,
         status: requestStates.success,
-        stock_quote: action.data,
+        quote: action.data,
         message: action.message,
       };
     case YAHOO.REQUEST_TOPGAINERS_SUCCESS:
       return {
         ...state,
         status: requestStates.success,
-        top_stocks: action.data,
+        top_gainers: action.data,
       };
-    case YAHOO.RESET:
+    case CLEAR.YAHOO:
       return {
         ...state,
-        stock_quote: {},
+        quote: {},
         message: "",
       };
     default:

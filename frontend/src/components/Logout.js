@@ -2,6 +2,8 @@ import React from "react";
 import { Button } from "react-bootstrap";
 import { logoutAction } from "../actions/account";
 import { connect } from "react-redux";
+//---------------------------------------------------------------------------------
+//Component
 
 const Logout = ({ logoutGet }) => {
   const logout = async () => {

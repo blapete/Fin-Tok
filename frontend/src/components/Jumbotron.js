@@ -2,9 +2,11 @@ import React, { useState, useEffect } from "react";
 import { Container, Row, Jumbotron, Col } from "react-bootstrap";
 import { quote } from "../actions/yahoo";
 import { reset } from "../actions/accountStocks";
-import Card from "./StockCard";
+import JumbotronInfo from "./JumbotronInfo";
 import { connect } from "react-redux";
 import { Button, FormGroup, FormControl, Spinner } from "react-bootstrap";
+//---------------------------------------------------------------------------------
+//Component
 
 const Jumbo = ({
   getQuote,
@@ -136,7 +138,7 @@ const Jumbo = ({
                   <Spinner animation="grow" />
                 </div>
               ) : (
-                <Card
+                <JumbotronInfo
                   auth={auth}
                   name={stockResponse.longName}
                   ask={stockResponse.ask}
@@ -165,8 +167,8 @@ const mapStateToProps = (state, ownProps) => ({
   message: state.account.message,
   favMessage: state.stocks.message,
   yahooMessage: state.yahoo.message,
+  stockResponse: state.yahoo.quote,
   date: ownProps.date,
-  stockResponse: state.yahoo.stock_quote,
 });
 
 const mapDispatchToProps = {
