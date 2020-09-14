@@ -17,12 +17,12 @@ import {
 //Component
 
 const Jumbo = ({
-  getQuote,
-  date,
-  stockResponse,
-  resetStockData,
   auth,
+  date,
   favMessage,
+  getQuote,
+  resetStockData,
+  stockResponse,
   yahooMessage,
 }) => {
   const [stockQuote, setStockQuote] = useState("");

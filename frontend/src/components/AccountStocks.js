@@ -6,7 +6,7 @@ import { removeFavorite } from "../actions/accountStocks";
 //---------------------------------------------------------------------------------
 //Component
 
-const AccountStocks = ({ props, stockQuote, removeData, user }) => {
+const AccountStocks = ({ props, removeData, stockQuote, user }) => {
   let symbol = props.symbol;
   const getData = (e) => {
     e.preventDefault();

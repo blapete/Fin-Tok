@@ -7,7 +7,7 @@ import requestStates from "../reducers/request";
 //---------------------------------------------------------------------------------
 //Component
 
-const Signup = ({ signup, status, message }) => {
+const Signup = ({ message, signup, status }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");

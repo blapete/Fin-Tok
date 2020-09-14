@@ -6,7 +6,7 @@ import { addFavorite } from "../actions/accountStocks";
 //---------------------------------------------------------------------------------
 //Component
 
-const JumbotronInfo = ({ info, addFav, user }) => {
+const JumbotronInfo = ({ addFav, info, user }) => {
   const flag = true;
   const [toSignup, setToSignup] = useState(false);
   let companyName = info.name;

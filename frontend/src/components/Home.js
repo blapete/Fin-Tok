@@ -6,7 +6,7 @@ import Navbar from "./Navbar";
 import { Card, Container, Row, Col, Spinner, ListGroup } from "react-bootstrap";
 //---------------------------------------------------------------------------------
 //Component
-const Homepage = ({ loggedIn, favGet, username, favoritesList, current }) => {
+const Homepage = ({ current, favGet, favoritesList, loggedIn, username }) => {
   const [loading, setLoading] = useState(false);
   const [cards, setCards] = useState(false);
   const [dataReturned, setDataReturned] = useState(false);

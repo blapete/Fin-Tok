@@ -10,7 +10,7 @@ import Moment from "moment";
 //---------------------------------------------------------------------------------
 //Component
 
-const Landing = ({ loggedIn, topStocks, stocks }) => {
+const Landing = ({ loggedIn, stocks, topStocks }) => {
   const [show25, setShow25] = useState(false);
   const [waiting, setWaiting] = useState(false);
   let date = Moment().format("MMMM Do YYYY");
