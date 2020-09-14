@@ -36,6 +36,19 @@ export const accountRequest = ({
   }
 };
 
+export const login = ({ username, password }) =>
+  accountRequest({
+    method: "post",
+    endpoint: "/account/login",
+    data: {
+      username,
+      password,
+    },
+    REQUEST_TYPE: ACCOUNT.REQUEST,
+    ERROR_TYPE: ACCOUNT.REQUEST_ERROR,
+    SUCCESS_TYPE: ACCOUNT.REQUEST_LOGIN_SUCCESS,
+  });
+
 export const signUp = ({ username, email, password, confirmPassword }) =>
   accountRequest({
     method: "post",
@@ -51,29 +64,6 @@ export const signUp = ({ username, email, password, confirmPassword }) =>
     SUCCESS_TYPE: ACCOUNT.REQUEST_SIGNUP_SUCCESS,
   });
 
-export const getAuthenticated = () =>
-  accountRequest({
-    method: "get",
-    endpoint: "/account/auth",
-    data: undefined,
-    REQUEST_TYPE: ACCOUNT.REQUEST,
-    ERROR_TYPE: ACCOUNT.REQUEST_ERROR,
-    SUCCESS_TYPE: ACCOUNT.REQUEST_AUTHENTICATED_SUCCESS,
-  });
-
-export const login = ({ username, password }) =>
-  accountRequest({
-    method: "post",
-    endpoint: "/account/login",
-    data: {
-      username,
-      password,
-    },
-    REQUEST_TYPE: ACCOUNT.REQUEST,
-    ERROR_TYPE: ACCOUNT.REQUEST_ERROR,
-    SUCCESS_TYPE: ACCOUNT.REQUEST_SUCCESS,
-  });
-
 export const logoutAction = () =>
   accountRequest({
     method: "get",
@@ -82,4 +72,14 @@ export const logoutAction = () =>
     REQUEST_TYPE: ACCOUNT.REQUEST,
     ERROR_TYPE: ACCOUNT.REQUEST_ERROR,
     SUCCESS_TYPE: ACCOUNT.REQUEST_LOGOUT_SUCCESS,
+  });
+
+export const getAuthenticated = () =>
+  accountRequest({
+    method: "get",
+    endpoint: "/account/auth",
+    data: undefined,
+    REQUEST_TYPE: ACCOUNT.REQUEST,
+    ERROR_TYPE: ACCOUNT.REQUEST_ERROR,
+    SUCCESS_TYPE: ACCOUNT.REQUEST_AUTHENTICATED_SUCCESS,
   });

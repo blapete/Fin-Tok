@@ -1,5 +1,5 @@
 import axios from "axios";
-import { STOCK_INFO, YAHOO } from "./types";
+import { ACCOUNT_STOCKS, YAHOO } from "./types";
 
 export const accountStocksRequest = ({
   method,
@@ -73,21 +73,9 @@ export const addFavorite = ({ companyName, user, symbol, flag }) =>
       symbol,
       flag,
     },
-    REQUEST_TYPE: STOCK_INFO.REQUEST,
-    ERROR_TYPE: STOCK_INFO.REQUEST_ERROR,
-    SUCCESS_TYPE: STOCK_INFO.REQUEST_SUCCESS,
-  });
-
-export const allFavorites = ({ username }) =>
-  accountStocksRequest({
-    method: "post",
-    endpoint: "/fav/all",
-    data: {
-      username,
-    },
-    REQUEST_TYPE: STOCK_INFO.REQUEST,
-    ERROR_TYPE: STOCK_INFO.REQUEST_ERROR,
-    SUCCESS_TYPE: STOCK_INFO.REQUEST_FAV_ALL_SUCCESS,
+    REQUEST_TYPE: ACCOUNT_STOCKS.REQUEST,
+    ERROR_TYPE: ACCOUNT_STOCKS.REQUEST_ERROR,
+    SUCCESS_TYPE: ACCOUNT_STOCKS.REQUEST_ADD_SUCCESS,
   });
 
 export const removeFavorite = ({ id, user }) => {
@@ -96,15 +84,27 @@ export const removeFavorite = ({ id, user }) => {
     method: "delete",
     endpoint: "/fav/remove/" + params,
     data: undefined,
-    REQUEST_TYPE: STOCK_INFO.REQUEST,
-    ERROR_TYPE: STOCK_INFO.REQUEST_ERROR,
-    SUCCESS_TYPE: STOCK_INFO.REQUEST_REMOVED_SUCCESS,
+    REQUEST_TYPE: ACCOUNT_STOCKS.REQUEST,
+    ERROR_TYPE: ACCOUNT_STOCKS.REQUEST_ERROR,
+    SUCCESS_TYPE: ACCOUNT_STOCKS.REQUEST_DELETE_SUCCESS,
   });
 };
 
+export const allFavorites = ({ username }) =>
+  accountStocksRequest({
+    method: "post",
+    endpoint: "/fav/all",
+    data: {
+      username,
+    },
+    REQUEST_TYPE: ACCOUNT_STOCKS.REQUEST,
+    ERROR_TYPE: ACCOUNT_STOCKS.REQUEST_ERROR,
+    SUCCESS_TYPE: ACCOUNT_STOCKS.REQUEST_ALLSTOCKS_SUCCESS,
+  });
+
 export const reset = () => async (dispatch) => {
   dispatch({
-    type: STOCK_INFO.RESET,
+    type: ACCOUNT_STOCKS.RESET,
   });
 
   dispatch({

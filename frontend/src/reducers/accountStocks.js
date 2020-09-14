@@ -1,38 +1,38 @@
 import requestStates from "./request";
-import { STOCK_INFO } from "../actions/types";
+import { ACCOUNT_STOCKS } from "../actions/types";
 
-const DEFAULT_STOCKS = {
+const DEFAULT_STOCKS_DATA = {
   favorites: [],
   message: "",
 };
 
-const stocks = (state = DEFAULT_STOCKS, action) => {
+const stocks = (state = DEFAULT_STOCKS_DATA, action) => {
   switch (action.type) {
-    case STOCK_INFO.REQUEST:
+    case ACCOUNT_STOCKS.REQUEST:
       return { ...state, status: requestStates.requesting };
-    case STOCK_INFO.REQUEST_ERROR:
+    case ACCOUNT_STOCKS.REQUEST_ERROR:
       return { ...state, status: requestStates.error, message: action.message };
-    case STOCK_INFO.REQUEST_SUCCESS:
+    case ACCOUNT_STOCKS.REQUEST_ADD_SUCCESS:
       return {
         ...state,
         status: requestStates.success,
         message: action.message,
       };
-    case STOCK_INFO.REQUEST_FAV_ALL_SUCCESS:
-      return {
-        ...state,
-        status: requestStates.success,
-        message: action.message,
-        favorites: action.favorites,
-      };
-    case STOCK_INFO.REQUEST_REMOVED_SUCCESS:
+    case ACCOUNT_STOCKS.REQUEST_DELETE_SUCCESS:
       return {
         ...state,
         status: requestStates.success,
         message: action.message,
         favorites: action.favorites,
       };
-    case STOCK_INFO.RESET:
+    case ACCOUNT_STOCKS.REQUEST_ALLSTOCKS_SUCCESS:
+      return {
+        ...state,
+        status: requestStates.success,
+        message: action.message,
+        favorites: action.favorites,
+      };
+    case ACCOUNT_STOCKS.RESET:
       return {
         ...state,
         stock_quote: {},

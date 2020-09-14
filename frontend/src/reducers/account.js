@@ -1,15 +1,15 @@
 import requestStates from "./request";
 import { ACCOUNT } from "../actions/types";
 
-const DEFAULT_ACCOUNT = { loggedIn: false };
+const DEFAULT_ACCOUNT_DATA = { loggedIn: false };
 
-const account = (state = DEFAULT_ACCOUNT, action) => {
+const account = (state = DEFAULT_ACCOUNT_DATA, action) => {
   switch (action.type) {
     case ACCOUNT.REQUEST:
       return { ...state, status: requestStates.requesting };
     case ACCOUNT.REQUEST_ERROR:
       return { ...state, status: requestStates.error, message: action.message };
-    case ACCOUNT.REQUEST_SUCCESS:
+    case ACCOUNT.REQUEST_LOGIN_SUCCESS:
       return {
         ...state,
         status: requestStates.success,
