@@ -1,26 +1,26 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Button, FormGroup, FormControl } from "react-bootstrap";
-import { signUp } from "../actions/account";
+import { signup } from "../actions/account";
 import { Link, Redirect } from "react-router-dom";
 import requestStates from "../reducers/request";
 //---------------------------------------------------------------------------------
 //Component
 
-const Signup = ({ message, signup, status }) => {
+const Signup = ({ accountMessage, accountStatus, sendSignup }) => {
+  const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [email, setEmail] = useState("");
   const [buttonClicked, setButtonClicked] = useState(false);
-  const [toLogin, setToLogin] = useState(false);
-
-  const updateUsername = (event) => {
-    setUsername(event.target.value);
-  };
+  const [signupSuccess, setSignupSuccess] = useState(false);
 
   const updateEmail = (event) => {
     setEmail(event.target.value);
+  };
+
+  const updateUsername = (event) => {
+    setUsername(event.target.value);
   };
 
   const updatePassword = (event) => {
@@ -30,29 +30,27 @@ const Signup = ({ message, signup, status }) => {
     setConfirmPassword(event.target.value);
   };
 
-  //send signup info to backend
-  const sendForm = async (e) => {
+  const signupRequest = async (e) => {
     e.preventDefault();
     setButtonClicked(true);
-
-    const actionResponse = await signup({
+    const signupResponse = await sendSignup({
       username,
       email,
       password,
       confirmPassword,
     });
-    if (actionResponse.message === "session created") {
-      setToLogin(true);
+    if (signupResponse.message === "session created") {
+      setSignupSuccess(true);
     }
   };
 
   const Error = () => {
-    if (buttonClicked && status === requestStates.error) {
-      return <div>{message}</div>;
+    if (buttonClicked && accountStatus === requestStates.error) {
+      return <div>{accountMessage}</div>;
     }
   };
 
-  return toLogin ? (
+  return signupSuccess ? (
     <Redirect to="login" />
   ) : (
     <div id="signup__Box">
@@ -66,20 +64,20 @@ const Signup = ({ message, signup, status }) => {
             <FormGroup>
               <FormControl
                 autoComplete="off"
-                type="text"
-                placeholder="username"
-                value={username}
-                onChange={updateUsername}
+                type="email"
+                placeholder="email"
+                value={email}
+                onChange={updateEmail}
               />
             </FormGroup>
             <br />
             <FormGroup>
               <FormControl
                 autoComplete="off"
-                type="email"
-                placeholder="email"
-                value={email}
-                onChange={updateEmail}
+                type="text"
+                placeholder="username"
+                value={username}
+                onChange={updateUsername}
               />
             </FormGroup>
             <br />
@@ -107,7 +105,7 @@ const Signup = ({ message, signup, status }) => {
               <Button
                 className="btn btn-secondary"
                 style={{ backgroundColor: "rgba(52, 1, 86, 0.5)" }}
-                onClick={sendForm}
+                onClick={signupRequest}
               >
                 Sign Up
               </Button>
@@ -131,12 +129,12 @@ const Signup = ({ message, signup, status }) => {
 };
 
 const mapStateToProps = (state) => ({
-  message: state.account.message,
-  status: state.account.status,
+  accountMessage: state.account.message,
+  accountStatus: state.account.status,
 });
 
 const mapDispatchToProps = {
-  signup: signUp,
+  sendSignup: signup,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Signup);

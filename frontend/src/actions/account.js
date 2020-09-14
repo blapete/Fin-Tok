@@ -49,7 +49,7 @@ export const login = ({ username, password }) =>
     SUCCESS_TYPE: ACCOUNT.REQUEST_LOGIN_SUCCESS,
   });
 
-export const signUp = ({ username, email, password, confirmPassword }) =>
+export const signup = ({ username, email, password, confirmPassword }) =>
   accountRequest({
     method: "post",
     endpoint: "/account/signup",

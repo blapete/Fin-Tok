@@ -7,7 +7,7 @@ import requestStates from "../reducers/request";
 //---------------------------------------------------------------------------------
 //Component
 
-const Login = ({ loginPost, message, status }) => {
+const Login = ({ accountMessage, accountStatus, sendLogin }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [buttonClicked, setButtonClicked] = useState(false);
@@ -20,11 +20,11 @@ const Login = ({ loginPost, message, status }) => {
     setPassword(event.target.value);
   };
 
-  const loginFunc = async (e) => {
+  const loginRequest = async (e) => {
     e.preventDefault();
     setButtonClicked(true);
 
-    const actionResponse = await loginPost({ username, password });
+    const actionResponse = await sendLogin({ username, password });
     if (
       actionResponse.message === "session created" ||
       actionResponse.message === "session restored"
@@ -34,8 +34,8 @@ const Login = ({ loginPost, message, status }) => {
   };
 
   const Error = () => {
-    if (buttonClicked && status === requestStates.error) {
-      return <div>{message}</div>;
+    if (buttonClicked && accountStatus === requestStates.error) {
+      return <div>{accountMessage}</div>;
     }
   };
 
@@ -71,7 +71,7 @@ const Login = ({ loginPost, message, status }) => {
               <Button
                 className="btn btn-secondary"
                 style={{ backgroundColor: "rgba(52, 1, 86, 0.5)" }}
-                onClick={loginFunc}
+                onClick={loginRequest}
               >
                 Log In
               </Button>
@@ -89,12 +89,12 @@ const Login = ({ loginPost, message, status }) => {
 };
 
 const mapStateToProps = (state) => ({
-  message: state.account.message,
-  status: state.account.status,
+  accountMessage: state.account.message,
+  accountStatus: state.account.status,
 });
 
 const mapDispatchToProps = {
-  loginPost: login,
+  sendLogin: login,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

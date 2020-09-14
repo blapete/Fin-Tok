@@ -6,34 +6,36 @@ import { removeFavorite } from "../actions/accountStocks";
 //---------------------------------------------------------------------------------
 //Component
 
-const AccountStocks = ({ props, removeData, stockQuote, user }) => {
+const AccountStocks = ({ props, sendRemoveRequest, getQuote, username }) => {
   let symbol = props.symbol;
-  const getData = (e) => {
+
+  const requestQuote = (e) => {
     e.preventDefault();
-    stockQuote({ data: symbol }).then((res) => {
+    getQuote({ data: symbol }).then(() => {
       window.scrollTo(0, 0);
     });
   };
-  const removeItem = (e) => {
+
+  const removeStock = (e) => {
     e.preventDefault();
-    removeData({ id: props.id, user });
+    sendRemoveRequest({ id: props.id, username });
   };
 
   return (
     <Card
       key={props.key}
+      className="mb-2 stock__Cards"
       style={{
         width: "33%",
         border: "1px solid gray",
         flexGrow: "1",
         margin: "4rem",
       }}
-      className="mb-2 stock__Cards"
     >
       <Card.Header>{props.name}</Card.Header>
 
       <Button
-        onClick={getData}
+        onClick={requestQuote}
         style={{
           marginBottom: "0.5rem",
           backgroundColor: "rgba(52, 1, 86, 0.5)",
@@ -45,7 +47,7 @@ const AccountStocks = ({ props, removeData, stockQuote, user }) => {
 
       <p>or</p>
       <Button
-        onClick={removeItem}
+        onClick={removeStock}
         variant="light"
         style={{
           border: "1px solid rgba(52, 1, 86, 0.5)",
@@ -59,12 +61,12 @@ const AccountStocks = ({ props, removeData, stockQuote, user }) => {
 };
 
 const mapStateToProps = (state, ownProps) => ({
-  user: state.account.username,
+  username: state.account.username,
   props: ownProps,
 });
 const mapDispatchToProps = {
-  stockQuote: quote,
-  removeData: removeFavorite,
+  getQuote: quote,
+  sendRemoveRequest: removeFavorite,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(AccountStocks);

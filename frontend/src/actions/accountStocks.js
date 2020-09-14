@@ -82,8 +82,8 @@ export const addFavorite = ({ companyName, user, symbol, flag }) =>
     SUCCESS_TYPE: ACCOUNT_STOCKS.REQUEST_ADD_SUCCESS,
   });
 
-export const removeFavorite = ({ id, user }) => {
-  let params = `${id}|${user}`;
+export const removeFavorite = ({ id, username }) => {
+  let params = `${id}|${username}`;
   return accountStocksRequest({
     method: "delete",
     endpoint: "/fav/remove/" + params,

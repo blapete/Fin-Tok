@@ -6,14 +6,14 @@ import { connect } from "react-redux";
 //Component
 
 const Logout = ({ logoutGet }) => {
-  const logout = async () => {
-    await logoutGet();
+  const sendLogout = () => {
+    logoutGet();
   };
 
   return (
     <div>
       <Button
-        onClick={logout}
+        onClick={sendLogout}
         style={{
           backgroundColor: "rgba(52, 1, 86, 0.5)",
           border: "1px solid white",
