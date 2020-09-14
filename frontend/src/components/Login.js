@@ -43,7 +43,7 @@ const Login = ({ accountMessage, accountStatus, sendLogin }) => {
     <div id="login__Box">
       {Error()}
       <div id="login__Form">
-        <div className="authform">
+        <div>
           <h6>login</h6>
           <br />
           <form autoComplete="off">

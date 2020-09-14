@@ -14,11 +14,11 @@ const TopGainers = (props) => {
       }}
     >
       <Card
+        className="mb-2"
         style={{
           width: "18rem",
           position: "relative",
         }}
-        className="mb-2 stock__Cards"
       >
         <Card.Header>{props.symbol}</Card.Header>
         <Card.Body>

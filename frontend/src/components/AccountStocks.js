@@ -6,19 +6,20 @@ import { removeFavorite } from "../actions/accountStocks";
 //---------------------------------------------------------------------------------
 //Component
 
-const AccountStocks = ({ props, sendRemoveRequest, getQuote, username }) => {
-  let symbol = props.symbol;
+const AccountStocks = ({ getQuote, props, sendRemoveRequest, username }) => {
+  const stockSymbol = props.symbol;
+  const stockId = props.id;
 
   const requestQuote = (e) => {
     e.preventDefault();
-    getQuote({ data: symbol }).then(() => {
+    getQuote({ data: stockSymbol }).then(() => {
       window.scrollTo(0, 0);
     });
   };
 
   const removeStock = (e) => {
     e.preventDefault();
-    sendRemoveRequest({ id: props.id, username });
+    sendRemoveRequest({ id: stockId, username });
   };
 
   return (

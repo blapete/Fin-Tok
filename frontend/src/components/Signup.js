@@ -57,7 +57,7 @@ const Signup = ({ accountMessage, accountStatus, sendSignup }) => {
       {Error()}
       <br />
       <div id="signup__Form">
-        <div className="authform">
+        <div>
           <h6>sign up</h6>
           <br />
           <form autoComplete="off">

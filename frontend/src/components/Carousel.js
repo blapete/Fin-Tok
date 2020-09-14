@@ -24,9 +24,9 @@ const responsive = {
   },
 };
 
-const DataCarousel = (props) => {
+const TopGainersCarousel = (props) => {
   return (
-    <Carousel id="stock__Carousel" responsive={responsive}>
+    <Carousel responsive={responsive}>
       {props.stocks.map((data) => {
         return (
           <TopGainers
@@ -44,4 +44,4 @@ const DataCarousel = (props) => {
   );
 };
 
-export default DataCarousel;
+export default TopGainersCarousel;

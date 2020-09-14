@@ -4,7 +4,7 @@ import { quote, topWatched } from "../actions/yahoo";
 import { Button, Container, Row, Spinner } from "react-bootstrap";
 import Jumbotron from "./Jumbotron";
 import Modal from "./Modal";
-import Carousel from "./Carousel";
+import TopGainersCarousel from "./Carousel";
 import Navbar from "./Navbar";
 import Moment from "moment";
 //---------------------------------------------------------------------------------
@@ -69,7 +69,7 @@ const Landing = ({ loggedIn, stocks, topStocks }) => {
       {waiting ? (
         <div>
           {show25 ? (
-            <Carousel stocks={stocks} />
+            <TopGainersCarousel stocks={stocks} />
           ) : (
             <Container style={{ marginTop: "5rem" }}>
               <Row>
