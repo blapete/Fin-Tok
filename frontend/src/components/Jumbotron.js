@@ -17,13 +17,13 @@ import {
 //Component
 
 const Jumbo = ({
-  auth,
+  accountLoggedIn,
   date,
-  favMessage,
   getQuote,
   resetStockData,
-  stockResponse,
+  stocksMessage,
   yahooMessage,
+  yahooQuote,
 }) => {
   const [stockQuote, setStockQuote] = useState("");
   const [alert, setAlert] = useState(false);
@@ -41,7 +41,7 @@ const Jumbo = ({
     if (!stockQuote) {
       return setAlert(!alert);
     }
-    if (favMessage !== "") {
+    if (stocksMessage !== "") {
       resetStockData();
     }
     setError(false);
@@ -67,9 +67,9 @@ const Jumbo = ({
   };
 
   useEffect(() => {
-    if (favMessage === "Already in your favorites") {
+    if (stocksMessage === "Already in your favorites") {
       setError(true);
-    } else if (favMessage === "added to favorites") {
+    } else if (stocksMessage === "added to favorites") {
       setError(true);
       setTest(false);
       setStockQuote("");
@@ -77,11 +77,10 @@ const Jumbo = ({
       setTest(false);
       setError(true);
     } else if (yahooMessage === "No data") {
-      console.log(favMessage);
       setTest(false);
       setError(true);
     }
-  }, [favMessage, stockResponse, yahooMessage]);
+  }, [stocksMessage, yahooMessage, yahooQuote]);
 
   return (
     <Jumbotron>
@@ -125,7 +124,7 @@ const Jumbo = ({
             {alert ? <p>* field required</p> : null}
             <br />
             <br />
-            {stockResponse.ask && stockQuote && !spinner && test ? (
+            {yahooQuote.ask && stockQuote && !spinner && test ? (
               <p
                 style={{ cursor: "pointer", textDecoration: "underline" }}
                 onClick={reSet}
@@ -134,7 +133,9 @@ const Jumbo = ({
               </p>
             ) : null}
             <br />
-            {error ? <p>{favMessage ? favMessage : yahooMessage}</p> : null}
+            {error ? (
+              <p>{stocksMessage ? stocksMessage : yahooMessage}</p>
+            ) : null}
           </Col>
           {test ? (
             <Col>
@@ -144,12 +145,12 @@ const Jumbo = ({
                 </div>
               ) : (
                 <JumbotronInfo
-                  auth={auth}
-                  name={stockResponse.longName}
-                  ask={stockResponse.ask}
-                  currency={stockResponse.currency}
-                  symbol={stockResponse.symbol}
-                  cap={stockResponse.marketCap}
+                  auth={accountLoggedIn}
+                  name={yahooQuote.longName}
+                  ask={yahooQuote.ask}
+                  currency={yahooQuote.currency}
+                  symbol={yahooQuote.symbol}
+                  cap={yahooQuote.marketCap}
                 />
               )}
             </Col>
@@ -168,10 +169,10 @@ const Jumbo = ({
 };
 
 const mapStateToProps = (state, ownProps) => ({
-  auth: state.account.loggedIn,
-  favMessage: state.stocks.message,
+  accountLoggedIn: state.account.loggedIn,
+  stocksMessage: state.stocks.message,
   yahooMessage: state.yahoo.message,
-  stockResponse: state.yahoo.quote,
+  yahooQuote: state.yahoo.quote,
   date: ownProps.date,
 });
 
