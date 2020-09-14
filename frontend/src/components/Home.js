@@ -36,8 +36,6 @@ const Homepage = ({ loggedIn, favGet, username, favoritesList, current }) => {
     } else {
       setLoading(true);
       favGet({ username }).then((res) => {
-        console.log(res);
-
         let message = res.message;
         setTimeout(() => {
           if (message === "success - favorites found") {

@@ -9,6 +9,7 @@ import Logout from "./Logout";
 
 const NavBar = ({ props, resetStockData }) => {
   if (props.status === true) {
+    console.log("NAVBAR PROPS HERE1:::", props);
     return (
       <Navbar bg="dark" variant="dark" expand="lg" style={{ color: "white" }}>
         <Link to="/" onClick={resetStockData}>
@@ -42,6 +43,7 @@ const NavBar = ({ props, resetStockData }) => {
       </Navbar>
     );
   } else {
+    console.log("NAVBAR PROPS HERE2:::", props);
     return (
       <Navbar bg="dark" variant="dark" expand="lg" style={{ color: "white" }}>
         <Link to="/" onClick={resetStockData}>

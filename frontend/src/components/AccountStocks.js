@@ -10,18 +10,13 @@ const AccountStocks = ({ props, stockQuote, removeData, user }) => {
   let symbol = props.symbol;
   const getData = (e) => {
     e.preventDefault();
-
-    console.log("id:::", props.id);
     stockQuote({ data: symbol }).then((res) => {
-      console.log("quote response:", res);
       window.scrollTo(0, 0);
     });
   };
   const removeItem = (e) => {
     e.preventDefault();
-    removeData({ id: props.id, user }).then((res) => {
-      console.log("removed respose::::::", res);
-    });
+    removeData({ id: props.id, user });
   };
 
   return (
@@ -64,8 +59,6 @@ const AccountStocks = ({ props, stockQuote, removeData, user }) => {
 };
 
 const mapStateToProps = (state, ownProps) => ({
-  loggedIn: state.account.loggedIn,
-  list: state.stocks.favorites,
   user: state.account.username,
   props: ownProps,
 });

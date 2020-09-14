@@ -52,7 +52,6 @@ const JumbotronInfo = ({ info, addFav, user }) => {
 };
 
 const mapStateToinfo = (state, owninfo) => ({
-  auth: state.account.loggedIn,
   user: state.account.username,
   info: owninfo,
 });

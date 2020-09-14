@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import TopGainers from "./CarouselCard";
@@ -25,9 +25,6 @@ const responsive = {
 };
 
 const DataCarousel = (props) => {
-  const [company, setCompany] = useState([]);
-  console.log("data carousellllll", props);
-
   return (
     <Carousel id="stock__Carousel" responsive={responsive}>
       {props.stocks.map((data) => {

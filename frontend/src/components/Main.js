@@ -10,7 +10,7 @@ import Moment from "moment";
 //---------------------------------------------------------------------------------
 //Component
 
-const Landing = ({ loggedIn, stockQuote, topStocks, stocks }) => {
+const Landing = ({ loggedIn, topStocks, stocks }) => {
   const [show25, setShow25] = useState(false);
   const [waiting, setWaiting] = useState(false);
   let date = Moment().format("MMMM Do YYYY");
@@ -98,7 +98,6 @@ const Landing = ({ loggedIn, stockQuote, topStocks, stocks }) => {
 const mapStateToProps = (state) => ({
   loggedIn: state.account.loggedIn,
   stocks: state.yahoo.top_gainers,
-  searchMessage: state.yahoo.message,
 });
 
 const mapDispatchToProps = {

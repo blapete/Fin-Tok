@@ -1,10 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { Container, Row, Jumbotron, Col } from "react-bootstrap";
+import { connect } from "react-redux";
 import { quote } from "../actions/yahoo";
 import { reset } from "../actions/accountStocks";
 import JumbotronInfo from "./JumbotronInfo";
-import { connect } from "react-redux";
-import { Button, FormGroup, FormControl, Spinner } from "react-bootstrap";
+import {
+  Button,
+  FormGroup,
+  FormControl,
+  Spinner,
+  Container,
+  Row,
+  Jumbotron,
+  Col,
+} from "react-bootstrap";
 //---------------------------------------------------------------------------------
 //Component
 
@@ -18,7 +26,6 @@ const Jumbo = ({
   yahooMessage,
 }) => {
   const [stockQuote, setStockQuote] = useState("");
-  const [showCard, setShowCard] = useState(false);
   const [alert, setAlert] = useState(false);
   const [test, setTest] = useState(false);
   const [spinner, setSpinner] = useState(false);
@@ -41,7 +48,6 @@ const Jumbo = ({
     setTest(true);
     setSpinner(true);
     getQuote({ data: stockQuote }).then((data) => {
-      console.log("quote data here", data);
       setTimeout(() => {
         if (data.type === "STOCK_INFO_REQUEST_QUOTE_SUCCESS") {
           setSpinner(false);
@@ -61,7 +67,6 @@ const Jumbo = ({
   };
 
   useEffect(() => {
-    console.log("testingpeterblank", favMessage, yahooMessage, stockResponse);
     if (favMessage === "Already in your favorites") {
       setError(true);
     } else if (favMessage === "added to favorites") {
@@ -164,7 +169,6 @@ const Jumbo = ({
 
 const mapStateToProps = (state, ownProps) => ({
   auth: state.account.loggedIn,
-  message: state.account.message,
   favMessage: state.stocks.message,
   yahooMessage: state.yahoo.message,
   stockResponse: state.yahoo.quote,
