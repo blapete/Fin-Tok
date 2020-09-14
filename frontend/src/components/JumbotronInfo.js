@@ -6,37 +6,36 @@ import { addFavorite } from "../actions/accountStocks";
 //---------------------------------------------------------------------------------
 //Component
 
-const JumbotronInfo = ({ addFav, info, user }) => {
+const JumbotronInfo = ({ props, sendFavorite, username }) => {
+  const [signup, setSignup] = useState(false);
+  const stockName = props.name;
+  const stockSymbol = props.symbol;
   const flag = true;
-  const [toSignup, setToSignup] = useState(false);
-  let companyName = info.name;
-  if (toSignup) {
+
+  if (signup) {
     return <Redirect to="/signup" />;
   }
 
-  let symbol = info.symbol;
-
   return (
     <Card>
-      <Card.Header>{info.symbol}</Card.Header>
+      <Card.Header>{props.symbol}</Card.Header>
       <Card.Body>
         <Card.Text>
-          <strong>{info.name}</strong>{" "}
+          <strong>{props.name}</strong>{" "}
         </Card.Text>
         <hr />
-
         <div>
-          <Card.Text>currency: {info.currency}</Card.Text>
-          <Card.Text>cap: {info.cap}</Card.Text>
-          <Card.Text>price: {info.ask}</Card.Text>
+          <Card.Text>currency: {props.currency}</Card.Text>
+          <Card.Text>cap: {props.cap}</Card.Text>
+          <Card.Text>price: {props.ask}</Card.Text>
         </div>
       </Card.Body>
       <Card.Footer className="text-muted">
         <Button
           onClick={() => {
-            return info.auth
-              ? addFav({ companyName, user, symbol, flag })
-              : setToSignup(true);
+            return props.auth
+              ? sendFavorite({ flag, stockName, stockSymbol, username })
+              : setSignup(true);
           }}
           variant="light"
           style={{
@@ -51,13 +50,13 @@ const JumbotronInfo = ({ addFav, info, user }) => {
   );
 };
 
-const mapStateToinfo = (state, owninfo) => ({
-  user: state.account.username,
-  info: owninfo,
+const mapStateToinfo = (state, ownProps) => ({
+  username: state.account.username,
+  props: ownProps,
 });
 
 const mapDispatchToinfo = {
-  addFav: addFavorite,
+  sendFavorite: addFavorite,
 };
 
 export default connect(mapStateToinfo, mapDispatchToinfo)(JumbotronInfo);

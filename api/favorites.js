@@ -4,22 +4,21 @@ const db = require("../models");
 const { Op } = require("sequelize");
 
 router.post("/add", (req, res, next) => {
-  const { companyName, user, symbol } = req.body;
-  console.log("stuffffffffffffffffffffffffff", companyName, user, symbol);
-  if (!companyName || !user) {
+  const { stockName, stockSymbol, username } = req.body;
+  if (!stockName || !username) {
     const error = new Error("There has been an error with your request");
     throw error;
   }
   let infObject = {
     id: null,
-    name: companyName,
-    symbol: symbol,
+    name: stockName,
+    symbol: stockSymbol,
   };
-  let username = hash(user);
+  let user = hash(username);
   db.users
     .findAll({
       where: {
-        usernameHash: username,
+        usernameHash: user,
       },
     })
     .then((res) => {
@@ -35,7 +34,6 @@ router.post("/add", (req, res, next) => {
             throw error;
           }
         }
-        console.log("2:", res[0].dataValues.history);
         arr = res[0].dataValues.history;
         let lastId = arr.length - 1;
         let tempValue = JSON.parse(arr[lastId]);
@@ -44,23 +42,20 @@ router.post("/add", (req, res, next) => {
       } else {
         infObject.id = 1;
         arr = [infObject];
-        console.log("3:", arr);
       }
       return db.users.update(
         { history: arr },
         {
           where: {
-            usernameHash: username,
+            usernameHash: user,
           },
         }
       );
     })
     .then((data) => {
-      console.log("5:", data);
       res.json({ data, message: "added to favorites" });
     })
     .catch((e) => {
-      console.error("4:", e);
       next(e);
     });
 });

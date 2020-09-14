@@ -67,15 +67,15 @@ export const accountStocksRequest = ({
   }
 };
 
-export const addFavorite = ({ companyName, user, symbol, flag }) =>
+export const addFavorite = ({ flag, stockName, stockSymbol, username }) =>
   accountStocksRequest({
     method: "post",
     endpoint: "/fav/add",
     data: {
-      companyName,
-      user,
-      symbol,
       flag,
+      stockName,
+      stockSymbol,
+      username,
     },
     REQUEST_TYPE: ACCOUNT_STOCKS.REQUEST,
     ERROR_TYPE: ACCOUNT_STOCKS.REQUEST_ERROR,

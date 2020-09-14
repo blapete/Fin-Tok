@@ -7,18 +7,18 @@ import Logout from "./Logout";
 //---------------------------------------------------------------------------------
 //Component
 
-const NavBar = ({ props, resetStockData }) => {
+const NavBar = ({ props, clearStockInfo }) => {
   if (props.status === true) {
     return (
       <Navbar bg="dark" variant="dark" expand="lg" style={{ color: "white" }}>
-        <Link to="/" onClick={resetStockData}>
+        <Link to="/" onClick={clearStockInfo}>
           <Navbar.Brand>FinTok</Navbar.Brand>
         </Link>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
             <Link
-              onClick={resetStockData}
+              onClick={clearStockInfo}
               id="home__Link"
               to="/home"
               style={{ textDecoration: "none", color: "white" }}
@@ -44,7 +44,7 @@ const NavBar = ({ props, resetStockData }) => {
   } else {
     return (
       <Navbar bg="dark" variant="dark" expand="lg" style={{ color: "white" }}>
-        <Link to="/" onClick={resetStockData}>
+        <Link to="/" onClick={clearStockInfo}>
           <Navbar.Brand>FinTok</Navbar.Brand>
         </Link>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -101,7 +101,7 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = {
-  resetStockData: reset,
+  clearStockInfo: reset,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(NavBar);
