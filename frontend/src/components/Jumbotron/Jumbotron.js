@@ -40,8 +40,9 @@ const Jumbo = ({
     setTest(true);
     setSpinner(true);
     getQuote({ data: stockQuote }).then((data) => {
+      console.log("quote data here", data);
       setTimeout(() => {
-        if (data.type === "YAHOO_REQUEST_QUOTE_SUCCESS") {
+        if (data.type === "STOCK_INFO_REQUEST_QUOTE_SUCCESS") {
           setSpinner(false);
         }
       }, 2000);
@@ -59,6 +60,7 @@ const Jumbo = ({
   };
 
   useEffect(() => {
+    console.log("testingpeterblank", favMessage, yahooMessage, stockResponse);
     if (favMessage === "Already in your favorites") {
       setError(true);
     } else if (favMessage === "added to favorites") {
@@ -73,7 +75,7 @@ const Jumbo = ({
       setTest(false);
       setError(true);
     }
-  }, [favMessage, stockResponse]);
+  }, [favMessage, stockResponse, yahooMessage]);
 
   return (
     <Jumbotron>
@@ -126,7 +128,7 @@ const Jumbo = ({
               </p>
             ) : null}
             <br />
-            {error ? <p>{yahooMessage}</p> : null}
+            {error ? <p>{favMessage ? favMessage : yahooMessage}</p> : null}
           </Col>
           {test ? (
             <Col>

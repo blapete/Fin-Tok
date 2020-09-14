@@ -16,7 +16,6 @@ export const accountStocksRequest = ({
       url: endpoint,
       data: data,
     });
-    console.log("stocksdataresponseeeeeeeee:", stocksData);
     let favoritesArray;
     if (stocksData.data.favorites) {
       if (
@@ -26,11 +25,15 @@ export const accountStocksRequest = ({
         console.log(stocksData);
         return { message: "You have not added any to favorites" };
       }
-      if (!stocksData.data.favorites.length) {
-        return dispatch({
+      if (
+        !stocksData.data.favorites.length ||
+        stocksData.data.message === "removed item"
+      ) {
+        dispatch({
           type: YAHOO.RESET,
         });
       }
+
       favoritesArray = stocksData.data.favorites;
       let parsedArray = [];
       for (let i = 0; i < favoritesArray.length; i++) {

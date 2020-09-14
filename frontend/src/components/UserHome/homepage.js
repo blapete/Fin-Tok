@@ -44,6 +44,7 @@ const Homepage = ({
   //onclick get the data from yahooFinance.
   //delete button to remove from db favorites.
   useEffect(() => {
+    console.log(dataReturned, buttonClicked, current);
     console.log("helllooooo");
     if (current.symbol) {
       setDataReturned(true);
