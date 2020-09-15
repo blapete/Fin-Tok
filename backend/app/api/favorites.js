@@ -76,7 +76,7 @@ router.post("/all", (req, response, next) => {
     .then((res) => {
       let arr = res[0].dataValues.history;
       response.json({
-        message: "success - favorites found",
+        message: "success",
         favorites: arr,
       });
     })

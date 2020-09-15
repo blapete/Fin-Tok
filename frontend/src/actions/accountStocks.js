@@ -22,9 +22,9 @@ export const accountStocksRequest = ({
       // if the request is sent for account stocks & the user has none
       if (
         !accountStocksResponse.data.favorites.length &&
-        accountStocksResponse.data.message === "success - favorites found"
+        accountStocksResponse.data.message === "success"
       ) {
-        return { message: "You have not added any to favorites" };
+        return { message: "you have no favorites" };
       }
       // if the user removed the last account stock they have, clear yahoo store
       if (

@@ -8,7 +8,6 @@ export const useMoment = () => {
     const ticking = now.format("h:mm:ss a");
     time.innerHTML = ticking;
   };
-
   useEffect(() => {
     const interval = setInterval(updateTime, 1000);
     return () => clearInterval(interval);
@@ -31,4 +30,20 @@ export const useResponse = (a, b, c, x, y, z) => {
       a(true);
     }
   }, [x, y, z]);
+};
+
+export const useAuth = (x) => {
+  useEffect(() => {
+    if (!x) {
+      window.location.href = "/";
+    }
+  }, [x]);
+};
+
+export const useQuote = (x, y) => {
+  useEffect(() => {
+    if (x.symbol) {
+      y(true);
+    }
+  }, [x]);
 };

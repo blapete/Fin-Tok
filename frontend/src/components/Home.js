@@ -1,52 +1,48 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import { allFavorites } from "../actions/accountStocks";
+import { useAuth, useQuote } from "../hooks";
 import AccountStocks from "./AccountStocks";
 import Navbar from "./Navbar";
 import { Card, Container, Row, Col, Spinner, ListGroup } from "react-bootstrap";
 //--------------------
 
 //Component
-const Homepage = ({ current, favGet, favoritesList, loggedIn, username }) => {
+const Homepage = ({
+  accountLoggedIn,
+  accountStocks,
+  accountUsername,
+  getAccountStocks,
+  yahooQuote,
+}) => {
   const [loading, setLoading] = useState(false);
-  const [cards, setCards] = useState(false);
-  const [dataReturned, setDataReturned] = useState(false);
-  const [error, setError] = useState({
-    message: "",
-  });
+  const [stocksList, setStocksList] = useState(false);
+  const [stockListResponse, setStockListResponse] = useState(false);
   const [buttonClicked, setButtonClicked] = useState(false);
-  useEffect(() => {
-    if (!loggedIn) {
-      window.location.href = "/";
-    }
-  }, [loggedIn]);
+  const [notification, setNotification] = useState({
+    text: "",
+  });
+  const auth = useAuth(accountLoggedIn);
+  const quote = useQuote(yahooQuote, setStockListResponse);
 
-  useEffect(() => {
-    console.log(dataReturned, buttonClicked, current);
-    console.log("helllooooo");
-    if (current.symbol) {
-      setDataReturned(true);
-    }
-  }, [current]);
-
-  const getFavorites = (e) => {
-    e.preventDefault();
+  const accountStocksRequest = (event) => {
+    event.preventDefault();
     setButtonClicked(true);
-    if (favoritesList.length) {
-      return setCards(true);
+    if (accountStocks.length) {
+      return setStocksList(true);
     } else {
       setLoading(true);
-      favGet({ username }).then((res) => {
-        let message = res.message;
+      getAccountStocks({ username: accountUsername }).then((response) => {
+        const responseMessage = response.message;
         setTimeout(() => {
-          if (message === "success - favorites found") {
+          if (responseMessage === "success") {
             setLoading(false);
-            setCards(true);
-          } else if (message === "You have not added any to favorites") {
+            setStocksList(true);
+          } else if (responseMessage === "you have no favorites") {
             setLoading(false);
-            setError({
-              ...error,
-              message,
+            setNotification({
+              ...notification,
+              text: responseMessage,
             });
           }
         }, [1500]);
@@ -56,11 +52,11 @@ const Homepage = ({ current, favGet, favoritesList, loggedIn, username }) => {
 
   return (
     <div>
-      <Navbar status={loggedIn} />
+      <Navbar status={accountLoggedIn} />
       <Container id="home__Container">
         <Row>
           <h5>
-            Hi, <strong>{username}</strong>
+            Hi, <strong>{accountUsername}</strong>
           </h5>
         </Row>
         <br />
@@ -69,7 +65,7 @@ const Homepage = ({ current, favGet, favoritesList, loggedIn, username }) => {
         <Row>
           <Col xs={6} sm={6} md={6} lg={6} xl={6}>
             <ListGroup>
-              <ListGroup.Item action onClick={getFavorites}>
+              <ListGroup.Item action onClick={accountStocksRequest}>
                 view my favs
               </ListGroup.Item>
             </ListGroup>
@@ -77,10 +73,10 @@ const Homepage = ({ current, favGet, favoritesList, loggedIn, username }) => {
           <Col>
             This is your homepage. You can view your favorites, remove them, and
             add more from the homepage.
-            {error.message ? (
+            {notification.text ? (
               <div>
                 <hr />
-                <p>*** {error.message}</p>
+                <p>*** {notification.text}</p>
               </div>
             ) : null}
           </Col>
@@ -109,7 +105,7 @@ const Homepage = ({ current, favGet, favoritesList, loggedIn, username }) => {
       ) : null}
 
       <br />
-      {dataReturned && buttonClicked && current.symbol ? (
+      {stockListResponse && buttonClicked && yahooQuote.symbol ? (
         <Container>
           <Row>
             <div style={{ margin: "4rem auto" }}>
@@ -120,18 +116,18 @@ const Homepage = ({ current, favGet, favoritesList, loggedIn, username }) => {
                 }}
                 className="mb-2 stock__Cards"
               >
-                <Card.Header>{current.symbol}</Card.Header>
+                <Card.Header>{yahooQuote.symbol}</Card.Header>
                 <Card.Body>
                   <Card.Text>
-                    <strong>{current.name}</strong>{" "}
+                    <strong>{yahooQuote.name}</strong>{" "}
                   </Card.Text>
                   <hr />
 
                   <div>
-                    <Card.Text>Currency: {current.currency}</Card.Text>
-                    <Card.Text>Market Cap: {current.marketCap}</Card.Text>
+                    <Card.Text>Currency: {yahooQuote.currency}</Card.Text>
+                    <Card.Text>Market Cap: {yahooQuote.marketCap}</Card.Text>
                     <Card.Text>
-                      52 week low % change: {current.fiftyTwoWeekLow}
+                      52 week low % change: {yahooQuote.fiftyTwoWeekLow}
                     </Card.Text>
                   </div>
                 </Card.Body>
@@ -141,12 +137,12 @@ const Homepage = ({ current, favGet, favoritesList, loggedIn, username }) => {
         </Container>
       ) : null}
       <div>
-        {cards ? (
+        {stocksList ? (
           <div>
-            {favoritesList.length ? (
+            {accountStocks.length ? (
               <p
                 onClick={() => {
-                  setCards(false);
+                  setStocksList(false);
                   setButtonClicked(false);
                 }}
                 style={{
@@ -168,13 +164,13 @@ const Homepage = ({ current, favGet, favoritesList, loggedIn, username }) => {
                 justifyContent: "space-between",
               }}
             >
-              {favoritesList.map((e, index) => {
+              {accountStocks.map((item, index) => {
                 return (
                   <AccountStocks
                     key={index}
-                    id={e.id}
-                    name={e.name}
-                    symbol={e.symbol}
+                    id={item.id}
+                    name={item.name}
+                    symbol={item.symbol}
                   />
                 );
               })}
@@ -187,14 +183,14 @@ const Homepage = ({ current, favGet, favoritesList, loggedIn, username }) => {
 };
 
 const mapStateToProps = (state) => ({
-  loggedIn: state.account.loggedIn,
-  username: state.account.username,
-  favoritesList: state.stocks.favorites,
-  current: state.yahoo.quote,
+  accountLoggedIn: state.account.loggedIn,
+  accountUsername: state.account.username,
+  accountStocks: state.stocks.favorites,
+  yahooQuote: state.yahoo.quote,
 });
 
 const mapDispatchToProps = {
-  favGet: allFavorites,
+  getAccountStocks: allFavorites,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Homepage);
