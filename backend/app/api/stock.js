@@ -34,7 +34,6 @@ router.post("/quote", (req, res, next) => {
       res.json({ data, message: "Found stock" });
     })
     .catch((error) => {
-      console.log("error here", error);
       next(error);
     });
 });
@@ -61,7 +60,6 @@ router.get("/topstocks", (req, res, next) => {
       res.json({ message: "success", data: filteredArr });
     })
     .catch((error) => {
-      console.log(error);
       next(error);
     });
 });

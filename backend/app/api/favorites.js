@@ -114,7 +114,6 @@ router.delete("/remove/:data", (req, response, next) => {
       );
     })
     .then((data) => {
-      console.log("data", data);
       db.users
         .findAll({
           where: {
@@ -130,7 +129,6 @@ router.delete("/remove/:data", (req, response, next) => {
         });
     })
     .catch((error) => {
-      console.erre(error);
       next(error);
     });
 });
