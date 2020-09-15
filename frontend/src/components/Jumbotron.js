@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import { quote } from "../actions/yahoo";
 import { reset } from "../actions/accountStocks";
 import JumbotronInfo from "./JumbotronInfo";
+import { useResponse } from "../hooks";
+import { YAHOO } from "../actions/types";
 import {
   Button,
   FormGroup,
@@ -18,69 +20,63 @@ import {
 //Component
 const Jumbo = ({
   accountLoggedIn,
+  accountStocksMessage,
   date,
   getQuote,
-  resetStockData,
-  stocksMessage,
+  clearStockInfo,
   yahooMessage,
   yahooQuote,
 }) => {
-  const [stockQuote, setStockQuote] = useState("");
-  const [alert, setAlert] = useState(false);
-  const [test, setTest] = useState(false);
-  const [spinner, setSpinner] = useState(false);
-  const [message, setMessage] = useState(false);
-  const [error, setError] = useState(false);
+  const [quote, setQuote] = useState("");
+  const [notification, setNotification] = useState(false);
+  const [buttonClicked, setButtonClicked] = useState(false);
+  const [response, setResponse] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const updateStockQuote = (event) => {
-    setStockQuote(event.target.value);
+    setQuote(event.target.value);
   };
 
   const getQuoteData = (e) => {
     e.preventDefault();
-    if (!stockQuote) {
-      return setAlert(!alert);
+    if (!quote) {
+      return setNotification(!notification);
     }
-    if (stocksMessage !== "") {
-      resetStockData();
+    if (accountStocksMessage !== "") {
+      clearStockInfo();
     }
-    setError(false);
-    setTest(true);
-    setSpinner(true);
-    getQuote({ data: stockQuote }).then((data) => {
+    //
+    setResponse(false);
+    setButtonClicked(true);
+    setLoading(true);
+    //
+    getQuote({ data: quote }).then((data) => {
       setTimeout(() => {
-        if (data.type === "STOCK_INFO_REQUEST_QUOTE_SUCCESS") {
-          setSpinner(false);
+        if (data.type === YAHOO.REQUEST_QUOTE_SUCCESS) {
+          setLoading(false);
         }
       }, 2000);
     });
   };
 
-  const reSet = (e) => {
+  const clearSearchInput = (e) => {
     e.preventDefault();
-    if (error) {
-      setError(false);
+    if (response) {
+      setResponse(false);
     }
-    resetStockData();
-    setTest(false);
-    setStockQuote("");
+    clearStockInfo();
+    setButtonClicked(false);
+    setQuote("");
   };
 
-  useEffect(() => {
-    if (stocksMessage === "Already in your favorites") {
-      setError(true);
-    } else if (stocksMessage === "added to favorites") {
-      setError(true);
-      setTest(false);
-      setStockQuote("");
-    } else if (yahooMessage === "Invalid symbol") {
-      setTest(false);
-      setError(true);
-    } else if (yahooMessage === "No data") {
-      setTest(false);
-      setError(true);
-    }
-  }, [stocksMessage, yahooMessage, yahooQuote]);
+  useResponse(
+    setResponse,
+    setButtonClicked,
+    setQuote,
+    accountStocksMessage,
+    yahooMessage,
+    yahooQuote
+  );
 
   return (
     <Jumbotron>
@@ -102,7 +98,7 @@ const Jumbo = ({
                 <FormGroup>
                   <FormControl
                     type="text"
-                    value={stockQuote}
+                    value={quote}
                     placeholder="symbol ex: AAPL"
                     onChange={updateStockQuote}
                   />
@@ -121,25 +117,26 @@ const Jumbo = ({
                 </Button>
               </span>
             </div>
-            {alert ? <p>* field required</p> : null}
+            {notification ? <p>* field required</p> : null}
             <br />
-            <br />
-            {yahooQuote.ask && stockQuote && !spinner && test ? (
+            {buttonClicked && quote && !loading && yahooQuote.symbol ? (
               <p
                 style={{ cursor: "pointer", textDecoration: "underline" }}
-                onClick={reSet}
+                onClick={clearSearchInput}
               >
                 clear search
               </p>
             ) : null}
             <br />
-            {error ? (
-              <p>{stocksMessage ? stocksMessage : yahooMessage}</p>
+            {response ? (
+              <p>
+                {accountStocksMessage ? accountStocksMessage : yahooMessage}
+              </p>
             ) : null}
           </Col>
-          {test ? (
+          {buttonClicked ? (
             <Col>
-              {spinner ? (
+              {loading ? (
                 <div style={{ margin: "3rem" }}>
                   <Spinner animation="grow" />
                 </div>
@@ -158,11 +155,6 @@ const Jumbo = ({
             <div></div>
           )}
         </Row>
-        {message ? (
-          <Row>
-            <Col>added to favorites</Col>
-          </Row>
-        ) : null}
       </Container>
     </Jumbotron>
   );
@@ -170,7 +162,7 @@ const Jumbo = ({
 
 const mapStateToProps = (state, ownProps) => ({
   accountLoggedIn: state.account.loggedIn,
-  stocksMessage: state.stocks.message,
+  accountStocksMessage: state.stocks.message,
   yahooMessage: state.yahoo.message,
   yahooQuote: state.yahoo.quote,
   date: ownProps.date,
@@ -178,7 +170,7 @@ const mapStateToProps = (state, ownProps) => ({
 
 const mapDispatchToProps = {
   getQuote: quote,
-  resetStockData: reset,
+  clearStockInfo: reset,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Jumbo);

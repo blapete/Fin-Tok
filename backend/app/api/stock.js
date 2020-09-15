@@ -10,17 +10,16 @@ router.post("/quote", (req, res, next) => {
     .get(STOCK_QUOTE + symbol, YAHOO_CREDENTIALS)
     .then(function (response) {
       if (!response.data.length) {
-        const error = new Error("Invalid symbol");
+        const error = new Error("invalid symbol");
         throw error;
       }
-      console.log("data here here ", response.data);
       if (
         !response.data[0].ask ||
         !response.data[0].longName ||
         !response.data[0].marketCap ||
         !response.data[0].symbol
       ) {
-        const error = new Error("No data");
+        const error = new Error("no data");
         throw error;
       }
       let data = new Object();

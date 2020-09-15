@@ -14,3 +14,21 @@ export const useMoment = () => {
     return () => clearInterval(interval);
   }, []);
 };
+
+export const useResponse = (a, b, c, x, y, z) => {
+  useEffect(() => {
+    if (x === "already in favorites") {
+      a(true);
+    } else if (x === "added") {
+      a(true);
+      b(false);
+      c("");
+    } else if (y === "invalid symbol") {
+      b(false);
+      a(true);
+    } else if (y === "no data") {
+      b(false);
+      a(true);
+    }
+  }, [x, y, z]);
+};

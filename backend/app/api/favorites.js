@@ -29,8 +29,8 @@ router.post("/add", (req, res, next) => {
           return JSON.parse(x);
         });
         for (let i = 0; i < parsed.length; i++) {
-          if (parsed[i].symbol == symbol) {
-            const error = new Error("Already in your favorites");
+          if (parsed[i].symbol == stockSymbol) {
+            const error = new Error("already in favorites");
             throw error;
           }
         }
@@ -53,7 +53,7 @@ router.post("/add", (req, res, next) => {
       );
     })
     .then((data) => {
-      res.json({ data, message: "added to favorites" });
+      res.json({ data, message: "added" });
     })
     .catch((e) => {
       next(e);
