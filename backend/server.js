@@ -2,7 +2,7 @@ const path = require("path");
 const express = require("express");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
-const morgan = require("morgan");
+// const morgan = require("morgan");
 const accountRouter = require("./app/api/account");
 const stockRouter = require("./app/api/stock");
 const favoritesRouter = require("./app/api/favorites");
@@ -13,7 +13,7 @@ const app = express();
 const port = process.env.PORT || 8080;
 
 //middleware
-app.use(morgan("dev"));
+// app.use(morgan("dev"));
 app.use(cookieParser());
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
