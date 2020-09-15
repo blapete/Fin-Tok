@@ -4,7 +4,8 @@ import { allFavorites } from "../actions/accountStocks";
 import AccountStocks from "./AccountStocks";
 import Navbar from "./Navbar";
 import { Card, Container, Row, Col, Spinner, ListGroup } from "react-bootstrap";
-//---------------------------------------------------------------------------------
+//--------------------
+
 //Component
 const Homepage = ({ current, favGet, favoritesList, loggedIn, username }) => {
   const [loading, setLoading] = useState(false);

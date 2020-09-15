@@ -1,54 +1,49 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import { quote, topWatched } from "../actions/yahoo";
 import { Button, Container, Row, Spinner } from "react-bootstrap";
+import { YAHOO } from "../actions/types";
+import { useMoment } from "../hooks";
 import Jumbotron from "./Jumbotron";
 import Modal from "./Modal";
 import TopGainersCarousel from "./Carousel";
 import Navbar from "./Navbar";
 import Moment from "moment";
-//---------------------------------------------------------------------------------
-//Component
+//--------------------
 
-const Landing = ({ loggedIn, stocks, topStocks }) => {
-  const [show25, setShow25] = useState(false);
-  const [waiting, setWaiting] = useState(false);
+//Component
+const Landing = ({ accountLoggedIn, topStocks, yahooStocks }) => {
+  const [carousel, setCarousel] = useState(false);
+  const [buttonClicked, setButtonClicked] = useState(false);
+
+  //moment
   let date = Moment().format("MMMM Do YYYY");
   let initialTime = Moment().format("h:mm:ss a");
-  const updateTime = () => {
-    const time = document.getElementById("clock__Time");
-    const now = Moment();
-    const ticking = now.format("h:mm:ss a");
-    time.innerHTML = ticking;
-  };
+  const time = useMoment();
 
-  const getAll = () => {
-    if (waiting === true) {
-      return setWaiting(false);
+  const topGainersRequest = () => {
+    if (buttonClicked === true) {
+      return setButtonClicked(false);
     }
-    if (stocks.length) {
-      setWaiting(true);
-      setShow25(true);
+    if (yahooStocks.length) {
+      setButtonClicked(true);
+      setCarousel(true);
       return;
     }
-    setWaiting(true);
+    //no data in store => set spinner
+    setButtonClicked(true);
     topStocks().then((res) => {
-      if (res.type === "YAHOO_REQUEST_TOPSTOCKS_SUCCESS") {
-        setShow25(!show25);
+      if (res.type === YAHOO.REQUEST_TOPGAINERS_SUCCESS) {
+        setCarousel(!carousel);
       } else {
-        setWaiting(false);
+        setButtonClicked(false);
       }
     });
   };
 
-  useEffect(() => {
-    const interval = setInterval(updateTime, 1000);
-    return () => clearInterval(interval);
-  }, []);
-
   return (
     <div style={{ height: "100%" }}>
-      <Navbar status={loggedIn} />
+      <Navbar status={accountLoggedIn} />
       <div id="clock">
         <span id="clock__Time">{initialTime}</span>
       </div>
@@ -60,16 +55,16 @@ const Landing = ({ loggedIn, stocks, topStocks }) => {
             border: "1px solid white",
           }}
           id="stock__Button"
-          onClick={getAll}
+          onClick={topGainersRequest}
         >
           Top watched
         </Button>
         <Modal />
       </div>
-      {waiting ? (
+      {buttonClicked ? (
         <div>
-          {show25 ? (
-            <TopGainersCarousel stocks={stocks} />
+          {carousel ? (
+            <TopGainersCarousel stocks={yahooStocks} />
           ) : (
             <Container style={{ marginTop: "5rem" }}>
               <Row>
@@ -96,8 +91,8 @@ const Landing = ({ loggedIn, stocks, topStocks }) => {
 };
 
 const mapStateToProps = (state) => ({
-  loggedIn: state.account.loggedIn,
-  stocks: state.yahoo.top_gainers,
+  accountLoggedIn: state.account.loggedIn,
+  yahooStocks: state.yahoo.top_gainers,
 });
 
 const mapDispatchToProps = {

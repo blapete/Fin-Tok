@@ -13,9 +13,9 @@ import {
   Jumbotron,
   Col,
 } from "react-bootstrap";
-//---------------------------------------------------------------------------------
-//Component
+//--------------------
 
+//Component
 const Jumbo = ({
   accountLoggedIn,
   date,

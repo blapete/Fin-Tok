@@ -4,9 +4,9 @@ import { Button, FormGroup, FormControl } from "react-bootstrap";
 import { signup } from "../actions/account";
 import { Link, Redirect } from "react-router-dom";
 import requestStates from "../reducers/request";
-//---------------------------------------------------------------------------------
-//Component
+//--------------------
 
+//Component
 const Signup = ({ accountMessage, accountStatus, sendSignup }) => {
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");

@@ -3,9 +3,9 @@ import { connect } from "react-redux";
 import { Card, Button } from "react-bootstrap";
 import { quote } from "../actions/yahoo";
 import { removeFavorite } from "../actions/accountStocks";
-//---------------------------------------------------------------------------------
-//Component
+//--------------------
 
+//Component
 const AccountStocks = ({ getQuote, props, sendRemoveRequest, username }) => {
   const stockSymbol = props.symbol;
   const stockId = props.id;

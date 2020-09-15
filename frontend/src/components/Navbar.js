@@ -4,9 +4,9 @@ import { reset } from "../actions/accountStocks";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import Logout from "./Logout";
-//---------------------------------------------------------------------------------
-//Component
+//--------------------
 
+//Component
 const NavBar = ({ props, clearStockInfo }) => {
   if (props.status === true) {
     return (

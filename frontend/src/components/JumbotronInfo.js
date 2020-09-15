@@ -3,9 +3,9 @@ import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { Card, Button } from "react-bootstrap";
 import { addFavorite } from "../actions/accountStocks";
-//---------------------------------------------------------------------------------
-//Component
+//--------------------
 
+//Component
 const JumbotronInfo = ({ props, sendFavorite, username }) => {
   const [signup, setSignup] = useState(false);
   const stockName = props.name;

@@ -1,8 +1,8 @@
 import React from "react";
 import { Card } from "react-bootstrap";
-//---------------------------------------------------------------------------------
-//Component
+//--------------------
 
+//Component
 const TopGainers = (props) => {
   return (
     <div

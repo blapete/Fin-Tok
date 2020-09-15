@@ -2,9 +2,9 @@ import React from "react";
 import { Button } from "react-bootstrap";
 import { logoutAction } from "../actions/account";
 import { connect } from "react-redux";
-//---------------------------------------------------------------------------------
-//Component
+//--------------------
 
+//Component
 const Logout = ({ logoutGet }) => {
   const sendLogout = () => {
     logoutGet();

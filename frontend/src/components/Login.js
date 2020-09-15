@@ -4,9 +4,9 @@ import { Button, FormGroup, FormControl } from "react-bootstrap";
 import { login } from "../actions/account";
 import { Link } from "react-router-dom";
 import requestStates from "../reducers/request";
-//---------------------------------------------------------------------------------
-//Component
+//--------------------
 
+//Component
 const Login = ({ accountMessage, accountStatus, sendLogin }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");

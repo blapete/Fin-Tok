@@ -1,8 +1,7 @@
 {
-  "name": "react",
+  "name": "fintok",
   "version": "1.0.0",
   "description": "yahoo-finance",
-  "main": "index.js",
   "scripts": {
     "start": "cd backend && npm run start"
   },
