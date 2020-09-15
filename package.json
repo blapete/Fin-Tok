@@ -1,36 +1,20 @@
 {
-  "name": "reactproject",
+  "name": "react",
   "version": "1.0.0",
-  "description": "",
-  "main": "server.js",
+  "description": "yahoo-finance",
+  "main": "index.js",
   "scripts": {
-    "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
-    "start:prod": "node server.js",
-    "start:dev": "concurrently \"nodemon --ignore 'frontend/*'\" \"npm run client\"",
-    "client": "cd frontend && npm run start",
-    "install": "cd frontend && npm install",
-    "build": "cd frontend && npm run build",
-    "heroku-postbuild": "npm run build"
+    "start": "cd backend && npm run start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/blapete/yahoo-finance.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "axios": "^0.20.0",
-    "body-parser": "^1.19.0",
-    "cookie-parser": "^1.4.5",
-    "cors": "^2.8.5",
-    "crypto-js": "^4.0.0",
-    "express": "^4.17.1",
-    "if-env": "^1.0.4",
-    "pg": "^8.3.0",
-    "pg-hstore": "^2.3.3",
-    "sequelize": "^6.3.5",
-    "uuid": "^8.3.0"
+  "bugs": {
+    "url": "https://github.com/blapete/yahoo-finance/issues"
   },
-  "devDependencies": {
-    "sequelize-cli": "^6.2.0",
-    "concurrently": "^5.3.0",
-    "morgan": "^1.10.0"
-  }
+  "homepage": "https://github.com/blapete/yahoo-finance#readme"
 }

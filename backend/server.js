@@ -3,9 +3,9 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const morgan = require("morgan");
-const accountRouter = require("./api/account");
-const stockRouter = require("./api/stock");
-const favoritesRouter = require("./api/favorites");
+const accountRouter = require("./app/api/account");
+const stockRouter = require("./app/api/stock");
+const favoritesRouter = require("./app/api/favorites");
 const db = require("./models");
 const app = express();
 
@@ -20,9 +20,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static("frontend/build"));
+  app.use(express.static("../frontend/build"));
 } else {
-  app.use(express.static("frontend/public"));
+  app.use(express.static("../frontend/public"));
 }
 
 //api routes
@@ -42,9 +42,9 @@ app.use((err, req, res, next) => {
 //fallback
 app.get("*", (req, res) => {
   if (process.env.NODE_ENV === "production") {
-    res.sendFile(path.resolve(__dirname, "./frontend/build/index.html"));
+    res.sendFile(path.resolve(__dirname, "../frontend/build/index.html"));
   } else {
-    res.sendFile(path.resolve(__dirname, "./frontend/public/index.html"));
+    res.sendFile(path.resolve(__dirname, "../frontend/public/index.html"));
   }
 });
 

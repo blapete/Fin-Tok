@@ -1,6 +1,0 @@
-node_modules
-package-lock.json
-config/config.json
-models/usersTable.js
-models/favorites.js
-secrets
