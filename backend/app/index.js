@@ -3,14 +3,11 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 // const morgan = require("morgan");
-const accountRouter = require("./app/api/account");
-const yahooRouter = require("./app/api/yahoo");
-const accountStocksRouter = require("./app/api/accountStocks");
-const db = require("./models");
-const app = express();
+const accountRouter = require("./api/account");
+const yahooRouter = require("./api/yahoo");
+const accountStocksRouter = require("./api/accountStocks");
 
-//port
-const port = process.env.PORT || 8080;
+const app = express();
 
 //middleware
 // app.use(morgan("dev"));
@@ -20,9 +17,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static("../frontend/build"));
+  app.use(express.static("../../frontend/build"));
 } else {
-  app.use(express.static("../frontend/public"));
+  app.use(express.static("../../frontend/public"));
 }
 
 //api routes
@@ -42,17 +39,10 @@ app.use((err, req, res, next) => {
 //fallback
 app.get("*", (req, res) => {
   if (process.env.NODE_ENV === "production") {
-    res.sendFile(path.resolve(__dirname, "../frontend/build/index.html"));
+    res.sendFile(path.resolve(__dirname, "../../frontend/build/index.html"));
   } else {
-    res.sendFile(path.resolve(__dirname, "../frontend/public/index.html"));
+    res.sendFile(path.resolve(__dirname, "../../frontend/public/index.html"));
   }
 });
 
-//sync database and start server
-db.sequelize.sync().then(function () {
-  app.listen(port, () => console.log(`listening on port ${port}`));
-});
-
-// {
-//   force: true;
-// }
+module.exports = app;

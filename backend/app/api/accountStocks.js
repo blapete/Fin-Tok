@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const { hash } = require("../account/helper");
-const db = require("../../models");
+const db = require("../../database/models");
 
 router.post("/add", (req, res, next) => {
   const { stockName, stockSymbol, username } = req.body;

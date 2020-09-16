@@ -10,6 +10,7 @@ Here are the main technologies used:
 
 - React & Redux
 - React-bootstrap
+- Cookies
 - Axios
 - Express
 - Crypto-js
