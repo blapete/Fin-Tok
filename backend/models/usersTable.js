@@ -8,7 +8,7 @@ module.exports = function (sequelize, DataTypes) {
     emailHash: { type: DataTypes.STRING(80), unique: true, allowNull: false },
     passwordHash: { type: DataTypes.STRING(80), allowNull: false },
     session_id: { type: DataTypes.STRING(80), unique: true },
-    history: { type: DataTypes.ARRAY(DataTypes.TEXT) },
+    history: { type: DataTypes.ARRAY(DataTypes.TEXT), defaultValue: {} },
   });
 
   return User;
