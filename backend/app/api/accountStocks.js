@@ -4,7 +4,6 @@ const db = require("../../models");
 
 router.post("/add", (req, res, next) => {
   const { stockName, stockSymbol, username } = req.body;
-  console.log("reqbody", req.body);
   if (!stockName || !username) {
     const error = new Error("There has been an error with your request");
     throw error;
@@ -22,11 +21,8 @@ router.post("/add", (req, res, next) => {
       },
     })
     .then((res) => {
-      console.log("account res:", res);
       let arr;
-      console.log("test 1:", res[0].dataValues.history);
       if (res[0].dataValues.history) {
-        console.log("test 2:", res[0].dataValues.history);
         let history = res[0].dataValues.history;
         let parsed = history.map((x) => {
           return JSON.parse(x);
@@ -38,18 +34,14 @@ router.post("/add", (req, res, next) => {
           }
         }
         arr = res[0].dataValues.history;
-        console.log("test 3:", arr);
         if (arr.length !== 0) {
         }
         let lastId = arr.length - 1;
-        console.log("test 4:", lastId);
         let tempValue = JSON.parse(arr[lastId]);
-        console.log("test 5:", tempValue);
         infObject.id = tempValue.id + 1;
         arr.push(infObject);
       } else {
         infObject.id = 1;
-        console.log("test 6:", infObject);
         arr = [infObject];
       }
       return db.users.update(
@@ -62,11 +54,9 @@ router.post("/add", (req, res, next) => {
       );
     })
     .then((data) => {
-      console.log("data to send for account stocks:", data);
       res.json({ data, message: "added" });
     })
     .catch((error) => {
-      console.error("banana", error);
       next(error);
     });
 });
@@ -85,7 +75,6 @@ router.post("/all", (req, response, next) => {
       },
     })
     .then((res) => {
-      console.log("res from data:", res);
       let arr = res[0].dataValues.history;
       if (arr === null) arr = [];
       response.json({
@@ -136,7 +125,6 @@ router.delete("/remove/:data", (req, response, next) => {
         })
         .then((res) => {
           let arr = res[0].dataValues.history;
-          console.log("removed arr:", arr);
           response.json({
             message: "removed item",
             favorites: arr,
@@ -144,7 +132,6 @@ router.delete("/remove/:data", (req, response, next) => {
         });
     })
     .catch((error) => {
-      console.error("lemon", error);
       next(error);
     });
 });

@@ -48,7 +48,6 @@ class AccountTable {
           return account;
         })
         .catch((error) => {
-          console.log("error:", error);
           throw error;
         });
     }
