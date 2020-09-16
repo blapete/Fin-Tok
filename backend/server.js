@@ -4,8 +4,8 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 // const morgan = require("morgan");
 const accountRouter = require("./app/api/account");
-const stockRouter = require("./app/api/stock");
-const favoritesRouter = require("./app/api/favorites");
+const yahooRouter = require("./app/api/yahoo");
+const accountStocksRouter = require("./app/api/accountStocks");
 const db = require("./models");
 const app = express();
 
@@ -27,8 +27,8 @@ if (process.env.NODE_ENV === "production") {
 
 //api routes
 app.use("/account", accountRouter);
-app.use("/stock", stockRouter);
-app.use("/fav", favoritesRouter);
+app.use("/stock", yahooRouter);
+app.use("/fav", accountStocksRouter);
 
 //error handler
 app.use((err, req, res, next) => {
