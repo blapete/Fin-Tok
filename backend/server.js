@@ -16,7 +16,11 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+console.log("test123456789");
+console.log("node", process.env.NODE_ENV);
+console.log("env", process.env);
 if (process.env.NODE_ENV === "production") {
+  console.log("peterblank");
   console.log("PROCESS OBJECT", process.env);
   app.use(express.static(path.join(__dirname, "../frontend/build")));
 } else {
