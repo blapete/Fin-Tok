@@ -16,9 +16,8 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-
 if (process.env.NODE_ENV === "production") {
-  console.log("PROCESS OBJECT", process);
+  console.log("PROCESS OBJECT", process.env);
   app.use(express.static(path.join(__dirname, "../frontend/build")));
 } else {
   app.use(express.static(path.join(__dirname, "../frontend/public")));
