@@ -24,8 +24,9 @@ router.post("/add", (req, res, next) => {
     .then((res) => {
       console.log("account res:", res);
       let arr;
-      console.log("test::", res[0].dataValues.history);
+      console.log("test 1:", res[0].dataValues.history);
       if (res[0].dataValues.history) {
+        console.log("test 2:", res[0].dataValues.history);
         let history = res[0].dataValues.history;
         let parsed = history.map((x) => {
           return JSON.parse(x);
@@ -37,8 +38,11 @@ router.post("/add", (req, res, next) => {
           }
         }
         arr = res[0].dataValues.history;
+        console.log("test 3:", arr);
         let lastId = arr.length - 1;
+        console.log("test 4:", lastId);
         let tempValue = JSON.parse(arr[lastId]);
+        console.log("test 5:", tempValue);
         infObject.id = tempValue.id + 1;
         arr.push(infObject);
       } else {
