@@ -39,6 +39,8 @@ router.post("/add", (req, res, next) => {
         }
         arr = res[0].dataValues.history;
         console.log("test 3:", arr);
+        if (arr.length !== 0) {
+        }
         let lastId = arr.length - 1;
         console.log("test 4:", lastId);
         let tempValue = JSON.parse(arr[lastId]);
@@ -47,6 +49,7 @@ router.post("/add", (req, res, next) => {
         arr.push(infObject);
       } else {
         infObject.id = 1;
+        console.log("test 6:", infObject);
         arr = [infObject];
       }
       return db.users.update(
@@ -82,6 +85,7 @@ router.post("/all", (req, response, next) => {
       },
     })
     .then((res) => {
+      console.log("res from data:", res);
       let arr = res[0].dataValues.history;
       response.json({
         message: "success",
