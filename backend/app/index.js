@@ -39,9 +39,9 @@ app.use((err, req, res, next) => {
 //fallback
 app.get("*", (req, res) => {
   if (process.env.NODE_ENV === "production") {
-    res.sendFile(path.resolve(__dirname, "../../frontend/build/index.html"));
+    res.sendFile(path.resolve(__dirname, "../frontend/build/index.html"));
   } else {
-    res.sendFile(path.resolve(__dirname, "../../frontend/public/index.html"));
+    res.sendFile(path.resolve(__dirname, "../frontend/public/index.html"));
   }
 });
 
