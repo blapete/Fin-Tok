@@ -22,11 +22,10 @@ router.post("/add", (req, res, next) => {
     })
     .then((res) => {
       let arr;
-      if (res[0].dataValues.history) {
-        console.log("res add:", res[0].dataValues);
-        console.log("res add history:", res[0].dataValues.history);
-        let history = res[0].dataValues.history;
-        console.log("historyyyyy:", history);
+      let cleaned = res[0].dataValues.history;
+      if (cleaned === null) cleaned = [];
+      if (cleaned !== []) {
+        let history = cleaned;
         let parsed = history.map((x) => {
           return JSON.parse(x);
         });
@@ -36,9 +35,9 @@ router.post("/add", (req, res, next) => {
             throw error;
           }
         }
-        arr = res[0].dataValues.history;
-        if (arr.length !== 0) {
-        }
+      }
+      arr = cleaned;
+      if (arr.length !== 0) {
         let lastId = arr.length - 1;
         let tempValue = JSON.parse(arr[lastId]);
         infObject.id = tempValue.id + 1;
@@ -47,6 +46,7 @@ router.post("/add", (req, res, next) => {
         infObject.id = 1;
         arr = [infObject];
       }
+
       return db.users.update(
         { history: arr },
         {
