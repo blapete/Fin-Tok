@@ -24,7 +24,8 @@ router.post("/add", (req, res, next) => {
     .then((res) => {
       console.log("account res:", res);
       let arr;
-      if (res[0].dataValues.history.length) {
+      console.log("test::", res[0].dataValues.history);
+      if (res[0].dataValues.history) {
         let history = res[0].dataValues.history;
         let parsed = history.map((x) => {
           return JSON.parse(x);
