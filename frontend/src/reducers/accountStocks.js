@@ -34,7 +34,9 @@ const stocks = (state = DEFAULT_STOCKS_DATA, action) => {
       };
     case CLEAR.ACCOUNT_STOCKS:
       return {
-        state,
+        ...state,
+        favorites: [],
+        message: "",
       };
     default:
       return state;
