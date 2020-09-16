@@ -16,6 +16,9 @@ export const accountStocksRequest = ({
       url: endpoint,
       data: data,
     });
+
+    console.log("accountstocksresponse", accountStocksResponse);
+
     let accountStocksArray;
     // this if block is for removeFavorite & allFavorites action
     if (accountStocksResponse.data.favorites) {
@@ -46,6 +49,7 @@ export const accountStocksRequest = ({
         message: accountStocksResponse.data.message,
         favorites: parsedStocks,
       };
+      console.log("accountStocksData", accountStocksData);
       return dispatch({
         type: SUCCESS_TYPE,
         ...accountStocksData,
@@ -60,6 +64,8 @@ export const accountStocksRequest = ({
       ...accountStocksData,
     });
   } catch (error) {
+    console.log("apple");
+    console.log(Object.keys(error), error.response);
     return dispatch({
       type: ERROR_TYPE,
       message: error.response.data.message,

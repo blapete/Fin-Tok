@@ -1,7 +1,6 @@
 const router = require("express").Router();
 const { hash } = require("../account/helper");
 const db = require("../../models");
-const { Op } = require("sequelize");
 
 router.post("/add", (req, res, next) => {
   const { stockName, stockSymbol, username } = req.body;
@@ -53,9 +52,11 @@ router.post("/add", (req, res, next) => {
       );
     })
     .then((data) => {
+      console.log("data to send for account stocks:", data);
       res.json({ data, message: "added" });
     })
-    .catch((e) => {
+    .catch((error) => {
+      console.error("banana", error);
       next(e);
     });
 });
@@ -80,8 +81,9 @@ router.post("/all", (req, response, next) => {
         favorites: arr,
       });
     })
-    .catch((e) => {
-      next(e);
+    .catch((error) => {
+      console.error("melon", error);
+      next(error);
     });
 });
 
@@ -122,6 +124,7 @@ router.delete("/remove/:data", (req, response, next) => {
         })
         .then((res) => {
           let arr = res[0].dataValues.history;
+          console.log("removed arr:", arr);
           response.json({
             message: "removed item",
             favorites: arr,
@@ -129,6 +132,7 @@ router.delete("/remove/:data", (req, response, next) => {
         });
     })
     .catch((error) => {
+      console.error("lemon", error);
       next(error);
     });
 });
