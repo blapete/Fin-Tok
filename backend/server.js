@@ -3,10 +3,10 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 // const morgan = require("morgan");
-const accountRouter = require("../app/api/account");
-const yahooRouter = require("../app/api/yahoo");
-const accountStocksRouter = require("../app/api/accountStocks");
-const db = require("../database/models");
+const accountRouter = require("./app/api/account");
+const yahooRouter = require("./app/api/yahoo");
+const accountStocksRouter = require("./app/api/accountStocks");
+const db = require("./database/models");
 
 const app = express();
 
@@ -18,9 +18,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static("../../frontend/build"));
+  console.log("PROCESS OBJECT", process);
+  app.use(express.static(path.join(__dirname, "../frontend/build")));
 } else {
-  app.use(express.static("../../frontend/public"));
+  app.use(express.static(path.join(__dirname, "../frontend/public")));
 }
 
 //api routes
@@ -40,9 +41,9 @@ app.use((err, req, res, next) => {
 //fallback
 app.get("*", (req, res) => {
   if (process.env.NODE_ENV === "production") {
-    res.sendFile(path.resolve(__dirname, "../../frontend/build/index.html"));
+    res.sendFile(path.resolve(__dirname, "../frontend/build/index.html"));
   } else {
-    res.sendFile(path.resolve(__dirname, "../../frontend/public/index.html"));
+    res.sendFile(path.resolve(__dirname, "../frontend/public/index.html"));
   }
 });
 
