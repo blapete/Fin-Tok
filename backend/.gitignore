@@ -1,2 +1,7 @@
 node_modules
 package-lock.json
+/secrets/backendAPI_DEV.js
+/secrets/quotes_DEV.js
+/secrets/topStocks_DEV.js
+/secrets/yahooCredentials_DEV.js
+
