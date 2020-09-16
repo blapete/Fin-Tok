@@ -4,6 +4,7 @@ const db = require("../../models");
 
 router.post("/add", (req, res, next) => {
   const { stockName, stockSymbol, username } = req.body;
+  console.log("reqbody", req.body);
   if (!stockName || !username) {
     const error = new Error("There has been an error with your request");
     throw error;
@@ -21,6 +22,7 @@ router.post("/add", (req, res, next) => {
       },
     })
     .then((res) => {
+      console.log("account res:", res);
       let arr;
       if (res[0].dataValues.history.length) {
         let history = res[0].dataValues.history;
@@ -57,7 +59,7 @@ router.post("/add", (req, res, next) => {
     })
     .catch((error) => {
       console.error("banana", error);
-      next(e);
+      next(error);
     });
 });
 
