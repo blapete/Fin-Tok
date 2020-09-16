@@ -23,7 +23,10 @@ router.post("/add", (req, res, next) => {
     .then((res) => {
       let arr;
       if (res[0].dataValues.history) {
+        console.log("res add:", res[0].dataValues);
+        console.log("res add history:", res[0].dataValues.history);
         let history = res[0].dataValues.history;
+        console.log("historyyyyy:", history);
         let parsed = history.map((x) => {
           return JSON.parse(x);
         });
