@@ -87,6 +87,7 @@ router.post("/all", (req, response, next) => {
     .then((res) => {
       console.log("res from data:", res);
       let arr = res[0].dataValues.history;
+      if (arr === null) arr = [];
       response.json({
         message: "success",
         favorites: arr,
