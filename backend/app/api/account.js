@@ -60,7 +60,11 @@ router.post("/signup", (req, response, next) => {
     .then(({ message }) => {
       response.json({ message });
     })
-    .catch((error) => next(error));
+
+    .catch((error) => {
+      console.error("account signup error:", error);
+      next(error);
+    });
 });
 
 router.get("/auth", (req, res, next) => {
@@ -69,6 +73,7 @@ router.get("/auth", (req, res, next) => {
       res.json({ authenticated, username });
     })
     .catch((error) => {
+      console.error("account authentication error:", error);
       next(error);
     });
 });
@@ -94,7 +99,10 @@ router.post("/login", (req, response, next) => {
     .then((re) => {
       response.json(re);
     })
-    .catch((error) => next(error));
+    .catch((error) => {
+      console.error("account login error:", error);
+      next(error);
+    });
 });
 
 router.get("/logout", (req, res, next) => {
@@ -107,7 +115,10 @@ router.get("/logout", (req, res, next) => {
       res.clearCookie("sessionString");
       res.json({ message: "Successful logout" });
     })
-    .catch((error) => next(error));
+    .catch((error) => {
+      console.error("account logout error:", error);
+      next(error);
+    });
 });
 
 module.exports = router;

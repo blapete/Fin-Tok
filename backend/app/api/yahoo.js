@@ -34,7 +34,7 @@ router.post("/quote", (req, res, next) => {
       res.json({ data, message: "Found stock" });
     })
     .catch((error) => {
-      console.error("your yahoo error is here #1:", error);
+      console.error("get quote error", error);
       next(error);
     });
 });
@@ -61,7 +61,7 @@ router.get("/topstocks", (req, res, next) => {
       res.json({ message: "success", data: filteredArr });
     })
     .catch((error) => {
-      console.error("your yahoo error is here #2:", error);
+      console.error("topstocks error:", error);
       next(error);
     });
 });

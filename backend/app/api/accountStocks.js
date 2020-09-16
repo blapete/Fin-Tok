@@ -57,6 +57,7 @@ router.post("/add", (req, res, next) => {
       res.json({ data, message: "added" });
     })
     .catch((error) => {
+      console.error("fav add error:", error);
       next(error);
     });
 });
@@ -83,7 +84,7 @@ router.post("/all", (req, response, next) => {
       });
     })
     .catch((error) => {
-      console.error("melon", error);
+      console.error("get all favs error:", error);
       next(error);
     });
 });
@@ -132,6 +133,7 @@ router.delete("/remove/:data", (req, response, next) => {
         });
     })
     .catch((error) => {
+      console.error("remove fav error:", error);
       next(error);
     });
 });
