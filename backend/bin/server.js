@@ -3,9 +3,9 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 // const morgan = require("morgan");
-const accountRouter = require("./api/account");
-const yahooRouter = require("./api/yahoo");
-const accountStocksRouter = require("./api/accountStocks");
+const accountRouter = require("../app/api/account");
+const yahooRouter = require("../app/api/yahoo");
+const accountStocksRouter = require("../app/api/accountStocks");
 const db = require("../database/models");
 
 const app = express();
