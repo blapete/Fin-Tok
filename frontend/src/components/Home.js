@@ -25,6 +25,8 @@ const Homepage = ({
   const auth = useAuth(accountLoggedIn);
   const quote = useQuote(yahooQuote, setStockListResponse);
 
+  console.log("accountSTOCKS:", accountStocks);
+
   const accountStocksRequest = (event) => {
     event.preventDefault();
     setButtonClicked(true);
