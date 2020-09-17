@@ -1,37 +1,32 @@
 const router = require("express").Router();
-const axios = require("axios");
+const fetch = require("node-fetch");
 const { YAHOO_CREDENTIALS } = require("../../secrets/yahooCredentials_DEV");
 const { TOP_STOCKS } = require("../../secrets/topStocks_DEV");
 const { STOCK_QUOTE } = require("../../secrets/quotes_DEV");
 
-router.post("/quote", (req, res, next) => {
-  let symbol = req.body.data;
-  axios
-    .get(STOCK_QUOTE + symbol, YAHOO_CREDENTIALS)
-    .then(function (response) {
-      console.log("response", response);
-      if (!response.data.length) {
+router.post("/quote", (request, response, next) => {
+  let symbol = request.body.data;
+  fetch(STOCK_QUOTE + symbol, YAHOO_CREDENTIALS)
+    .then((res) => res.json())
+    .then((res) => {
+      if (!res.length) {
         const error = new Error("invalid symbol");
         throw error;
       }
-      if (
-        !response.data[0].longName ||
-        !response.data[0].marketCap ||
-        !response.data[0].symbol
-      ) {
+      if (!res[0].longName || !res[0].marketCap || !res[0].symbol) {
         const error = new Error("no data");
         throw error;
       }
       let data = new Object();
-      data.ask = response.data[0].ask;
-      data.fiftyTwoWeekLow = response.data[0].fiftyTwoWeekLow;
-      data.fiftyTwoWeekHigh = response.data[0].fiftyTwoWeekHigh;
-      data.currency = response.data[0].currency;
-      data.fullExchangeName = response.data[0].fullExchangeName;
-      data.longName = response.data[0].longName;
-      data.marketCap = response.data[0].marketCap;
-      data.symbol = response.data[0].symbol;
-      res.json({ data, message: "Found stock" });
+      data.ask = res[0].ask;
+      data.fiftyTwoWeekLow = res[0].fiftyTwoWeekLow;
+      data.fiftyTwoWeekHigh = res[0].fiftyTwoWeekHigh;
+      data.currency = res[0].currency;
+      data.fullExchangeName = res[0].fullExchangeName;
+      data.longName = res[0].longName;
+      data.marketCap = res[0].marketCap;
+      data.symbol = res[0].symbol;
+      response.json({ data, message: "Found stock" });
     })
     .catch((error) => {
       console.error("get quote error", error);
@@ -39,13 +34,14 @@ router.post("/quote", (req, res, next) => {
     });
 });
 
-router.get("/topstocks", (req, res, next) => {
-  axios
-    .get(TOP_STOCKS, YAHOO_CREDENTIALS)
-    .then(function (response) {
+router.get("/topstocks", (request, response, next) => {
+  fetch(TOP_STOCKS, YAHOO_CREDENTIALS)
+    .then((res) => res.json())
+    .then((res) => {
+      console.log("res", res);
       let filteredArr = [];
       let count = 0;
-      for (let i of response.data.quotes) {
+      for (let i of res.quotes) {
         name = new Object();
         name.id = count++;
         name.longName = i.longName;
@@ -57,8 +53,7 @@ router.get("/topstocks", (req, res, next) => {
         name.financialCurrency = i.financialCurrency;
         filteredArr.push(name);
       }
-
-      res.json({ message: "success", data: filteredArr });
+      response.json({ message: "success", data: filteredArr });
     })
     .catch((error) => {
       console.error("topstocks error:", error);
