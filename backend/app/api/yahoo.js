@@ -38,7 +38,6 @@ router.get('/topstocks', (request, response, next) => {
 	fetch(TOP_STOCKS, YAHOO_CREDENTIALS)
 		.then((res) => res.json())
 		.then((res) => {
-			console.log('res', res)
 			let filteredArr = []
 			let count = 0
 			for (let i of res.quotes) {
