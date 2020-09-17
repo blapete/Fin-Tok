@@ -83,7 +83,13 @@ const Jumbo = ({
 		<Jumbotron>
 			<Container>
 				<Row>
-					<Col>
+					<Col
+						style={{
+							display: 'flex',
+							justifyContent: 'center',
+							flexDirection: 'column',
+						}}
+					>
 						<h5>{date}</h5>
 						<hr
 							style={{
@@ -136,9 +142,9 @@ const Jumbo = ({
 						) : null}
 					</Col>
 					{buttonClicked ? (
-						<Col>
+						<Col style={{ display: 'flex', justifyContent: 'center' }}>
 							{loading ? (
-								<div style={{ margin: '3rem' }}>
+								<div style={{ margin: 'auto' }}>
 									<Spinner animation='grow' />
 								</div>
 							) : (

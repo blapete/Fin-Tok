@@ -10,7 +10,10 @@ import Logout from './Logout'
 const NavBar = ({ props, clearStockInfo }) => {
 	if (props.status === true) {
 		return (
-			<Navbar bg='dark' variant='dark' expand='lg' style={{ color: 'white' }}>
+			<Navbar
+				style={{ backgroundColor: 'rgba(52, 1, 86, 0.3)', color: 'white' }}
+				expand='lg'
+			>
 				<Link to='/' onClick={clearStockInfo}>
 					<Navbar.Brand>FinTok</Navbar.Brand>
 				</Link>
