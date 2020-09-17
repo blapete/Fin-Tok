@@ -39,7 +39,7 @@ const AccountStocks = ({ getQuote, props, sendRemoveRequest, username }) => {
 				onClick={requestQuote}
 				style={{
 					marginBottom: '0.5rem',
-					backgroundColor: 'rgba(52, 1, 86, 0.5)',
+					backgroundColor: 'rgba(52, 1, 86, 0.4)',
 					border: '1px solid rgba(52, 1, 86, 0.5)',
 				}}
 			>

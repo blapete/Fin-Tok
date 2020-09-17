@@ -42,54 +42,54 @@ const Landing = ({ accountLoggedIn, topStocks, yahooStocks }) => {
 	}
 
 	return (
-    <div>
-      <Navbar status={accountLoggedIn} />
-      <div id="main__Style">
-        <div id="clock">
-          <span id="clock__Time">{initialTime}</span>
-        </div>
-        <Jumbotron date={date} />
-        <div id="stock__Box">
-          <Button
-            style={{
-              backgroundColor: "rgba(52, 1, 86, 0.4)",
-              border: "1px solid white",
-            }}
-            id="stock__Button"
-            onClick={topGainersRequest}
-          >
-            Top watched
-          </Button>
-          <Modal />
-        </div>
-        {buttonClicked ? (
-          <div>
-            {carousel ? (
-              <TopGainersCarousel stocks={yahooStocks} />
-            ) : (
-              <Container style={{ marginTop: "5rem" }}>
-                <Row>
-                  <div style={{ margin: "0 auto" }}>
-                    <div className="divider"></div>
+		<div>
+			<Navbar status={accountLoggedIn} />
+			<div id='main__Style'>
+				<div id='clock'>
+					<span id='clock__Time'>{initialTime}</span>
+				</div>
+				<Jumbotron date={date} />
+				<div id='stock__Box'>
+					<Button
+						style={{
+							backgroundColor: 'rgba(52, 1, 86, 0.4)',
+							border: '1px solid white',
+						}}
+						id='stock__Button'
+						onClick={topGainersRequest}
+					>
+						Top watched
+					</Button>
+					<Modal />
+				</div>
+				{buttonClicked ? (
+					<div>
+						{carousel ? (
+							<TopGainersCarousel stocks={yahooStocks} />
+						) : (
+							<Container style={{ marginTop: '5rem' }}>
+								<Row>
+									<div style={{ margin: '0 auto' }}>
+										<div className='divider'></div>
 
-                    <Spinner
-                      animation="border"
-                      role="status"
-                      style={{ margin: "1rem" }}
-                    >
-                      <span className="sr-only">Loading...</span>
-                    </Spinner>
+										<Spinner
+											animation='border'
+											role='status'
+											style={{ margin: '1rem' }}
+										>
+											<span className='sr-only'>Loading...</span>
+										</Spinner>
 
-                    <div className="divider"></div>
-                  </div>
-                </Row>
-              </Container>
-            )}
-          </div>
-        ) : null}
-      </div>
-    </div>
-  );
+										<div className='divider'></div>
+									</div>
+								</Row>
+							</Container>
+						)}
+					</div>
+				) : null}
+			</div>
+		</div>
+	)
 }
 
 const mapStateToProps = (state) => ({
