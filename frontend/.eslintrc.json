@@ -1,0 +1,14 @@
+{
+  "env": {
+    "browser": true,
+    "es6": true
+  },
+  "extends": ["react-app"],
+  "parserOptions": {
+    "ecmaVersion": 2018
+  },
+  "plugins": ["react", "react-hooks"],
+  "rules": {
+    "semi": "error"
+  }
+}

@@ -1,10 +1,12 @@
 # FinTok
 
-## A stock lookup app powered by Yahoo-Finance api and React/Redux/Node/Postgres
+#### React + Redux + Node + PostgreSQL
 
-### Check out the app: https://marketfinance.herokuapp.com/
+The app provides current financial markets data and account options for saving your favorite stocks.
 
-The app provides current financial markets data and a login system for saving your favorite stocks to your account.
+### Data powered by Yahoo-Finance api
+
+#### Check out the app: https://marketfinance.herokuapp.com/
 
 Here are the main technologies used:
 
