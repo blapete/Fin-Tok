@@ -112,7 +112,7 @@ body {
     clear: both;
     display: block;
     width: 96%;
-    background-color: #ffff00;
+    background-color: lightgray;
     height: 1px;
   }
   #home__Link {

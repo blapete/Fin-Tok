@@ -29,7 +29,7 @@ const AccountStocks = ({ getQuote, props, sendRemoveRequest, username }) => {
 			style={{
 				width: '33%',
 				border: '1px solid gray',
-				flexGrow: '1',
+				flexGrow: '0',
 				margin: '4rem',
 			}}
 		>

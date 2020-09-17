@@ -38,6 +38,7 @@ const Landing = ({ accountLoggedIn, topStocks, yahooStocks }) => {
 			} else {
 				setButtonClicked(false)
 			}
+			window.scrollTo(100, 100)
 		})
 	}
 
@@ -56,6 +57,7 @@ const Landing = ({ accountLoggedIn, topStocks, yahooStocks }) => {
 							border: '1px solid white',
 						}}
 						id='stock__Button'
+						href=''
 						onClick={topGainersRequest}
 					>
 						Top watched
