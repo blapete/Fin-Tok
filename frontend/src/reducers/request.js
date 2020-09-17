@@ -1,5 +1,5 @@
 export default {
-  requesting: "requesting",
-  error: "error",
-  success: "success",
-};
+	requesting: 'requesting',
+	error: 'error',
+	success: 'success',
+}

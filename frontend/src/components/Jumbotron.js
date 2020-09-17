@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import { connect } from "react-redux";
-import { quote } from "../actions/yahoo";
-import { reset } from "../actions/accountStocks";
-import JumbotronInfo from "./JumbotronInfo";
-import { useResponse } from "../hooks";
-import { YAHOO } from "../actions/types";
+import React, { useState } from 'react'
+import { connect } from 'react-redux'
+import { quote } from '../actions/yahoo'
+import { reset } from '../actions/accountStocks'
+import JumbotronInfo from './JumbotronInfo'
+import { useResponse } from '../hooks'
+import { YAHOO } from '../actions/types'
 import {
 	Button,
 	FormGroup,
@@ -14,7 +14,7 @@ import {
 	Row,
 	Jumbotron,
 	Col,
-} from "react-bootstrap";
+} from 'react-bootstrap'
 //--------------------
 
 //Component
@@ -27,48 +27,48 @@ const Jumbo = ({
 	yahooMessage,
 	yahooQuote,
 }) => {
-	const [quote, setQuote] = useState("");
-	const [notification, setNotification] = useState(false);
-	const [buttonClicked, setButtonClicked] = useState(false);
-	const [response, setResponse] = useState(false);
-	const [loading, setLoading] = useState(false);
+	const [quote, setQuote] = useState('')
+	const [notification, setNotification] = useState(false)
+	const [buttonClicked, setButtonClicked] = useState(false)
+	const [response, setResponse] = useState(false)
+	const [loading, setLoading] = useState(false)
 
 	const updateStockQuote = (event) => {
-		setQuote(event.target.value);
-	};
+		setQuote(event.target.value)
+	}
 
 	const getQuoteData = (e) => {
-		e.preventDefault();
+		e.preventDefault()
 		if (!quote) {
-			return setNotification(true);
+			return setNotification(true)
 		}
-		if (accountStocksMessage !== "") {
-			clearStockInfo();
+		if (accountStocksMessage !== '') {
+			clearStockInfo()
 		}
 		//
-		setResponse(false);
-		setButtonClicked(true);
-		setNotification(false);
-		setLoading(true);
+		setResponse(false)
+		setButtonClicked(true)
+		setNotification(false)
+		setLoading(true)
 		//
 		getQuote({ data: quote }).then((data) => {
 			setTimeout(() => {
 				if (data.type === YAHOO.REQUEST_QUOTE_SUCCESS) {
-					setLoading(false);
+					setLoading(false)
 				}
-			}, 2000);
-		});
-	};
+			}, 2000)
+		})
+	}
 
 	const clearSearchInput = (e) => {
-		e.preventDefault();
+		e.preventDefault()
 		if (response) {
-			setResponse(false);
+			setResponse(false)
 		}
-		clearStockInfo();
-		setButtonClicked(false);
-		setQuote("");
-	};
+		clearStockInfo()
+		setButtonClicked(false)
+		setQuote('')
+	}
 
 	useResponse(
 		setResponse,
@@ -77,7 +77,7 @@ const Jumbo = ({
 		accountStocksMessage,
 		yahooMessage,
 		yahooQuote
-	);
+	)
 
 	return (
 		<Jumbotron>
@@ -87,11 +87,11 @@ const Jumbo = ({
 						<h5>{date}</h5>
 						<hr
 							style={{
-								border: "0",
-								clear: "both",
-								width: "65%",
-								height: "1px",
-								backgroundColor: "black",
+								border: '0',
+								clear: 'both',
+								width: '65%',
+								height: '1px',
+								backgroundColor: 'black',
 							}}
 						/>
 						<div id='search__Box'>
@@ -109,8 +109,8 @@ const Jumbo = ({
 								<Button
 									variant='light'
 									style={{
-										border: "1px solid rgba(52, 1, 86, 0.5)",
-										color: "rgba(52, 1, 86, 0.9)",
+										border: '1px solid rgba(52, 1, 86, 0.5)',
+										color: 'rgba(52, 1, 86, 0.9)',
 									}}
 									onClick={getQuoteData}
 								>
@@ -122,7 +122,7 @@ const Jumbo = ({
 						<br />
 						{buttonClicked && quote && !loading && yahooQuote.symbol ? (
 							<p
-								style={{ cursor: "pointer", textDecoration: "underline" }}
+								style={{ cursor: 'pointer', textDecoration: 'underline' }}
 								onClick={clearSearchInput}
 							>
 								clear search
@@ -138,7 +138,7 @@ const Jumbo = ({
 					{buttonClicked ? (
 						<Col>
 							{loading ? (
-								<div style={{ margin: "3rem" }}>
+								<div style={{ margin: '3rem' }}>
 									<Spinner animation='grow' />
 								</div>
 							) : (
@@ -158,8 +158,8 @@ const Jumbo = ({
 				</Row>
 			</Container>
 		</Jumbotron>
-	);
-};
+	)
+}
 
 const mapStateToProps = (state, ownProps) => ({
 	accountLoggedIn: state.account.loggedIn,
@@ -167,11 +167,11 @@ const mapStateToProps = (state, ownProps) => ({
 	yahooMessage: state.yahoo.message,
 	yahooQuote: state.yahoo.quote,
 	date: ownProps.date,
-});
+})
 
 const mapDispatchToProps = {
 	getQuote: quote,
 	clearStockInfo: reset,
-};
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(Jumbo);
+export default connect(mapStateToProps, mapDispatchToProps)(Jumbo)

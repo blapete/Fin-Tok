@@ -5,6 +5,7 @@ const { TOP_STOCKS } = require("../../secrets/topStocks_DEV");
 const { STOCK_QUOTE } = require("../../secrets/quotes_DEV");
 
 router.post("/quote", (request, response, next) => {
+  console.log("hiiiiiiiiiiiiiii");
   let symbol = request.body.data;
   fetch(STOCK_QUOTE + symbol, YAHOO_CREDENTIALS)
     .then((res) => res.json())

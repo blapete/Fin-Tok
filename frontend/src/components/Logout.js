@@ -1,32 +1,32 @@
-import React from "react";
-import { Button } from "react-bootstrap";
-import { logoutAction } from "../actions/account";
-import { connect } from "react-redux";
+import React from 'react'
+import { Button } from 'react-bootstrap'
+import { logoutAction } from '../actions/account'
+import { connect } from 'react-redux'
 //--------------------
 
 //Component
 const Logout = ({ logoutGet }) => {
-  const sendLogout = () => {
-    logoutGet();
-  };
+	const sendLogout = () => {
+		logoutGet()
+	}
 
-  return (
-    <div>
-      <Button
-        onClick={sendLogout}
-        style={{
-          backgroundColor: "rgba(52, 1, 86, 0.5)",
-          border: "1px solid white",
-        }}
-      >
-        Log out
-      </Button>
-    </div>
-  );
-};
+	return (
+		<div>
+			<Button
+				onClick={sendLogout}
+				style={{
+					backgroundColor: 'rgba(52, 1, 86, 0.5)',
+					border: '1px solid white',
+				}}
+			>
+				Log out
+			</Button>
+		</div>
+	)
+}
 
 const mapDispatchToProps = {
-  logoutGet: logoutAction,
-};
+	logoutGet: logoutAction,
+}
 
-export default connect(null, mapDispatchToProps)(Logout);
+export default connect(null, mapDispatchToProps)(Logout)

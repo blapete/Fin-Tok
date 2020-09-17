@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import { connect } from "react-redux";
-import { allFavorites } from "../actions/accountStocks";
-import { useAuth, useQuote } from "../hooks";
-import AccountStocks from "./AccountStocks";
-import Navbar from "./Navbar";
-import { Card, Container, Row, Col, Spinner, ListGroup } from "react-bootstrap";
+import React, { useState } from 'react'
+import { connect } from 'react-redux'
+import { allFavorites } from '../actions/accountStocks'
+import { useAuth, useQuote } from '../hooks'
+import AccountStocks from './AccountStocks'
+import Navbar from './Navbar'
+import { Card, Container, Row, Col, Spinner, ListGroup } from 'react-bootstrap'
 //--------------------
 
 //Component
@@ -15,40 +15,40 @@ const Homepage = ({
 	getAccountStocks,
 	yahooQuote,
 }) => {
-	const [loading, setLoading] = useState(false);
-	const [stocksList, setStocksList] = useState(false);
-	const [stockListResponse, setStockListResponse] = useState(false);
-	const [buttonClicked, setButtonClicked] = useState(false);
+	const [loading, setLoading] = useState(false)
+	const [stocksList, setStocksList] = useState(false)
+	const [stockListResponse, setStockListResponse] = useState(false)
+	const [buttonClicked, setButtonClicked] = useState(false)
 	const [notification, setNotification] = useState({
-		text: "",
-	});
-	const auth = useAuth(accountLoggedIn);
-	const quote = useQuote(yahooQuote, setStockListResponse);
+		text: '',
+	})
+	const auth = useAuth(accountLoggedIn)
+	const quote = useQuote(yahooQuote, setStockListResponse)
 
 	const accountStocksRequest = (event) => {
-		event.preventDefault();
-		setButtonClicked(true);
+		event.preventDefault()
+		setButtonClicked(true)
 		if (accountStocks.length) {
-			return setStocksList(true);
+			return setStocksList(true)
 		} else {
-			setLoading(true);
+			setLoading(true)
 			getAccountStocks({ username: accountUsername }).then((response) => {
-				const responseMessage = response.message;
+				const responseMessage = response.message
 				setTimeout(() => {
-					if (responseMessage === "success") {
-						setLoading(false);
-						setStocksList(true);
-					} else if (responseMessage === "you have no favorites") {
-						setLoading(false);
+					if (responseMessage === 'success') {
+						setLoading(false)
+						setStocksList(true)
+					} else if (responseMessage === 'you have no favorites') {
+						setLoading(false)
 						setNotification({
 							...notification,
 							text: responseMessage,
-						});
+						})
 					}
-				}, [1500]);
-			});
+				}, [1500])
+			})
 		}
-	};
+	}
 
 	return (
 		<div>
@@ -61,7 +61,7 @@ const Homepage = ({
 				</Row>
 				<br />
 			</Container>
-			<div style={{ margin: "2rem 2rem" }}>
+			<div style={{ margin: '2rem 2rem' }}>
 				<Row>
 					<Col xs={6} sm={6} md={6} lg={6} xl={6}>
 						<ListGroup>
@@ -87,13 +87,13 @@ const Homepage = ({
 			{loading ? (
 				<Container>
 					<Row>
-						<div style={{ margin: "0 auto" }}>
+						<div style={{ margin: '0 auto' }}>
 							<div className='divider'></div>
 
 							<Spinner
 								animation='border'
 								role='status'
-								style={{ margin: "1rem" }}
+								style={{ margin: '1rem' }}
 							>
 								<span className='sr-only'>Loading...</span>
 							</Spinner>
@@ -108,18 +108,18 @@ const Homepage = ({
 			{stockListResponse && buttonClicked && yahooQuote.symbol ? (
 				<Container>
 					<Row>
-						<div style={{ margin: "4rem auto" }}>
+						<div style={{ margin: '4rem auto' }}>
 							<Card
 								style={{
-									width: "18rem",
-									position: "relative",
+									width: '18rem',
+									position: 'relative',
 								}}
 								className='mb-2 stock__Cards'
 							>
 								<Card.Header>{yahooQuote.symbol}</Card.Header>
 								<Card.Body>
 									<Card.Text>
-										<strong>{yahooQuote.name}</strong>{" "}
+										<strong>{yahooQuote.name}</strong>{' '}
 									</Card.Text>
 									<hr />
 
@@ -142,14 +142,14 @@ const Homepage = ({
 						{accountStocks.length ? (
 							<p
 								onClick={() => {
-									setStocksList(false);
-									setButtonClicked(false);
+									setStocksList(false)
+									setButtonClicked(false)
 								}}
 								style={{
-									textDecoration: "underline",
-									margin: "4rem",
+									textDecoration: 'underline',
+									margin: '4rem',
 
-									cursor: "pointer",
+									cursor: 'pointer',
 								}}
 							>
 								Hide List
@@ -158,10 +158,10 @@ const Homepage = ({
 
 						<div
 							style={{
-								margin: "4rem",
-								display: "flex",
-								flexWrap: "wrap",
-								justifyContent: "space-between",
+								margin: '4rem',
+								display: 'flex',
+								flexWrap: 'wrap',
+								justifyContent: 'space-between',
 							}}
 						>
 							{accountStocks.map((item, index) => {
@@ -172,25 +172,25 @@ const Homepage = ({
 										name={item.name}
 										symbol={item.symbol}
 									/>
-								);
+								)
 							})}
 						</div>
 					</div>
 				) : null}
 			</div>
 		</div>
-	);
-};
+	)
+}
 
 const mapStateToProps = (state) => ({
 	accountLoggedIn: state.account.loggedIn,
 	accountUsername: state.account.username,
 	accountStocks: state.stocks.favorites,
 	yahooQuote: state.yahoo.quote,
-});
+})
 
 const mapDispatchToProps = {
 	getAccountStocks: allFavorites,
-};
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(Homepage);
+export default connect(mapStateToProps, mapDispatchToProps)(Homepage)
