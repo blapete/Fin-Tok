@@ -1,8 +1,8 @@
 const router = require("express").Router();
 const axios = require("axios");
-const { YAHOO_CREDENTIALS } = require("../../secrets/yahooCredentials_DEV");
-const { TOP_STOCKS } = require("../../secrets/topStocks_DEV");
-const { STOCK_QUOTE } = require("../../secrets/quotes_DEV");
+const { YAHOO_CREDENTIALS } = require("../../secrets/yahooCredentials");
+const { TOP_STOCKS } = require("../../secrets/topStocks");
+const { STOCK_QUOTE } = require("../../secrets/quotes");
 
 router.post("/quote", (req, res, next) => {
   let symbol = req.body.data;
