@@ -43,7 +43,7 @@ const NavBar = ({ props, clearStockInfo }) => {
 		)
 	} else {
 		return (
-			<Navbar bg='dark' variant='dark' expand='lg' style={{ color: 'white' }}>
+			<Navbar  expand='lg' style={{ backgroundColor: 'rgba(52, 1, 86, 0.3)' ,color: 'white' }}>
 				<Link to='/' onClick={clearStockInfo}>
 					<Navbar.Brand>FinTok</Navbar.Brand>
 				</Link>
@@ -72,7 +72,7 @@ const NavBar = ({ props, clearStockInfo }) => {
 						<Button
 							style={{
 								marginRight: '0.5rem',
-								backgroundColor: 'rgba(52, 1, 86, 0.5)',
+								backgroundColor: 'rgba(52, 1, 86, 0.4)',
 								border: '1px solid white',
 							}}
 						>

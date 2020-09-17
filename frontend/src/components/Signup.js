@@ -87,7 +87,7 @@ const Signup = ({ accountMessage, accountStatus, sendSignup }) => {
 								type='password'
 								value={password}
 								onChange={updatePassword}
-								placeholder='password (6+ characters)'
+								placeholder='password (case sensitive)'
 							/>
 						</FormGroup>
 						<br />
@@ -97,14 +97,14 @@ const Signup = ({ accountMessage, accountStatus, sendSignup }) => {
 								type='password'
 								value={confirmPassword}
 								onChange={updateConfirmPassword}
-								placeholder='re-type password'
+								placeholder='confirm password'
 							/>
 						</FormGroup>
 						<br />
 						<div>
 							<Button
 								className='btn btn-secondary'
-								style={{ backgroundColor: 'rgba(52, 1, 86, 0.5)' }}
+								style={{ backgroundColor: 'rgba(52, 1, 86, 0.4)' }}
 								onClick={signupRequest}
 							>
 								Sign Up

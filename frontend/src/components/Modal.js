@@ -13,7 +13,7 @@ const StockModal = () => {
 			<Button
 				id='modal__Button'
 				style={{
-					backgroundColor: 'rgba(52, 1, 86, 0.5)',
+					backgroundColor: 'rgba(52, 1, 86, 0.4)',
 					border: '1px solid white',
 					color: 'black',
 				}}
@@ -37,7 +37,7 @@ const StockModal = () => {
 					<Button
 						variant='light'
 						style={{
-							border: '1px solid rgba(52, 1, 86, 0.5)',
+							border: '1px solid rgba(52, 1, 86, 0.4)',
 							color: 'rgba(52, 1, 86, 0.9)',
 						}}
 						onClick={handleClose}

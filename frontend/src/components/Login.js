@@ -70,7 +70,7 @@ const Login = ({ accountMessage, accountStatus, sendLogin }) => {
 						<div>
 							<Button
 								className='btn btn-secondary'
-								style={{ backgroundColor: 'rgba(52, 1, 86, 0.5)' }}
+								style={{ backgroundColor: 'rgba(52, 1, 86, 0.4)' }}
 								onClick={loginRequest}
 							>
 								Log In
