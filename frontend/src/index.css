@@ -119,3 +119,22 @@ body {
     margin-bottom: 1rem;
   }
 }
+
+@media (min-width: 576px)  { 
+  #stock__Col {
+    display: flex;
+    justify-content: center;
+  }
+  #quote__Card {
+    width: "80%"
+  }
+  #spinner__Box {
+    margin: auto;
+  }
+ }
+
+ @media (max-width: 576px)  { 
+  #spinner__Box {
+    margin-top: 4rem;
+  }
+ }

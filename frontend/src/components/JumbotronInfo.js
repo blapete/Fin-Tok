@@ -17,7 +17,7 @@ const JumbotronInfo = ({ props, sendFavorite, username }) => {
 	}
 
 	return (
-		<Card style={{ width: '60%' }}>
+		<Card id='quote__Card'>
 			<Card.Header>{props.symbol}</Card.Header>
 			<Card.Body>
 				<Card.Text>

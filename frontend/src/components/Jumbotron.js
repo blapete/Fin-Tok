@@ -142,9 +142,9 @@ const Jumbo = ({
 						) : null}
 					</Col>
 					{buttonClicked ? (
-						<Col style={{ display: 'flex', justifyContent: 'center' }}>
+						<Col id='stock__Col'>
 							{loading ? (
-								<div style={{ margin: 'auto' }}>
+								<div id='spinner__Box'>
 									<Spinner animation='grow' />
 								</div>
 							) : (
