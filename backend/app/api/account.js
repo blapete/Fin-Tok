@@ -6,6 +6,7 @@ const { setSession, authenticatedAccount } = require('./helper')
 
 router.post('/signup', (req, response, next) => {
 	const { username, email, password, confirmPassword } = req.body
+	const loweredName = username.toLowerCase()
 
 	if (!username || !email || !password || !confirmPassword) {
 		const error = new Error('Please fill out all fields')
@@ -18,6 +19,18 @@ router.post('/signup', (req, response, next) => {
 			const error = new Error('Invalid email format')
 			throw error
 		}
+	}
+
+	const filteredName = username.replace(/\s/g, '')
+	if (username !== filteredName) {
+		const error = new Error('No spaces allowed in username')
+		throw error
+	}
+
+	const filteredPassword = password.replace(/\s/g, '')
+	if (password !== filteredPassword) {
+		const error = new Error('No spaces allowed in password')
+		throw error
 	}
 
 	if (password.length < 6) {
