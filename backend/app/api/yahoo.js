@@ -9,12 +9,12 @@ router.post("/quote", (req, res, next) => {
   axios
     .get(STOCK_QUOTE + symbol, YAHOO_CREDENTIALS)
     .then(function (response) {
+      console.log("response", response);
       if (!response.data.length) {
         const error = new Error("invalid symbol");
         throw error;
       }
       if (
-        !response.data[0].ask ||
         !response.data[0].longName ||
         !response.data[0].marketCap ||
         !response.data[0].symbol

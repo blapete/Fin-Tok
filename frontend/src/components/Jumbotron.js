@@ -40,7 +40,7 @@ const Jumbo = ({
   const getQuoteData = (e) => {
     e.preventDefault();
     if (!quote) {
-      return setNotification(!notification);
+      return setNotification(true);
     }
     if (accountStocksMessage !== "") {
       clearStockInfo();
@@ -48,6 +48,7 @@ const Jumbo = ({
     //
     setResponse(false);
     setButtonClicked(true);
+    setNotification(false);
     setLoading(true);
     //
     getQuote({ data: quote }).then((data) => {

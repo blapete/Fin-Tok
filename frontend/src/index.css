@@ -1,3 +1,7 @@
+body {
+  text-align: center;
+}
+
 #about__Box {
   display: flex;
   align-items: center;
