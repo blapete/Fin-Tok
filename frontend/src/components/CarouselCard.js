@@ -19,6 +19,7 @@ const TopGainers = (props) => {
 					width: '18rem',
 					position: 'relative',
 					boxShadow: '0 1rem 2rem rgba(0, 0, 0, 0.21)',
+					fontSize: 'small',
 				}}
 			>
 				<Card.Header>{props.symbol}</Card.Header>

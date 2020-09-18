@@ -17,14 +17,19 @@ router.post('/quote', (request, response, next) => {
 				const error = new Error('no data')
 				throw error
 			}
+			console.log(res[0])
 			//if type == usd
 			let fixedAmount = res[0].marketCap.toFixed(0)
 			console.log('amount:', fixedAmount)
 			let data = new Object()
 			data.ask = res[0].ask
+			data.twoHundredDayAverage = res[0].twoHundredDayAverage
+			data.language = res[0].language
+			data.exchangeTimezoneName = res[0].exchangeTimezoneName
+			data.exchangeTimezoneShortName = res[0].exchangeTimezoneShortName
 			data.fiftyTwoWeekLow = res[0].fiftyTwoWeekLow
 			data.fiftyTwoWeekHigh = res[0].fiftyTwoWeekHigh
-			data.currency = res[0].currency
+			data.currency = res[0].financialCurrency
 			data.fullExchangeName = res[0].fullExchangeName
 			data.longName = res[0].longName
 			data.marketCap = res[0].marketCap

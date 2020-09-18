@@ -8,7 +8,7 @@ import { connect } from 'react-redux'
 const Logout = ({ logoutGet }) => {
 	const sendLogout = () => {
 		logoutGet().then((res) => {
-			if (res.message === "logout failed") window.location.href = "/";
+			if (res.message === 'logout failed') window.location.href = '/'
 		})
 	}
 

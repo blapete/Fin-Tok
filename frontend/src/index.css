@@ -80,7 +80,7 @@ body {
 }
 
   #quote__Card {
-
+font-size: small;
    width: 20rem;
   }
 
@@ -176,7 +176,9 @@ body {
     justify-content: center;
   }
   #quote__Card {
-    width: "80%"
+    width: "80%";
+    font-size: small;
+    
   }
   #spinner__Box {
     margin: auto;

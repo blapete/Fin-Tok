@@ -25,9 +25,15 @@ const JumbotronInfo = ({ props, sendFavorite, username }) => {
 				</Card.Text>
 				<hr />
 				<div>
-					<Card.Text>currency: {props.currency}</Card.Text>
-					<Card.Text>cap: {props.cap}</Card.Text>
-					<Card.Text>price: {props.ask}</Card.Text>
+					<Card.Text>{props.language}</Card.Text>
+					<Card.Text>Market cap- {props.cap}</Card.Text>
+					<Card.Text>
+						{props.shortname} {props.timezone}
+					</Card.Text>
+					<Card.Text>{props.exchange}</Card.Text>
+
+					<Card.Text>ask price- {props.ask}</Card.Text>
+					<Card.Text>200 day avg- {props.average}</Card.Text>
 				</div>
 			</Card.Body>
 			<Card.Footer className='text-muted'>

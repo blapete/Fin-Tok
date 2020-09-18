@@ -150,10 +150,15 @@ const Jumbo = ({
 							) : (
 								<JumbotronInfo
 									auth={accountLoggedIn}
+									symbol={yahooQuote.symbol}
 									name={yahooQuote.longName}
 									ask={yahooQuote.ask}
+									average={yahooQuote.twoHundredDayAverage}
+									language={yahooQuote.language}
+									timezone={yahooQuote.exchangeTimezoneName}
+									shortname={yahooQuote.exchangeTimezoneShortName}
 									currency={yahooQuote.currency}
-									symbol={yahooQuote.symbol}
+									exchange={yahooQuote.fullExchangeName}
 									cap={yahooQuote.marketCap}
 								/>
 							)}
