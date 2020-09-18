@@ -1,11 +1,14 @@
 const router = require('express').Router()
 const fetch = require('node-fetch')
-const { YAHOO_CREDENTIALS } = require('../../secrets/yahooCredentials')
-const { TOP_STOCKS } = require('../../secrets/topStocks')
-const { STOCK_QUOTE } = require('../../secrets/quotes')
+const { YAHOO_CREDENTIALS } = require('../../secrets/yahooCredentials_DEV')
+const { TOP_STOCKS } = require('../../secrets/topStocks_DEV')
+const { STOCK_QUOTE } = require('../../secrets/quotes_DEV')
 
-router.post('/quote', (request, response, next) => {
-	let symbol = request.body.data
+
+
+router.get('/quote', (request, response, next) => {
+	console.log(request.query.data)
+	let symbol = request.query.data
 	fetch(STOCK_QUOTE + symbol, YAHOO_CREDENTIALS)
 		.then((res) => res.json())
 		.then((res) => {
