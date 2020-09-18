@@ -1,5 +1,8 @@
+*,
+html,
 body {
   text-align: center;
+  box-sizing: border-box;
 }
 
 #about__Box {
@@ -138,7 +141,7 @@ body {
      margin: auto;
   }
     #quote__Card {
-   width: 13rem;
+   width: 100%;
   }
  }
 
