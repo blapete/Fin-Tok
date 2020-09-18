@@ -7,7 +7,9 @@ import { connect } from 'react-redux'
 //Component
 const Logout = ({ logoutGet }) => {
 	const sendLogout = () => {
-		logoutGet()
+		logoutGet().then((res) => {
+			if (res.message === "logout failed") window.location.href = "/";
+		})
 	}
 
 	return (

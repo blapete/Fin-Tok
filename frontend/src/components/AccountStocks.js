@@ -23,16 +23,7 @@ const AccountStocks = ({ getQuote, props, sendRemoveRequest, username }) => {
 	}
 
 	return (
-		<Card
-			key={props.key}
-			className='mb-2 stock__Cards'
-			style={{
-				width: '33%',
-				border: '1px solid gray',
-				flexGrow: '0',
-				margin: '4rem',
-			}}
-		>
+		<Card key={props.key} className='mb-2 stock__Cards'>
 			<Card.Header>{props.name}</Card.Header>
 
 			<Button

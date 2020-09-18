@@ -6,7 +6,9 @@
     "start": "cd backend && npm run start",
     "install": "cd backend && npm install",
     "build": "cd frontend && npm run build",
-    "heroku-postbuild": "npm run build"
+    "heroku-postbuild": "npm run build",
+    "lintserver": "cd backend && eslint ./app --fix",
+    "lintclient": "cd frontend && eslint ./src --fix"
   },
   "repository": {
     "type": "git",

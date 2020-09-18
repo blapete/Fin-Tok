@@ -9,11 +9,19 @@ body {
   flex-direction: column;
   height: 90vh;
 }
+ #account__Stocks {
+   width: 100%;
+   display: flex;
+   flex-wrap: wrap;
+   align-items: stretch;
+   justify-content: space-between;
+ }
 
 .about__Text {
   width: 80%;
   font-style: italic;
 }
+
 
 #clock {
   margin: 2rem 2rem;
@@ -68,6 +76,11 @@ body {
   padding: 5px;
 }
 
+  #quote__Card {
+
+   width: 20rem;
+  }
+
 #search__Box {
   display: flex;
   justify-content: center;
@@ -104,10 +117,44 @@ body {
   padding: 5px;
 }
 
-/* box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.21); */
 
-@media (max-width: 992px) {
-  hr {
+ .stock__Cards {
+  margin: 1rem;
+   width: 14rem;
+   border: '1px solid gray';
+   flex-grow: '0';
+   box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.21);
+ }
+
+
+
+
+/* less than 576px */
+@media (max-width: 575.98px) { 
+  #spinner__Box {
+    margin-top: 4rem;
+  }
+  .stock__Cards {
+     margin: auto;
+  }
+    #quote__Card {
+   width: 13rem;
+  }
+ }
+
+/* less than 768px */
+@media (max-width: 767.98px) { 
+
+ }
+
+/* less than 992px */
+@media (max-width: 991.98px) { 
+
+ }
+
+/* less than 1200px */
+@media (max-width: 1199.98px) { 
+    hr {
     border: 0;
     clear: both;
     display: block;
@@ -118,9 +165,9 @@ body {
   #home__Link {
     margin-bottom: 1rem;
   }
-}
+ }
 
-@media (min-width: 576px)  { 
+ @media (min-width: 576px)  { 
   #stock__Col {
     display: flex;
     justify-content: center;
@@ -130,11 +177,5 @@ body {
   }
   #spinner__Box {
     margin: auto;
-  }
- }
-
- @media (max-width: 576px)  { 
-  #spinner__Box {
-    margin-top: 4rem;
   }
  }

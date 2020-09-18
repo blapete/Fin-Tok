@@ -156,14 +156,7 @@ const Homepage = ({
 							</p>
 						) : null}
 
-						<div
-							style={{
-								margin: '4rem',
-								display: 'flex',
-								flexWrap: 'wrap',
-								justifyContent: 'space-between',
-							}}
-						>
+						<div id='account__Stocks'>
 							{accountStocks.map((item, index) => {
 								return (
 									<AccountStocks

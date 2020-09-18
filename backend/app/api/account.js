@@ -119,6 +119,12 @@ router.post('/login', (req, response, next) => {
 })
 
 router.get('/logout', (req, res, next) => {
+	if (!req.cookies.sessionString) {
+		const error = new Error('logout failed')
+		error.statusCode = 400
+		throw error
+	}
+	console.log('req cookie', req.cookies.sessionString)
 	const { username } = Session.parse(req.cookies.sessionString)
 	AccountTable.updateSessionId({
 		sessionId: null,
