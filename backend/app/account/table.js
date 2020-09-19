@@ -1,6 +1,7 @@
 const db = require('../../database/models')
 const { Op } = require('sequelize')
 
+
 class AccountTable {
 	static storeAccount({ usernameHash, emailHash, passwordHash }) {
 		return db.users
