@@ -6,17 +6,19 @@
     "start": "cd backend && npm run start",
     "install": "cd backend && npm install",
     "build": "cd frontend && npm run build",
-    "heroku-postbuild": "npm run build",
-    "lintserver": "cd backend && eslint ./app --fix",
-    "lintclient": "cd frontend && eslint ./src --fix"
+    "heroku-postbuild": "npm run build"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/blapete/yahoo-finance.git"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "yahoo_Finance",
+    "stock_Watcher",
+    "stock_Portfolio"
+  ],
+  "author": "peter blank",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/blapete/yahoo-finance/issues"
   },
