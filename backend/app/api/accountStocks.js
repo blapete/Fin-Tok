@@ -4,6 +4,7 @@ const db = require('../../database/models')
 
 router.post('/add', (req, res, next) => {
 	const { stockName, stockSymbol, username } = req.body
+	console.log(req.body)
 	if (!stockName || !username) {
 		const error = new Error('There has been an error with your request')
 		throw error
@@ -93,6 +94,7 @@ router.post('/all', (req, response, next) => {
 })
 
 router.delete('/remove/:data', (req, response, next) => {
+	console.log('params', req.params, req.body)
 	const identifier = parseInt(req.params.data.split('|')[0])
 	const user = req.params.data.split('|')[1]
 	let username = hash(user)

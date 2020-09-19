@@ -4,8 +4,6 @@ const { YAHOO_CREDENTIALS } = require('../../secrets/yahooCredentials_DEV')
 const { TOP_STOCKS } = require('../../secrets/topStocks_DEV')
 const { STOCK_QUOTE } = require('../../secrets/quotes_DEV')
 
-
-
 router.get('/quote', (request, response, next) => {
 	console.log(request.query.data)
 	let symbol = request.query.data

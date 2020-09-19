@@ -130,13 +130,13 @@ const Homepage = ({
 											{yahooQuote.exchangeTimezoneShortName}
 											{yahooQuote.exchangeTimezoneName}
 										</Card.Text>
+
+										<Card.Text>Currency: {yahooQuote.currency}</Card.Text>
+										<Card.Text>Ask price: {yahooQuote.ask}</Card.Text>
 										<Card.Text>
-											<Card.Text>Currency: {yahooQuote.currency}</Card.Text>
-											<Card.Text>Ask price: {yahooQuote.ask}</Card.Text>
-											<Card.Text>
-												52 week low: {yahooQuote.fiftyTwoWeekLow}
-											</Card.Text>
+											52 week low: {yahooQuote.fiftyTwoWeekLow}
 										</Card.Text>
+
 										<Card.Text>
 											52 week high: {yahooQuote.fiftyTwoWeekHigh}
 										</Card.Text>

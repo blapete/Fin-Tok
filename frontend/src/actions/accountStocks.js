@@ -1,84 +1,79 @@
-import axios from 'axios'
 import { ACCOUNT_STOCKS, CLEAR } from './types'
+import { BACKEND } from '../config'
 
-export const accountStocksRequest = ({
-	method,
+export const fetchAccounStocksData = ({
 	endpoint,
-	data,
+	options,
 	REQUEST_TYPE,
 	ERROR_TYPE,
 	SUCCESS_TYPE,
-}) => async (dispatch) => {
+}) => (dispatch) => {
 	dispatch({ type: REQUEST_TYPE })
-	try {
-		const accountStocksResponse = await axios({
-			method: method,
-			url: endpoint,
-			data: data,
-		})
+	let url = new URL(`${BACKEND.ADDRESS}/fav/${endpoint}`)
+	return fetch(url, options)
+		.then((res) => res.json())
+		.then((json) => {
+			if (json.type === 'error') {
+				return dispatch({ type: ERROR_TYPE, message: json.message })
+			} else {
+				let accountStocksArray
+				// this if block is for removeFavorite & allFavorites action
+				if (json.favorites) {
+					// if the request is sent for account stocks & the user has none
+					if (!json.favorites.length && json.message === 'success') {
+						return { message: 'you have no favorites' }
+					}
+					// if the user removed the last account stock they have, clear yahoo store
+					if (!json.favorites.length || json.message === 'removed item') {
+						dispatch({
+							type: CLEAR.YAHOO,
+						})
+					}
+					// response account stocks is in json => parse
+					accountStocksArray = json.favorites
+					let parsedStocks = []
+					for (let i = 0; i < accountStocksArray.length; i++) {
+						let fixed = JSON.parse(accountStocksArray[i])
+						parsedStocks.push(fixed)
+					}
+					let accountStocksData = {
+						message: json.message,
+						favorites: parsedStocks,
+					}
 
-		let accountStocksArray
-		// this if block is for removeFavorite & allFavorites action
-		if (accountStocksResponse.data.favorites) {
-			// if the request is sent for account stocks & the user has none
-			if (
-				!accountStocksResponse.data.favorites.length &&
-				accountStocksResponse.data.message === 'success'
-			) {
-				return { message: 'you have no favorites' }
-			}
-			// if the user removed the last account stock they have, clear yahoo store
-			if (
-				!accountStocksResponse.data.favorites.length ||
-				accountStocksResponse.data.message === 'removed item'
-			) {
-				dispatch({
-					type: CLEAR.YAHOO,
+					return dispatch({
+						type: SUCCESS_TYPE,
+						...accountStocksData,
+					})
+				}
+				// this logic is for addFavorite action
+				let accountStocksData = {
+					message: json.message,
+				}
+				return dispatch({
+					type: SUCCESS_TYPE,
+					...accountStocksData,
 				})
 			}
-			// response account stocks is in json => parse
-			accountStocksArray = accountStocksResponse.data.favorites
-			let parsedStocks = []
-			for (let i = 0; i < accountStocksArray.length; i++) {
-				let fixed = JSON.parse(accountStocksArray[i])
-				parsedStocks.push(fixed)
-			}
-			let accountStocksData = {
-				message: accountStocksResponse.data.message,
-				favorites: parsedStocks,
-			}
-
+		})
+		.catch((error) => {
+			console.error(error.message)
+			console.log(Object.keys(error), error.response)
 			return dispatch({
-				type: SUCCESS_TYPE,
-				...accountStocksData,
+				type: ERROR_TYPE,
+				message: error.message,
 			})
-		}
-		// this logic is for addFavorite action
-		let accountStocksData = {
-			message: accountStocksResponse.data.message,
-		}
-		return dispatch({
-			type: SUCCESS_TYPE,
-			...accountStocksData,
 		})
-	} catch (error) {
-		// console.log(Object.keys(error), error.response);
-		return dispatch({
-			type: ERROR_TYPE,
-			message: error.response.data.message,
-		})
-	}
 }
 
 export const addFavorite = ({ flag, stockName, stockSymbol, username }) =>
-	accountStocksRequest({
-		method: 'post',
-		endpoint: '/fav/add',
-		data: {
-			flag,
-			stockName,
-			stockSymbol,
-			username,
+	fetchAccounStocksData({
+		endpoint: 'add',
+		options: {
+			method: 'POST',
+			body: JSON.stringify({ flag, stockName, stockSymbol, username }),
+			headers: { 'Content-Type': 'application/json' },
+			credentials: 'include',
 		},
 		REQUEST_TYPE: ACCOUNT_STOCKS.REQUEST,
 		ERROR_TYPE: ACCOUNT_STOCKS.REQUEST_ERROR,
@@ -87,10 +82,13 @@ export const addFavorite = ({ flag, stockName, stockSymbol, username }) =>
 
 export const removeFavorite = ({ id, username }) => {
 	let params = `${id}|${username}`
-	return accountStocksRequest({
-		method: 'delete',
-		endpoint: '/fav/remove/' + params,
-		data: undefined,
+	return fetchAccounStocksData({
+		endpoint: 'remove/' + params,
+		options: {
+			method: 'DELETE',
+			headers: { 'Content-Type': 'application/json' },
+			credentials: 'include',
+		},
 		REQUEST_TYPE: ACCOUNT_STOCKS.REQUEST,
 		ERROR_TYPE: ACCOUNT_STOCKS.REQUEST_ERROR,
 		SUCCESS_TYPE: ACCOUNT_STOCKS.REQUEST_DELETE_SUCCESS,
@@ -98,11 +96,13 @@ export const removeFavorite = ({ id, username }) => {
 }
 
 export const allFavorites = ({ username }) =>
-	accountStocksRequest({
-		method: 'post',
-		endpoint: '/fav/all',
-		data: {
-			username,
+	fetchAccounStocksData({
+		endpoint: 'all',
+		options: {
+			method: 'POST',
+			body: JSON.stringify({ username }),
+			headers: { 'Content-Type': 'application/json' },
+			credentials: 'include',
 		},
 		REQUEST_TYPE: ACCOUNT_STOCKS.REQUEST,
 		ERROR_TYPE: ACCOUNT_STOCKS.REQUEST_ERROR,

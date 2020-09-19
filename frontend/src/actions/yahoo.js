@@ -30,7 +30,7 @@ export const fetchYahooData = ({
 			// console.log(Object.keys(error), error.response);
 			return dispatch({
 				type: ERROR_TYPE,
-				message: error.response.data.message,
+				message: error.message,
 			})
 		})
 }
