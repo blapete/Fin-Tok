@@ -15,13 +15,12 @@ router.get('/quote', (request, response, next) => {
 				throw error
 			}
 			if (!res[0].longName || !res[0].marketCap || !res[0].symbol) {
-				const error = new Error('no data')
+				const error = new Error('no current data')
 				throw error
 			}
-			console.log(res[0])
 			//if type == usd
-			let fixedAmount = res[0].marketCap.toFixed(0)
-			console.log('amount:', fixedAmount)
+			// let fixedAmount = res[0].marketCap.toFixed(0)
+			// console.log('amount:', fixedAmount)
 			let data = new Object()
 			data.ask = res[0].ask
 			data.twoHundredDayAverage = res[0].twoHundredDayAverage

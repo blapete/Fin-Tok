@@ -25,11 +25,11 @@ export const useResponse = (a, b, c, x, y, z) => {
 		} else if (y === 'invalid symbol') {
 			b(false)
 			a(true)
-		} else if (y === 'no data') {
+		} else if (y === 'no current data') {
 			b(false)
 			a(true)
 		}
-	}, [x, y, z])
+	}, [a, b, c, x, y, z])
 }
 
 export const useAuth = (x) => {
@@ -45,5 +45,5 @@ export const useQuote = (x, y) => {
 		if (x.symbol) {
 			y(true)
 		}
-	}, [x])
+	}, [x, y])
 }

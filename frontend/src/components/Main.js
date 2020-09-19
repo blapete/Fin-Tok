@@ -19,7 +19,7 @@ const Landing = ({ accountLoggedIn, topStocks, yahooStocks }) => {
 	//moment
 	let date = Moment().format('MMMM Do YYYY')
 	let initialTime = Moment().format('h:mm:ss a')
-	const time = useMoment()
+	useMoment()
 
 	const topGainersRequest = () => {
 		if (buttonClicked === true) {

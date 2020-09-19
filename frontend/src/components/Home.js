@@ -22,8 +22,8 @@ const Homepage = ({
 	const [notification, setNotification] = useState({
 		text: '',
 	})
-	const auth = useAuth(accountLoggedIn)
-	const quote = useQuote(yahooQuote, setStockListResponse)
+	useAuth(accountLoggedIn)
+	useQuote(yahooQuote, setStockListResponse)
 
 	const accountStocksRequest = (event) => {
 		event.preventDefault()
@@ -113,6 +113,7 @@ const Homepage = ({
 								style={{
 									width: '18rem',
 									position: 'relative',
+									fontSize: 'small',
 								}}
 								className='mb-2 stock__Cards'
 							>

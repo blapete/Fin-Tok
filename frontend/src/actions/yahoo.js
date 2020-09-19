@@ -19,11 +19,15 @@ export const fetchYahooData = ({
 	}
 	return fetch(url, options)
 		.then((res) => res.json())
-		.then((data) => {
-			return dispatch({
-				type: SUCCESS_TYPE,
-				...data,
-			})
+		.then((json) => {
+			if (json.type === 'error') {
+				return dispatch({ type: ERROR_TYPE, message: json.message })
+			} else {
+				return dispatch({
+					type: SUCCESS_TYPE,
+					...json,
+				})
+			}
 		})
 		.catch((error) => {
 			// console.error(error);
