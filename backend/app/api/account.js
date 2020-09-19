@@ -81,6 +81,7 @@ router.post('/signup', (req, response, next) => {
 })
 
 router.get('/auth', (req, res, next) => {
+	console.log(req.cookies)
 	authenticatedAccount({ sessionString: req.cookies.sessionString })
 		.then(({ authenticated, username }) => {
 			res.json({ authenticated, username })
@@ -92,6 +93,7 @@ router.get('/auth', (req, res, next) => {
 })
 
 router.post('/login', (req, response, next) => {
+	console.log('request:', req.body);
 	const { username, password } = req.body
 	if (!username || !password) {
 		const error = new Error('Please fill both fields')
@@ -106,6 +108,7 @@ router.post('/login', (req, response, next) => {
 			} else {
 				const error = new Error('Incorrect username/password')
 				error.statusCode = 409
+				
 				throw error
 			}
 		})
