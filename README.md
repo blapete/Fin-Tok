@@ -2,6 +2,8 @@
 
 #### React + Redux + Node + PostgreSQL
 
+💸📈🖥💻
+
 The app provides current financial markets data and account options for saving your favorite stocks.
 
 ### Data powered by Yahoo-Finance api
