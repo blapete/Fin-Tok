@@ -1,5 +1,5 @@
 💸📈<br>
-# FinTok
+### FinTok
 
 The app provides current financial markets data and account options for saving your favorite stocks
 
